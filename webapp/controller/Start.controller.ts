@@ -1,28 +1,36 @@
 import Controller from "sap/ui/core/mvc/Controller";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import UIComponent from "sap/ui/core/UIComponent";
+import MessageBox from "sap/m/MessageBox";
 
 export default class Start extends Controller {
 
     public onInit(): void {
 
-        const oConfig = new JSONModel({
-            player1: "",
-            player2: "",
-            roundTime: "20",
-            sounds: true,
-            animations: true
-        });
+        const oGameModel = this.getOwnerComponent().getModel("game");
 
-        this.getView().setModel(oConfig, "config");
+        this.getView().setModel(oGameModel, "game");
 
     }
 
     public onStartGame(): void {
 
-        const oRouter = UIComponent.getRouterFor(this);
+        const oModel = this.getView().getModel("game");
 
-        oRouter.navTo("Game");
+        const player1 = oModel.getProperty("/players/player1/name");
+        const player2 = oModel.getProperty("/players/player2/name");
+
+        if (!player1 || !player2) {
+
+            MessageBox.error("Informe o nome dos dois jogadores.");
+
+            return;
+
+        }
+
+        UIComponent
+            .getRouterFor(this)
+            .navTo("Game");
 
     }
 

@@ -3,18 +3,83 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
 
-    <Page id="_IDGenPage1"
-        showHeader="false">
+    <Page
+        showHeader="false"
+        class="tcgPage">
 
         <content>
 
-            <VBox id="_IDGenVBox"
-                class="tcgPage"
-                justifyContent="Center"
-                alignItems="Center">
+            <VBox
+                width="100%"
+                class="sapUiMediumMargin">
 
-                <Title id="_IDGenTitle"
-                    text="GAME"/>
+                <!-- Placar -->
+
+                <HBox
+                    justifyContent="SpaceAround"
+                    width="100%"
+                    class="sapUiMediumMarginBottom">
+
+                    <VBox alignItems="Center">
+
+                        <Title
+                            text="{game>/players/player1/name}"/>
+
+                        <ObjectNumber
+                            number="{game>/players/player1/score}"/>
+
+                    </VBox>
+
+                    <VBox alignItems="Center">
+
+                        <Title
+                            text="PLATEIA"/>
+
+                        <ObjectNumber
+                            number="{game>/players/audience/score}"/>
+
+                    </VBox>
+
+                    <VBox alignItems="Center">
+
+                        <Title
+                            text="{game>/players/player2/name}"/>
+
+                        <ObjectNumber
+                            number="{game>/players/player2/score}"/>
+
+                    </VBox>
+
+                </HBox>
+
+                <Panel
+                    headerText="ROLETA"
+                    height="350px">
+
+                    <VBox
+                        height="100%"
+                        justifyContent="Center"
+                        alignItems="Center">
+
+                        <Title
+                            text="(Roleta será criada na Sprint 2)"
+                            level="H4"/>
+
+                    </VBox>
+
+                </Panel>
+
+                <MessageStrip
+                    text="Aguardando início da rodada..."
+                    type="Information"
+                    showIcon="true"
+                    class="sapUiMediumMarginTop"/>
+
+                <Button
+                    text="GIRAR ROLETA"
+                    type="Emphasized"
+                    press=".onSpinWheel"
+                    class="sapUiLargeMarginTop"/>
 
             </VBox>
 

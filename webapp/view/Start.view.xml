@@ -31,7 +31,7 @@
                     <Label text="Jogador 1"/>
 
                     <Input
-                        value="{config>/player1}"
+                        value="{game>/players/player1/name}"
                         placeholder="Nome do Jogador 1"/>
 
                     <Label
@@ -39,7 +39,7 @@
                         class="sapUiSmallMarginTop"/>
 
                     <Input
-                        value="{config>/player2}"
+                        value="{game>/players/player2/name}"
                         placeholder="Nome do Jogador 2"/>
 
                     <Label
@@ -47,7 +47,7 @@
                         class="sapUiSmallMarginTop"/>
 
                     <Select
-                        selectedKey="{config>/roundTime}">
+                        selectedKey="{game>/settings/roundTime}">
 
                         <core:Item key="20" text="20 segundos"/>
                         <core:Item key="30" text="30 segundos"/>
@@ -57,12 +57,12 @@
 
                     <CheckBox
                         text="Sons"
-                        selected="{config>/sounds}"
+                        selected="{game>/settings/sounds}"
                         class="sapUiSmallMarginTop"/>
 
                     <CheckBox
                         text="Animações"
-                        selected="{config>/animations}"/>
+                        selected="{game>/settings/animations}"/>
 
                     <Button
                         text="INICIAR JOGO"

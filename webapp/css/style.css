@@ -9,3 +9,26 @@
     letter-spacing:.25rem;
 
 }
+.tcgPage{
+
+    background:#071B42;
+
+}
+
+.sapMPanel{
+
+    border-radius:18px;
+
+}
+
+.sapMObjNumber{
+
+    font-size:2rem !important;
+
+}
+
+.sapMTitle{
+
+    color:white !important;
+
+}

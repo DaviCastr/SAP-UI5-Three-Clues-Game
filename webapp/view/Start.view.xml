@@ -1,6 +1,81 @@
-<mvc:View controllerName="apps.dflc.threecluesgame.controller.Start"
+<mvc:View
+    controllerName="apps.dflc.threecluesgame.controller.Start"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page
+        showHeader="false"
+        class="tcgPage">
+
+        <content>
+
+            <VBox
+                width="100%"
+                justifyContent="Center"
+                alignItems="Center"
+                class="tcgContainer">
+
+                <Title
+                    text="THREE CLUES GAME"
+                    class="tcgTitle"/>
+
+                <Text
+                    text="Jogo das 3 Pistas"
+                    class="tcgSubtitle"/>
+
+                <VBox
+                    width="420px"
+                    class="tcgCard">
+
+                    <Label text="Jogador 1"/>
+
+                    <Input
+                        value="{config>/player1}"
+                        placeholder="Nome do Jogador 1"/>
+
+                    <Label
+                        text="Jogador 2"
+                        class="sapUiSmallMarginTop"/>
+
+                    <Input
+                        value="{config>/player2}"
+                        placeholder="Nome do Jogador 2"/>
+
+                    <Label
+                        text="Tempo da rodada"
+                        class="sapUiSmallMarginTop"/>
+
+                    <Select
+                        selectedKey="{config>/roundTime}">
+
+                        <core:Item key="20" text="20 segundos"/>
+                        <core:Item key="30" text="30 segundos"/>
+                        <core:Item key="40" text="40 segundos"/>
+
+                    </Select>
+
+                    <CheckBox
+                        text="Sons"
+                        selected="{config>/sounds}"
+                        class="sapUiSmallMarginTop"/>
+
+                    <CheckBox
+                        text="Animações"
+                        selected="{config>/animations}"/>
+
+                    <Button
+                        text="INICIAR JOGO"
+                        type="Emphasized"
+                        press=".onStartGame"
+                        class="sapUiMediumMarginTop"/>
+
+                </VBox>
+
+            </VBox>
+
+        </content>
+
     </Page>
+
 </mvc:View>

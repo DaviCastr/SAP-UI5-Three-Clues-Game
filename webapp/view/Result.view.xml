@@ -1,0 +1,25 @@
+<mvc:View
+    controllerName="apps.dflc.threecluesgame.controller.Result"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <Page id="_IDGenPage2"
+        showHeader="false">
+
+        <content>
+
+            <VBox id="_IDGenVBox1"
+                class="tcgPage"
+                justifyContent="Center"
+                alignItems="Center">
+
+                <Title id="_IDGenTitle1"
+                    text="RESULT"/>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

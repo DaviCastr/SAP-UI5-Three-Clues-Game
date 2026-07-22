@@ -1,7 +1,8 @@
 <mvc:View
     controllerName="apps.dflc.threecluesgame.controller.Game"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
 
     <Page
         showHeader="false"
@@ -11,75 +12,211 @@
 
             <VBox
                 width="100%"
-                class="sapUiMediumMargin">
+                class="sapUiLargeMargin"
+                visible="{= ${game>/game/state} !== 'GAME_FINISHED'}">
 
-                <!-- Placar -->
+                <!-- ============================= -->
+                <!-- SCORE -->
+                <!-- ============================= -->
 
                 <HBox
-                    justifyContent="SpaceAround"
                     width="100%"
+                    justifyContent="SpaceAround"
                     class="sapUiMediumMarginBottom">
 
                     <VBox alignItems="Center">
 
                         <Title
-                            text="{game>/players/player1/name}"/>
+                            text="{game>/players/player1/name}" />
 
                         <ObjectNumber
-                            number="{game>/players/player1/score}"/>
+                            number="{game>/players/player1/score}" />
+
+                    </VBox>
+
+                    <VBox alignItems="Center">
+
+                        <Title text="PLATEIA"/>
+
+                        <ObjectNumber
+                            number="{game>/audience/score}" />
 
                     </VBox>
 
                     <VBox alignItems="Center">
 
                         <Title
-                            text="PLATEIA"/>
+                            text="{game>/players/player2/name}" />
 
                         <ObjectNumber
-                            number="{game>/players/audience/score}"/>
-
-                    </VBox>
-
-                    <VBox alignItems="Center">
-
-                        <Title
-                            text="{game>/players/player2/name}"/>
-
-                        <ObjectNumber
-                            number="{game>/players/player2/score}"/>
+                            number="{game>/players/player2/score}" />
 
                     </VBox>
 
                 </HBox>
 
+                <!-- ============================= -->
+                <!-- VEZ -->
+                <!-- ============================= -->
+
                 <Panel
-                    headerText="ROLETA"
-                    height="350px">
+                    headerText="🎯 VEZ DE">
 
                     <VBox
-                        height="100%"
-                        justifyContent="Center"
-                        alignItems="Center">
+                        alignItems="Center"
+                        class="sapUiMediumMargin">
 
                         <Title
-                            text="(Roleta será criada na Sprint 2)"
-                            level="H4"/>
+                            text="{
+                                parts: [
+                                    'game>/game/currentPlayer',
+                                    'game>/players/player1/name',
+                                    'game>/players/player2/name'
+                                ],
+                                formatter: '.formatter.currentPlayerName'
+                            }"/>
 
                     </VBox>
 
                 </Panel>
 
-                <MessageStrip
-                    text="Aguardando início da rodada..."
-                    type="Information"
-                    showIcon="true"
-                    class="sapUiMediumMarginTop"/>
+                <!-- ============================= -->
+                <!-- CATEGORIA -->
+                <!-- ============================= -->
+
+                <Panel
+                    headerText="🏷 CATEGORIA"
+                    class="sapUiMediumMarginTop"
+                    visible="{= ${game>/game/state} !== 'WAITING_SPIN' }">
+
+                    <VBox
+                        class="sapUiMediumMargin">
+
+                        <Text
+                            text="{game>/game/currentCategory}"/>
+
+                    </VBox>
+
+                </Panel>
+
+                <!-- ============================= -->
+                <!-- PISTAS -->
+                <!-- ============================= -->
+
+                <Panel
+                    headerText="PISTAS"
+                    class="sapUiMediumMarginTop">
+
+                    <List
+                        visible="{= ${game>/game/visibleHints}.length > 0 }"
+                        items="{game>/game/visibleHints}">
+
+                        <StandardListItem
+                            title="{game>}"/>
+
+                    </List>
+
+                    <IllustratedMessage
+                        visible="{= ${game>/game/visibleHints}.length === 0 }"
+                        illustrationType="sapIllus-EmptyList"
+                        title="Nenhuma rodada iniciada"
+                        description="Clique em '🎡 Girar Roleta' para iniciar a rodada."/>
+
+                </Panel>
+
+                <!-- ============================= -->
+                <!-- RESPOSTA -->
+                <!-- ============================= -->
+
+                <Panel
+                    headerText="RESPOSTA"
+                    class="sapUiMediumMarginTop"
+                    visible="{game>/game/canAnswer}">
+
+                    <VBox
+                        class="sapUiMediumMargin">
+
+                        <Input
+                            value="{game>/game/currentAnswer}"
+                            placeholder="Digite a resposta"/>
+
+                        <Button
+                            text="RESPONDER"
+                            press=".onAnswer"
+                            type="Emphasized"
+                            class="sapUiSmallMarginTop"/>
+
+                    </VBox>
+
+                </Panel>
+
+                <!-- ============================= -->
+                <!-- RESPOSTA CORRETA -->
+                <!-- ============================= -->
+
+                <Panel
+                    expandable="true"
+                    expanded="true"
+                    visible="{game>/game/showAnswer}"
+                    headerText="RESPOSTA">
+
+                    <VBox
+                        alignItems="Center"
+                        class="sapUiMediumMargin">
+
+                        <Title
+                            text="{game>/game/correctAnswer}"
+                            level="H2"/>
+
+                    </VBox>
+
+                </Panel>
+
+                <!-- ============================= -->
+                <!-- BOTÕES -->
+                <!-- ============================= -->
+
+                <HBox
+                    justifyContent="Center"
+                    class="sapUiLargeMarginTop">
+
+                    <Button
+                        text="🎡 GIRAR ROLETA"
+                        press=".onSpinWheel"
+                            enabled="{game>/game/canSpinWheel}"
+                            type="Emphasized"
+                        class="sapUiTinyMarginEnd"/>
+
+                    <Button
+                        text="PULAR PLATEIA"
+                        press=".onSkipAudience"
+                        visible="{game>/game/showSkipAudience}"/>
+
+                </HBox>
+
+            </VBox>
+
+            <VBox
+                visible="{= ${game>/game/state} === 'GAME_FINISHED'}"
+                class="sapUiLargeMargin">
+
+                <Title
+                    text="🏁 FIM DO JOGO"
+                    level="H2"/>
+
+                <Text
+                    text="{= '👤 ' + ${game>/players/player1/name} + ': ' + ${game>/players/player1/score} + ' pts'}"/>
+
+                <Text
+                    text="{= '🎤 Plateia: ' + ${game>/audience/score} + ' pts'}"/>
+
+                <Text
+                    text="{= '👤 ' + ${game>/players/player2/name} + ': ' + ${game>/players/player2/score} + ' pts'}"/>
 
                 <Button
-                    text="GIRAR ROLETA"
-                    type="Emphasized"
-                    press=".onSpinWheel"
-                    class="sapUiLargeMarginTop"/>
+                    text="🔄 Novo Jogo"
+                    press=".onRestartGame"
+                    type="Emphasized"/>
 
             </VBox>
 

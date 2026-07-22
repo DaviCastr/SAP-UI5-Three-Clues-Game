@@ -1,5 +1,6 @@
 import JSONModel from "sap/ui/model/json/JSONModel";
-import { RoundState, IEnvelope } from "./GameEngine";
+import { IEnvelope, RoundState } from "./GameEngine";
+import Turn from "./Turn";
 
 export interface IPlayer {
     name: string;
@@ -9,28 +10,56 @@ export interface IPlayer {
 export interface IGameState {
 
     players: {
+
         player1: IPlayer;
+
         player2: IPlayer;
-        audience: {
-            score: number;
-        };
+
+    };
+
+    audience: {
+        score: number;
     };
 
     settings: {
+
         roundTime: number;
+
         sounds: boolean;
+
         animations: boolean;
+
     };
 
     game: {
-        currentPlayer: 1 | 2;
+
+        startingPlayer: Turn;
+
+        currentPlayer: Turn;
+
+        canSpinWheel: boolean;
+
         currentEnvelope: IEnvelope | null;
-        currentHint: 0 | 1 | 2;
+
+        currentHint: number;
+
         state: RoundState;
-        message: string;
-        answer: string;
+
         visibleHints: string[];
-    };
+
+        currentAnswer: string;
+
+        correctAnswer: string;
+
+        showAnswer: boolean;
+
+        showSkipAudience: boolean;
+
+        canAnswer: boolean;
+
+        currentCategory: string;
+
+    }
 
 }
 
@@ -52,29 +81,49 @@ export default class GameModel extends JSONModel {
                     score: 0
                 },
 
-                audience: {
-                    score: 0
-                }
+            },
 
+            audience: {
+                score: 0
             },
 
             settings: {
 
                 roundTime: 20,
+
                 sounds: true,
+
                 animations: true
 
             },
 
             game: {
 
-                currentPlayer: 1,
+                startingPlayer: Turn.PLAYER1,
+
+                currentPlayer: Turn.PLAYER1,
+
+                canSpinWheel: true,
+
                 currentEnvelope: null,
+
                 currentHint: 0,
+
                 state: RoundState.WAITING_SPIN,
-                message: "",
-                answer: "",
-                visibleHints: []
+
+                visibleHints: [],
+
+                currentAnswer: "",
+
+                correctAnswer: "",
+
+                showAnswer: false,
+
+                showSkipAudience: false,
+
+                canAnswer: false,
+
+                currentCategory: ""
 
             }
 

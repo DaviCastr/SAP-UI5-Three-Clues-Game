@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "category": "Animais",
+    "answer": "Cachorro",
+    "synonyms": [
+      "GELADEIRA"
+    ],
+    "hints": [
+      "É um animal",
+      "Muitas pessoas possuem em casa",
+      "Late"
+    ]
+  }
+]

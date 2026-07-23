@@ -2,7 +2,8 @@
     controllerName="apps.dflc.threecluesgame.controller.Start"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:core="sap.ui.core">
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified">
 
     <Page
         showHeader="false"
@@ -69,6 +70,11 @@
                         type="Emphasized"
                         press=".onStartGame"
                         class="sapUiMediumMarginTop"/>
+                    
+                    <u:FileUploader
+                        id="fileUploader"
+                        fileType="json"
+                        change=".onFileSelected"/>
 
                 </VBox>
 

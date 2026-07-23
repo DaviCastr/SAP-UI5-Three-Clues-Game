@@ -160,16 +160,32 @@
                     visible="{game>/game/showAnswer}"
                     headerText="RESPOSTA">
 
-                    <VBox
-                        alignItems="Center"
-                        class="sapUiMediumMargin">
+                    <Panel
+                    headerText="🏆 Resultado da Rodada"
+                    visible="{game>/roundResult/visible}">
+                        <VBox>
+                            <Text
+                                text="{
+                                    parts:[
+                                        'game>/roundResult/winner',
+                                        'game>/players/player1/name',
+                                        'game>/players/player2/name'
+                                    ],
+                                    formatter: '.formatter.formatRoundWinner'
+                                }"/>
 
-                        <Title
-                            text="{game>/game/correctAnswer}"
-                            level="H2"/>
-
-                    </VBox>
-
+                            <ObjectStatus
+                                title="Resposta"
+                                text="{game>/roundResult/answer}"/>
+                            
+                            <Text
+                                visible="{= ${game>/roundResult/points} > 0 }"
+                                text="{
+                                    path:'game>/roundResult/points',
+                                    formatter:'.formatter.formatPoints'
+                                }"/>
+                            </VBox>
+                    </Panel>
                 </Panel>
 
                 <!-- ============================= -->

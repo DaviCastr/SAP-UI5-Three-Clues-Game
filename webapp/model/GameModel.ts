@@ -61,6 +61,13 @@ export interface IGameState {
 
     }
 
+    roundResult: {
+        visible: boolean;
+        winner: Turn | null;
+        answer: string;
+        points: number;
+    }
+
 }
 
 export default class GameModel extends JSONModel {
@@ -125,7 +132,14 @@ export default class GameModel extends JSONModel {
 
                 currentCategory: ""
 
-            }
+            },
+
+            roundResult: {
+                visible: false,
+                winner: null,
+                answer: "",
+                points: 0
+            },
 
         };
 

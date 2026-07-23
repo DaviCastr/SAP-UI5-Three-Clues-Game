@@ -44,6 +44,7 @@ export default class GameEngine {
 
         this.model.setProperty("/game/canSpinWheel", false);
         this.model.setProperty("/game/canAnswer", true);
+        this.clearRoundResult();
 
         if (this.envelopes.length === 0) {
             this.model.setProperty("/game/state", RoundState.GAME_FINISHED);
@@ -170,9 +171,9 @@ export default class GameEngine {
 
     private finishRound(winner: Turn): void {
 
-        this.addScore(winner);
-
         const envelope = this.model.getProperty("/game/currentEnvelope") as IEnvelope;
+
+        this.addScore(winner, envelope.answer);
 
         this.model.setProperty("/game/correctAnswer", envelope.answer);
         this.model.setProperty("/game/showAnswer", true);
@@ -256,7 +257,7 @@ export default class GameEngine {
 
     }
 
-    private addScore(winner: Turn): void {
+    private addScore(winner: Turn, answer: string): void {
 
         const hint =
             this.model.getProperty("/game/currentHint");
@@ -265,6 +266,16 @@ export default class GameEngine {
             winner === Turn.AUDIENCE
                 ? this.AUDIENCE_SCORE
                 : this.SCORE_PER_HINT[hint];
+
+        this.showRoundResult(
+            winner,
+            answer,
+            score
+        );
+
+        console.log(
+            this.model.getProperty("/roundResult")
+        );
 
         let actualScore = 0;
 
@@ -381,6 +392,32 @@ export default class GameEngine {
             "/game/currentPlayer",
             Turn.PLAYER1
         );
+
+    }
+
+    private clearRoundResult(): void {
+
+        this.model.setProperty("/roundResult", {
+            visible: false,
+            winner: null,
+            answer: "",
+            points: 0
+        });
+
+    }
+
+    private showRoundResult(
+        winner: Turn | null,
+        answer: string,
+        points: number
+    ): void {
+
+        this.model.setProperty("/roundResult", {
+            visible: true,
+            winner,
+            answer,
+            points
+        });
 
     }
 

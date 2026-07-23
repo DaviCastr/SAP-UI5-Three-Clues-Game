@@ -2,7 +2,7 @@ import Controller from "sap/ui/core/mvc/Controller";
 import GameModel from "../model/GameModel";
 import GameEngine, { IEnvelope } from "../model/GameEngine";
 import formatter from "../model/formatter";
-import EnvelopeRepository from "../services/EnvelopeRepository";
+import EnvelopeRepository from "../repository/EnvelopeRepository";
 import MessageBox from "sap/m/MessageBox";
 
 export default class Game extends Controller {
@@ -19,7 +19,9 @@ export default class Game extends Controller {
 
         this.getView().setModel(oModel, "game");
 
-        this.gameEngine = new GameEngine(oModel);
+        this.gameEngine =
+            this.getOwnerComponent()
+                .getGameEngine();
 
         const oRouter = this.getOwnerComponent()
             .getRouter();
@@ -102,11 +104,20 @@ export default class Game extends Controller {
 
     private async loadEnvelopes(): Promise<void> {
 
-        this.envelopeRepository = new EnvelopeRepository();
+        this.envelopeRepository =
+            this.getOwnerComponent().getEnvelopeRepository();
 
         try {
 
-            const envelopes = await this.envelopeRepository.loadDefault();
+            let envelopes =
+                this.envelopeRepository.getCurrent();
+
+            if (envelopes.length === 0) {
+
+                envelopes =
+                    await this.envelopeRepository.loadDefault();
+
+            }
 
             this.gameEngine.loadEnvelopes(envelopes);
 

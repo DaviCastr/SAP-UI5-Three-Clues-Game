@@ -20,6 +20,41 @@ const formatter = {
                 return "PLATEIA";
 
         }
+    },
+
+    formatRoundWinner(
+        winner: Turn | null,
+        player1: string,
+        player2: string
+    ): string {
+
+        switch (winner) {
+
+            case Turn.PLAYER1:
+                return `✅ ${player1} acertou!`;
+
+            case Turn.PLAYER2:
+                return `✅ ${player2} acertou!`;
+
+            case Turn.AUDIENCE:
+                return "🎤 A plateia acertou!";
+
+            default:
+                return "❌ Ninguém acertou.";
+        }
+
+    },
+
+    formatPoints(points: number): string {
+
+        if (points <= 0) {
+
+            return "";
+
+        }
+
+        return `+${points} pontos`;
+
     }
 
 };

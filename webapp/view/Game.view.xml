@@ -9,10 +9,10 @@
         class="tcgPage">
 
         <content>
-
+            <!-- class="sapUiLargeMargin" -->
             <VBox
                 width="100%"
-                class="sapUiLargeMargin"
+                class="sapUiSmallMargin"
                 visible="{= ${game>/game/state} !== 'GAME_FINISHED'}">
 
                 <!-- ============================= -->
@@ -55,12 +55,30 @@
 
                 </HBox>
 
+                <VBox>
+
+                    <Text
+                        text="{
+                            parts:[
+                                'game>/progress/current',
+                                'game>/progress/total'
+                            ],
+                            formatter:'.formatter.formatProgress'
+                        }"/>
+
+                    <ProgressIndicator
+                        percentValue="{game>/progress/percent}"
+                        displayValue="{game>/progress/percent}%"/>
+                
+                </VBox>
+
                 <!-- ============================= -->
                 <!-- VEZ -->
                 <!-- ============================= -->
 
                 <Panel
-                    headerText="🎯 VEZ DE">
+                    headerText="🎯 VEZ DE"
+                    visible="{= ${game>/game/state} !== 'WAITING_SPIN' }">
 
                     <VBox
                         alignItems="Center"

@@ -68,6 +68,13 @@ export interface IGameState {
         points: number;
     }
 
+    progress: {
+        current: number;
+        total: number;
+        percent: number;
+        themeName: string;
+    };
+
 }
 
 export default class GameModel extends JSONModel {
@@ -139,6 +146,13 @@ export default class GameModel extends JSONModel {
                 winner: null,
                 answer: "",
                 points: 0
+            },
+
+            progress: {
+                current: 0,
+                total: 0,
+                percent: 0,
+                themeName: ""
             },
 
         };

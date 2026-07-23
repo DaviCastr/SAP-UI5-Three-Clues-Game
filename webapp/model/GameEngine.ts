@@ -37,7 +37,14 @@ export default class GameEngine {
     }
 
     public loadEnvelopes(envelopes: IEnvelope[]): void {
+
         this.envelopes = [...envelopes];
+
+        this.model.setProperty(
+            "/progress/total",
+            envelopes.length
+        );
+
     }
 
     public startRound(): IEnvelope | null {
@@ -81,6 +88,13 @@ export default class GameEngine {
             "/game/currentPlayer",
             startingPlayer
         );
+
+        this.model.setProperty(
+            "/game/currentEnvelope",
+            envelope
+        );
+
+        this.updateProgress();
 
         return envelope;
 
@@ -273,10 +287,6 @@ export default class GameEngine {
             score
         );
 
-        console.log(
-            this.model.getProperty("/roundResult")
-        );
-
         let actualScore = 0;
 
         switch (winner) {
@@ -393,6 +403,10 @@ export default class GameEngine {
             Turn.PLAYER1
         );
 
+        this.model.setProperty("/progress/current", 0);
+
+        this.model.setProperty("/progress/percent", 0);
+
     }
 
     private clearRoundResult(): void {
@@ -418,6 +432,32 @@ export default class GameEngine {
             answer,
             points
         });
+
+    }
+
+    private updateProgress(): void {
+
+        const total = this.model.getProperty("/progress/total");
+
+        const remaining = this.envelopes.length;
+
+        const current = total - remaining;
+
+        if (total <= 0) {
+
+            this.model.setProperty("/progress/current", 0);
+
+            this.model.setProperty("/progress/percent", 0);
+
+            return;
+
+        }
+
+        const percent = Math.round((current / total) * 100);
+
+        this.model.setProperty("/progress/current", current);
+
+        this.model.setProperty("/progress/percent", percent);
 
     }
 

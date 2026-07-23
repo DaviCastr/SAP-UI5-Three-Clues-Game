@@ -55,6 +55,21 @@ const formatter = {
 
         return `+${points} pontos`;
 
+    },
+
+    formatProgress(
+        current: number,
+        total: number
+    ): string {
+
+        if (total <= 0) {
+
+            return "";
+
+        }
+
+        return `Envelope ${current} de ${total}`;
+
     }
 
 };

@@ -9,7 +9,9 @@ export default class EnvelopeRepository {
 
         const model = new JSONModel();
 
-        await model.loadData("../json/envelopes.json");
+        const jsonUrl = (sap.ui as any).require.toUrl("apps/dflc/threecluesgame/json/envelopes.json");
+
+        await model.loadData(jsonUrl);
 
         this.envelopes = model.getData();
 

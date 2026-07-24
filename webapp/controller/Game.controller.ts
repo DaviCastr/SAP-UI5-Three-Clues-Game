@@ -4,6 +4,7 @@ import GameEngine, { IEnvelope } from "../model/GameEngine";
 import formatter from "../model/formatter";
 import EnvelopeRepository from "../repository/EnvelopeRepository";
 import MessageBox from "sap/m/MessageBox";
+import EnvelopeSpinner from "../controls/EnvelopeSpinner/EnvelopeSpinner";
 
 export default class Game extends Controller {
 
@@ -13,7 +14,29 @@ export default class Game extends Controller {
 
     private envelopeRepository: EnvelopeRepository;
 
-    public async onInit(): Promise<void> {
+    private envelopeSpinner: EnvelopeSpinner;
+
+    public onInit(): void {
+
+        void this.initialize();
+
+    }
+
+    public onAfterRendering(): void {
+
+        void this.afterRender();
+
+    }
+
+    private async afterRender(): Promise<void> {
+
+        const oSpinner = this.byId("spinner") as EnvelopeSpinner;
+
+        this.envelopeSpinner = oSpinner;
+
+    }
+
+    private async initialize(): Promise<void> {
 
         const oModel = this.getOwnerComponent().getModel("game") as GameModel;
 
@@ -35,9 +58,30 @@ export default class Game extends Controller {
     /**
      * Simula o giro da roleta
      */
-    public onSpinWheel(): void {
+    public async onSpinWheel(): Promise<void> {
 
-        this.gameEngine.startRound();
+        this.envelopeSpinner.setAvailableEnvelopes(
+            this.gameEngine.getAvailableEnvelopeIds()
+        );
+
+        const envelope =
+            this.gameEngine.drawEnvelope();
+
+        if (!envelope) {
+
+            return;
+
+        }
+
+        await this.envelopeSpinner.spinTo(
+            envelope.id
+        );
+
+        await this.envelopeSpinner.wait(1000);
+
+        this.gameEngine.prepareRound(
+            envelope
+        );
 
     }
 
@@ -120,6 +164,12 @@ export default class Game extends Controller {
             }
 
             this.gameEngine.loadEnvelopes(envelopes);
+
+            if(this.envelopeSpinner){
+
+                this.envelopeSpinner.resetVisibleEnvelopes(this.gameEngine.getAvailableEnvelopeIds());
+
+            }
 
         } catch (error) {
 

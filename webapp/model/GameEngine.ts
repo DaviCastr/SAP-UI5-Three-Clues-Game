@@ -49,52 +49,18 @@ export default class GameEngine {
 
     public startRound(): IEnvelope | null {
 
-        this.model.setProperty("/game/canSpinWheel", false);
-        this.model.setProperty("/game/canAnswer", true);
-        this.clearRoundResult();
+        const envelope =
+            this.drawEnvelope();
 
-        if (this.envelopes.length === 0) {
-            this.model.setProperty("/game/state", RoundState.GAME_FINISHED);
+        if (!envelope) {
+
             return null;
+
         }
 
-        const index = Math.floor(Math.random() * this.envelopes.length);
-
-        const envelope = this.envelopes[index];
-
-        this.envelopes.splice(index, 1);
-
-        this.model.setProperty("/game/currentEnvelope", envelope);
-        this.model.setProperty("/game/currentHint", 0);
-        this.model.setProperty("/game/currentAnswer", "");
-        this.model.setProperty("/game/correctAnswer", "");
-        this.model.setProperty("/game/showAnswer", false);
-        this.model.setProperty("/game/showSkipAudience", false);
-        this.model.setProperty(
-            "/game/currentCategory",
-            envelope.category
-        );
-
-        this.model.setProperty("/game/visibleHints", [
-            envelope.hints[0]
-        ]);
-
-        this.model.setProperty("/game/state", RoundState.ANSWERING);
-
-        const startingPlayer =
-            this.model.getProperty("/game/startingPlayer");
-
-        this.model.setProperty(
-            "/game/currentPlayer",
-            startingPlayer
-        );
-
-        this.model.setProperty(
-            "/game/currentEnvelope",
+        this.prepareRound(
             envelope
         );
-
-        this.updateProgress();
 
         return envelope;
 
@@ -147,6 +113,87 @@ export default class GameEngine {
         this.resetScores();
 
         this.resetRoundState();
+
+    }
+
+    public drawEnvelope(): IEnvelope | null {
+
+        if (this.envelopes.length === 0) {
+
+            this.model.setProperty(
+                "/game/state",
+                RoundState.GAME_FINISHED
+            );
+
+            return null;
+
+        }
+
+        const index =
+            Math.floor(Math.random() * this.envelopes.length);
+
+        const envelope =
+            this.envelopes[index];
+
+        this.envelopes.splice(index, 1);
+
+        this.updateProgress();
+
+        return envelope;
+
+    }
+
+    public prepareRound(
+        envelope: IEnvelope
+    ): void {
+
+        this.model.setProperty("/game/canSpinWheel", false);
+        this.model.setProperty("/game/canAnswer", true);
+
+        this.clearRoundResult();
+
+        this.model.setProperty("/game/currentEnvelope", envelope);
+
+        this.model.setProperty("/game/currentHint", 0);
+
+        this.model.setProperty("/game/currentAnswer", "");
+
+        this.model.setProperty("/game/correctAnswer", "");
+
+        this.model.setProperty("/game/showAnswer", false);
+
+        this.model.setProperty("/game/showSkipAudience", false);
+
+        this.model.setProperty(
+            "/game/currentCategory",
+            envelope.category
+        );
+
+        this.model.setProperty(
+            "/game/visibleHints",
+            [envelope.hints[0]]
+        );
+
+        this.model.setProperty(
+            "/game/state",
+            RoundState.ANSWERING
+        );
+
+        const startingPlayer =
+            this.model.getProperty("/game/startingPlayer");
+
+        this.model.setProperty(
+            "/game/currentPlayer",
+            startingPlayer
+        );
+
+    }
+
+    public getAvailableEnvelopeIds(): number[] {
+
+        return this.envelopes.map(
+            envelope => envelope.id
+        );
 
     }
 

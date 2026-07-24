@@ -2,7 +2,8 @@
     controllerName="apps.dflc.threecluesgame.controller.Game"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:core="sap.ui.core">
+    xmlns:core="sap.ui.core"
+    xmlns:custom="apps.dflc.threecluesgame.controls.EnvelopeSpinner">
 
     <Page
         showHeader="false"
@@ -97,6 +98,10 @@
                     </VBox>
 
                 </Panel>
+
+                <custom:EnvelopeSpinner 
+                    id="spinner"
+                    envelopeNumber="5" />
 
                 <!-- ============================= -->
                 <!-- CATEGORIA -->

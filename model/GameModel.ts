@@ -75,6 +75,11 @@ export interface IGameState {
         themeName: string;
     };
 
+    timer: {
+        seconds: number;
+        active: boolean;
+    };
+
 }
 
 export default class GameModel extends JSONModel {
@@ -103,7 +108,7 @@ export default class GameModel extends JSONModel {
 
             settings: {
 
-                roundTime: 20,
+                roundTime: 15,
 
                 sounds: true,
 
@@ -154,6 +159,11 @@ export default class GameModel extends JSONModel {
                 percent: 0,
                 themeName: ""
             },
+
+            timer: {
+                seconds: 15,
+                active: false
+            }
 
         };
 

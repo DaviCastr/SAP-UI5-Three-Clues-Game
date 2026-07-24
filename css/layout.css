@@ -1,33 +1,438 @@
-html,
-body,
-.sapUiBody,
-#content,
-#container,
-.sapMApp,
-.sapMApp>section{
-
-    width:100%;
-
-    height:100%;
-
-    margin:0;
-
+/* === ESTRUTURA GERAL DA PÁGINA === */
+html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* Evita rolagem da página no jogo */
 }
 
-.tcgBackground{
+.tcgPage {
+    background: radial-gradient(circle at top, #153C91, #071C48 55%, #021127);
+}
 
-    width:100%;
+.tcgGameContainer {
+    box-sizing: border-box;
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 100vh;
+}
 
-    height:100%;
+/* === PLACAR SUPERIOR === */
+.tcgScoreCard {
+    background: var(--tcg-surface);
+    border-radius: var(--tcg-radius);
+    padding: 12px 16px;
+    box-shadow: var(--tcg-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
 
-    background:
+.tcgTitleFinished {
+    color: var(--tcg-text) !important;
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 12px;
+}
 
-        radial-gradient(circle at top,
+.tcgPlayerName {
+    color: var(--tcg-text) !important;
+    font-size: 1.1rem !important;
+}
 
-            #153C91,
+.tcgAudienceTitle {
+    color: var(--tcg-gold) !important;
+    font-size: 1.1rem !important;
+}
 
-            #071C48 55%,
+.tcgScoreNumber .sapMObjNumberNum {
+    color: var(--tcg-gold) !important;
+    font-size: 1.8rem !important;
+    font-weight: bold;
+}
 
-            #021127);
+/* === CARDS DE CONTEÚDO (ESQUERDA E DIREITA) === */
+.tcgCardBox {
+    background: var(--tcg-surface);
+    border-radius: var(--tcg-radius);
+    padding: 16px;
+    box-shadow: var(--tcg-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+}
 
+.tcgInfoBanner {
+    background: var(--tcg-surface-light);
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.tcgCategoryText {
+    color: var(--tcg-gold) !important;
+    font-weight: bold;
+    font-size: 1.1rem !important;
+}
+
+.tcgHighlightText {
+    color: var(--tcg-text) !important;
+    font-size: 1.2rem !important;
+    font-weight: bold;
+}
+
+/* === CORREÇÃO DE TEXTOS E LISTAS (FIM DOS TEXTOS PRETOS) === */
+.tcgTextSecondary {
+    color: var(--tcg-text-secondary) !important;
+}
+
+.tcgTextLight, .sapMText, .sapMLabel {
+    color: var(--tcg-text) !important;
+}
+
+.tcgCardTitle {
+    color: var(--tcg-text) !important;
+    border-bottom: 2px solid var(--tcg-primary-light);
+    padding-bottom: 4px;
+}
+
+/* Estilização da lista de pistas */
+.tcgHintsContainer {
+    min-height: 140px;
+}
+
+.tcgList .sapMCustomLI, 
+.tcgList .sapMStandardLI {
+    background: var(--tcg-surface-light) !important;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    border: none !important;
+}
+
+.tcgList .sapMListItemTitle {
+    color: var(--tcg-text) !important;
+    font-size: 1rem !important;
+}
+
+.tcgIllustratedMsg .sapMIllMsgTitle, 
+.tcgIllustratedMsg .sapMIllMsgText {
+    color: var(--tcg-text-secondary) !important;
+}
+
+/* === RESULTADO E RESPOSTA === */
+.tcgRoundResultBox {
+    background: rgba(46, 204, 113, 0.15);
+    border: 1px solid var(--tcg-success);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.tcgGoldText {
+    color: var(--tcg-gold) !important;
+    font-weight: bold;
+}
+
+/* === BOTÕES CUSTOMIZADOS === */
+.tcgMainBtn .sapMBtnInner {
+    background-color: var(--tcg-gold) !important;
+    border-color: var(--tcg-gold-dark) !important;
+    color: #000 !important;
+    font-weight: bold !important;
+    font-size: 1.1rem !important;
+    padding: 0 20px !important;
+    box-shadow: 0 4px 15px rgba(244, 197, 66, 0.3);
+}
+
+.tcgBtnAnswer .sapMBtnInner {
+    background-color: var(--tcg-primary-light) !important;
+    color: #fff !important;
+    font-weight: bold !important;
+}
+
+/* === TELA FIM DE JOGO === */
+.tcgFinishedContainer {
+    height: 100vh;
+    width: 100%;
+}
+
+.tcgFinishCard {
+    background: var(--tcg-surface);
+    border-radius: var(--tcg-radius);
+    padding: 32px;
+    box-shadow: var(--tcg-shadow);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+}
+
+.tcgSummaryText {
+    font-size: 1.2rem !important;
+    color: var(--tcg-text) !important;
+    margin-bottom: 8px;
+}
+
+.tcgAudienceText {
+    color: var(--tcg-gold) !important;
+}
+
+/* === ESTILOS DO PÓDIO FINAL === */
+.tcgPodiumList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tcgPodiumItem {
+    background: var(--tcg-surface-light);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Destaque especial para o 1º Lugar (O Ouro) */
+.tcgPodiumList > div:first-child {
+    background: linear-gradient(135deg, rgba(244, 197, 66, 0.25) 0%, var(--tcg-surface-light) 100%);
+    border: 2px solid var(--tcg-gold);
+}
+
+.tcgPodiumBadge {
+    font-size: 1.5rem !important;
+}
+
+.tcgPodiumRank {
+    font-weight: bold;
+    color: var(--tcg-gold) !important;
+    font-size: 1.1rem !important;
+}
+
+.tcgPodiumName {
+    font-size: 1.1rem !important;
+    color: var(--tcg-text) !important;
+    font-weight: 600;
+}
+
+.tcgPodiumScore .sapMObjNumberNum, 
+.tcgPodiumScore .sapMObjNumberUnit {
+    color: var(--tcg-gold) !important;
+    font-size: 1.2rem !important;
+    font-weight: bold;
+}
+
+/* ============================================================ */
+/* 🎨 CUSTOMIZAÇÃO DO MESSAGEBOX (POPUP DO JOGO)                 */
+/* ============================================================ */
+
+/* 1. Fundo e Borda da Janela Popup */
+.tcgMessageBox.sapMDialog {
+    background: linear-gradient(180deg, var(--tcg-surface) 0%, var(--tcg-primary-dark) 100%) !important;
+    border: 2px solid var(--tcg-gold) !important;
+    border-radius: var(--tcg-radius) !important;
+    box-shadow: var(--tcg-shadow) !important;
+}
+
+/* 2. Cabeçalho (Título) do Popup */
+.tcgMessageBox .sapMDialogHeader {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.tcgMessageBox .sapMDialogTitle {
+    color: var(--tcg-gold) !important;
+    font-size: 1.3rem !important;
+    font-weight: bold !important;
+}
+
+/* 3. Corpo e Mensagem de Texto */
+.tcgMessageBox .sapMDialogSection {
+    background: transparent !important;
+}
+
+.tcgMessageBox .sapMMessageBoxText,
+.tcgMessageBox .sapMText {
+    color: var(--tcg-text) !important;
+    font-size: 1.1rem !important;
+}
+
+/* Ícone de Alerta/Erro */
+.tcgMessageBox .sapMMessageBoxIcon {
+    color: var(--tcg-error) !important;
+    font-size: 2rem !important;
+}
+
+/* 4. Rodapé e Botões do Popup */
+.tcgMessageBox .sapMDialogFooter {
+    background: transparent !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.tcgMessageBox .sapMBtnInner {
+    background-color: var(--tcg-gold) !important;
+    border-color: var(--tcg-gold-dark) !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    padding: 0 20px !important;
+}
+
+/* Backdrop / Fundo escuro atrás do popup */
+.sapMDialogBlockLayer {
+    background-color: rgba(2, 17, 39, 0.8) !important;
+}
+
+/* ============================================================ */
+/* 🎮 ESTILIZAÇÃO DA TELA INICIAL (START VIEW)                   */
+/* ============================================================ */
+
+/* Container Principal Centralizado */
+.tcgStartContainer {
+    box-sizing: border-box;
+    padding: 20px;
+    height: 100vh;
+}
+
+/* Título Principal com Letras Douradas/Sombreamento */
+.tcgMainTitle {
+    color: var(--tcg-gold) !important;
+    font-size: 2.4rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.2rem;
+    text-shadow: 0 4px 15px rgba(244, 197, 66, 0.4);
+    text-align: center;
+}
+
+.tcgSubTitle {
+    color: var(--tcg-text-secondary) !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Card do Formulário */
+.tcgStartCard {
+    width: 100%;
+    max-width: 440px;
+    background: var(--tcg-surface);
+    border-radius: var(--tcg-radius);
+    padding: 24px 28px;
+    box-shadow: var(--tcg-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Rótulos de Texto (Labels) */
+.tcgInputLabel {
+    color: var(--tcg-text-secondary) !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 4px;
+}
+
+/* Estilo do Componente Select (Tempo da Rodada) */
+.tcgSelect .sapMSlt {
+    background-color: var(--tcg-surface-light) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px !important;
+}
+
+.tcgSelect .sapMSltLabel,
+.tcgSelect .sapMSltArrow {
+    color: var(--tcg-text) !important;
+}
+
+/* Checkboxes (Sons e Animações) */
+.tcgCheckBox .sapMCbCb {
+    background-color: var(--tcg-surface-light) !important;
+    border-color: var(--tcg-primary-light) !important;
+}
+
+.tcgCheckBox .sapMCbLabel {
+    color: var(--tcg-text) !important;
+    font-size: 0.95rem !important;
+}
+
+/* Área do FileUploader (Customização do Botão de Buscar Arquivo) */
+.tcgFileSection {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.tcgFileUploader .sapMBtnInner {
+    background: var(--tcg-surface-light) !important;
+    color: var(--tcg-text) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ============================================================ */
+/* 📱 RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS (Telas < 768px)    */
+/* ============================================================ */
+
+@media screen and (max-width: 768px) {
+    
+    /* 1. Libera a rolagem vertical suave no mobile se necessário */
+    html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section, .tcgPage {
+        height: auto !important;
+        min-height: 100vh !important;
+        overflow-y: auto !important;
+    }
+
+    .tcgGameContainer {
+        height: auto !important;
+        min-height: 100vh;
+        padding: 8px;
+    }
+
+    /* 2. Placar Superior Compacto */
+    .tcgScoreCard {
+        padding: 8px 4px !important;
+    }
+
+    .tcgPlayerName, .tcgAudienceTitle {
+        font-size: 0.85rem !important;
+    }
+
+    /* 3. Converte a área central de Lado-a-Lado para Uma Abaixo da Outra */
+    .tcgMainContent {
+        flex-direction: column !important;
+        height: auto !important;
+        gap: 12px;
+    }
+
+    .tcgLeftCard, .tcgRightCard {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Reduz o tamanho do Spinner/Roleta no celular */
+    .tcgSpinnerWrapper {
+        transform: scale(0.85);
+        margin: 10px 0;
+    }
+
+    /* 4. Lista de Pistas Adaptável */
+    .tcgHintsContainer {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .tcgIllustratedMsg {
+        transform: scale(0.7);
+        margin: -20px 0;
+    }
+
+    /* 5. Botões do Rodapé Empilhados para Toque Fácil */
+    .tcgFooterActions {
+        flex-direction: column !important;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .tcgFooterActions .sapMBtn {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .tcgFooterActions .sapMBtnInner {
+        width: 100% !important;
+    }
 }

@@ -1,2 +1,0 @@
-sap.ui.define([],function(){"use strict";var E=function(E){E[E["PLAYER_ONE"]=1]="PLAYER_ONE";E[E["PLAYER_TWO"]=2]="PLAYER_TWO";E[E["AUDIENCE"]=3]="AUDIENCE";return E}(E||{});var I=function(E){E["SETUP"]="SETUP";E["SPINNING"]="SPINNING";E["FIRST_HINT"]="FIRST_HINT";E["SECOND_HINT"]="SECOND_HINT";E["THIRD_HINT"]="THIRD_HINT";E["AUDIENCE"]="AUDIENCE";E["REVEAL"]="REVEAL";E["FINISHED"]="FINISHED";return E}(I||{});var N={__esModule:true};N.PlayerType=E;N.GamePhase=I;return N});
-//# sourceMappingURL=GameTypes.js.map

@@ -4,41 +4,54 @@ sap.ui.define([], function () {
   const EnvelopeSpinnerRenderer = {
     apiVersion: 2,
     render(rm, control) {
+      // Main Container
       rm.openStart("div", control);
       rm.class("envelopeSpinner");
       rm.openEnd();
-      rm.openStart("div");
-      rm.class("spinnerTrack");
-      rm.openEnd();
+
+      // Top Icon
       rm.openStart("div");
       rm.class("spinnerIcon");
       rm.openEnd();
       rm.text("🎡");
       rm.close("div");
+
+      // Track Container
       rm.openStart("div");
-      rm.class("spinnerNumber");
+      rm.class("spinnerTrack");
       rm.openEnd();
-      const displayValue = control.getEnvelopeNumber().toString().padStart(2, "0");
-      const envelopes = control.getVisibleEnvelopes();
+      const envelopes = control.getVisibleEnvelopes() || [];
       for (let i = 0; i < envelopes.length; i++) {
+        const isSelected = i === 2; // O item do meio (índice 2) é o selecionado
+
         rm.openStart("div");
         rm.class("spinnerRow");
+        rm.openEnd();
+
+        // Seta indicadora fora do cartão para não desalinhar o número
+        if (isSelected) {
+          rm.openStart("span");
+          rm.class("spinnerPointer");
+          rm.openEnd();
+          rm.text("▶");
+          rm.close("span");
+        }
+
+        // Cartão do Envelope
         rm.openStart("div");
         rm.class("spinnerEnvelope");
-        if (i === 2) {
+        if (isSelected) {
           rm.class("spinnerEnvelopeSelected");
         }
         rm.openEnd();
-        if (i === 2) {
-          rm.text("▶ ");
-        }
+
+        // Texto do Envelope (ex: "01", "02")
         rm.text(envelopes[i].toString().padStart(2, "0"));
-        rm.close("div");
-        rm.close("div");
+        rm.close("div"); // Fecha spinnerEnvelope
+        rm.close("div"); // Fecha spinnerRow
       }
-      rm.close("div");
-      rm.close("div");
-      rm.close("div");
+      rm.close("div"); // Fecha spinnerTrack
+      rm.close("div"); // Fecha envelopeSpinner
     }
   };
   return EnvelopeSpinnerRenderer;

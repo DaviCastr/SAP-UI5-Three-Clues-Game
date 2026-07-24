@@ -1,2 +1,0 @@
-sap.ui.define(["sap/ui/model/json/JSONModel","./GameTypes"],function(e,s){"use strict";const n=s["GamePhase"];const r=s["PlayerType"];class t extends e{constructor(){const e={started:false,phase:n.SETUP,currentPlayer:r.PLAYER_ONE,currentEnvelope:null,currentHint:0,players:[{id:r.PLAYER_ONE,name:"",score:0},{id:r.PLAYER_TWO,name:"",score:0}],audience:{score:0},settings:{timer:20,sounds:true,animations:true}};super(e)}}return t});
-//# sourceMappingURL=GameStateModel.js.map

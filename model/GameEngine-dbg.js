@@ -1,4 +1,4 @@
-sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) {
+sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (__AnswerService, __Turn, __SoundService) {
   "use strict";
 
   function _interopRequireDefault(obj) {
@@ -6,6 +6,8 @@ sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) 
   }
   const AnswerService = _interopRequireDefault(__AnswerService);
   const Turn = _interopRequireDefault(__Turn);
+  const SoundService = _interopRequireDefault(__SoundService);
+  const SoundEffect = __SoundService["SoundEffect"];
   var RoundState = /*#__PURE__*/function (RoundState) {
     RoundState["WAITING_SPIN"] = "WAITING_SPIN";
     RoundState["ANSWERING"] = "ANSWERING";
@@ -18,8 +20,10 @@ sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) 
     SCORE_PER_HINT = [10, 8, 6];
     AUDIENCE_SCORE = 10;
     envelopes = [];
+    timerId = null;
     constructor(model) {
       this.model = model;
+      this.soundService = SoundService.getInstance(model); // 🔊 Instancia o SoundService
     }
     loadEnvelopes(envelopes) {
       this.envelopes = [...envelopes];
@@ -42,10 +46,12 @@ sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) 
         return false;
       }
       if (AnswerService.isCorrectAnswer(answer, envelope)) {
+        this.soundService.play(SoundEffect.CORRECT);
         const currentPlayer = this.model.getProperty("/game/currentPlayer");
         this.finishRound(currentPlayer);
         return true;
       }
+      this.soundService.play(SoundEffect.WRONG);
       this.nextAttempt();
       return false;
     }
@@ -57,6 +63,7 @@ sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) 
       this.finishRound(currentPlayer);
     }
     restartGame() {
+      this.stopTimer();
       this.resetScores();
       this.resetRoundState();
     }
@@ -71,6 +78,46 @@ sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) 
       this.updateProgress();
       return envelope;
     }
+    startTimer() {
+      this.stopTimer();
+
+      // Pega o tempo das configurações (20, 30, 40s)
+      const roundTime = Number(this.model.getProperty("/settings/roundTime")) || 20;
+      this.model.setProperty("/timer", {
+        seconds: roundTime,
+        active: true
+      });
+      this.timerId = window.setInterval(() => {
+        const currentSeconds = this.model.getProperty("/timer/seconds");
+        if (currentSeconds > 1) {
+          this.model.setProperty("/timer/seconds", currentSeconds - 1);
+        } else {
+          this.model.setProperty("/timer/seconds", 0);
+          this.stopTimer();
+          this.soundService.play(SoundEffect.TIME_EXPIRED);
+          this.handleTimeExpired();
+        }
+      }, 1000);
+    }
+
+    /**
+     * Cancela o timer ativo
+     */
+    stopTimer() {
+      if (this.timerId !== null) {
+        clearInterval(this.timerId);
+        this.timerId = null;
+      }
+      this.model.setProperty("/timer/active", false);
+    }
+
+    /**
+     * Ação disparada quando o tempo estoura
+     */
+    handleTimeExpired() {
+      // Se o tempo estourou durante uma resposta incorreta/esgotada, avança de tentativa ou passa pra plateia
+      this.nextAttempt();
+    }
     prepareRound(envelope) {
       this.model.setProperty("/game/canSpinWheel", false);
       this.model.setProperty("/game/canAnswer", true);
@@ -80,12 +127,14 @@ sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) 
       this.model.setProperty("/game/currentAnswer", "");
       this.model.setProperty("/game/correctAnswer", "");
       this.model.setProperty("/game/showAnswer", false);
+      this.model.setProperty("/roundResult/visible", false);
       this.model.setProperty("/game/showSkipAudience", false);
       this.model.setProperty("/game/currentCategory", envelope.category);
       this.model.setProperty("/game/visibleHints", [envelope.hints[0]]);
       this.model.setProperty("/game/state", RoundState.ANSWERING);
       const startingPlayer = this.model.getProperty("/game/startingPlayer");
       this.model.setProperty("/game/currentPlayer", startingPlayer);
+      this.startTimer();
     }
     getAvailableEnvelopeIds() {
       return this.envelopes.map(envelope => envelope.id);
@@ -100,11 +149,16 @@ sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) 
         this.model.setProperty("/game/currentHint", hint);
         this.model.setProperty("/game/visibleHints", visibleHints);
         this.updateCurrentPlayer(hint);
+        this.startTimer();
         return;
       }
+      this.stopTimer();
       this.model.setProperty("/game/currentPlayer", Turn.AUDIENCE);
       this.model.setProperty("/game/state", RoundState.AUDIENCE);
       this.model.setProperty("/game/showSkipAudience", true);
+    }
+    playSpinSound() {
+      this.soundService.play(SoundEffect.SPIN);
     }
     finishRound(winner) {
       const envelope = this.model.getProperty("/game/currentEnvelope");
@@ -117,6 +171,7 @@ sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) 
       this.model.setProperty("/game/canAnswer", false);
       const startingPlayer = this.model.getProperty("/game/startingPlayer");
       this.model.setProperty("/game/startingPlayer", startingPlayer === Turn.PLAYER1 ? Turn.PLAYER2 : Turn.PLAYER1);
+      this.stopTimer();
       if (this.hasRemainingEnvelopes()) {
         this.model.setProperty("/game/state", RoundState.ROUND_FINISHED);
         this.model.setProperty("/game/canSpinWheel", true);
@@ -167,7 +222,33 @@ sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) 
       this.model.setProperty("/game/state", RoundState.GAME_FINISHED);
       this.model.setProperty("/game/canSpinWheel", false);
       this.model.setProperty("/game/canAnswer", false);
+      this.model.setProperty("/game/showAnswer", false);
+      this.model.setProperty("/roundResult/visible", false);
       this.model.setProperty("/game/showSkipAudience", false);
+      const player1 = this.model.getProperty("/players/player1");
+      const player2 = this.model.getProperty("/players/player2");
+      const audienceScore = this.model.getProperty("/audience/score");
+      const participants = [{
+        name: player1.name,
+        score: player1.score
+      }, {
+        name: player2.name,
+        score: player2.score
+      }, {
+        name: "Plateia",
+        score: audienceScore
+      }];
+      participants.sort((a, b) => b.score - a.score);
+      const badges = ["🥇", "🥈", "🥉"];
+      const leaderboard = participants.map((item, index) => ({
+        position: index + 1,
+        badge: badges[index] || "🏅",
+        name: item.name,
+        score: item.score
+      }));
+      this.soundService.play(SoundEffect.GAME_OVER);
+      this.model.setProperty("/leaderboard", leaderboard);
+      this.model.setProperty("/game/state", "GAME_FINISHED");
     }
     resetScores() {
       this.model.setProperty("/players/player1/score", 0);
@@ -180,14 +261,13 @@ sap.ui.define(["./AnswerService", "./Turn"], function (__AnswerService, __Turn) 
       this.model.setProperty("/game/correctAnswer", "");
       this.model.setProperty("/game/visibleHints", []);
       this.model.setProperty("/game/showAnswer", false);
+      this.model.setProperty("/roundResult/visible", false);
       this.model.setProperty("/game/showSkipAudience", false);
       this.model.setProperty("/game/canSpinWheel", true);
       this.model.setProperty("/game/canAnswer", false);
       this.model.setProperty("/game/currentHint", 0);
       this.model.setProperty("/game/currentEnvelope", null);
       this.model.setProperty("/game/state", RoundState.WAITING_SPIN);
-      this.model.setProperty("/players/player1/name", "");
-      this.model.setProperty("/players/player2/name", "");
       this.model.setProperty("/game/currentPlayer", Turn.PLAYER1);
       this.model.setProperty("/progress/current", 0);
       this.model.setProperty("/progress/percent", 0);

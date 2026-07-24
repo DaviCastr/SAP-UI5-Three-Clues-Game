@@ -1,1 +1,0 @@
-{"version":3,"file":"Result.controller.js","names":["Result","Controller","extend"],"sources":["Result.controller.ts"],"sourcesContent":["import Controller from \"sap/ui/core/mvc/Controller\";\n\nexport default class Result extends Controller {\n\n}"],"mappings":"4EAEqBA,EAAeC,EAAUC,OAAA,sCAAzBF,CAAM","ignoreList":[]}

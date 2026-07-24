@@ -9,6 +9,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
     constructor: function constructor() {
       Controller.prototype.constructor.apply(this, arguments);
       this.formatter = formatter;
+      this._timerId = null;
     },
     onInit: function _onInit() {
       void this.initialize();
@@ -38,6 +39,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
       if (!envelope) {
         return;
       }
+      this.gameEngine.playSpinSound();
       await this.envelopeSpinner.spinTo(envelope.id);
       await this.envelopeSpinner.wait(1000);
       this.gameEngine.prepareRound(envelope);
@@ -57,10 +59,19 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
       this.gameEngine.skipAudience();
     },
     onRestartGame: async function _onRestartGame() {
-      const envelopes = await this.envelopeRepository.loadDefault();
-      this.gameEngine.restartGame();
-      this.gameEngine.loadEnvelopes(envelopes);
-      this.getOwnerComponent().getRouter().navTo("Start");
+      const envelopes = this.envelopeRepository.getCurrent();
+      MessageBox.confirm("Deseja realmente reiniciar o jogo? Todo o progresso atual será perdido.", {
+        title: "Reiniciar jogo",
+        actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+        emphasizedAction: MessageBox.Action.YES,
+        onClose: action => {
+          if (action === MessageBox.Action.YES) {
+            this.gameEngine.restartGame();
+            this.gameEngine.loadEnvelopes(envelopes);
+            this.getOwnerComponent().getRouter().navTo("Start");
+          }
+        }
+      });
     },
     gameMatched: async function _gameMatched() {
       if (!this.hasValidPlayers()) {

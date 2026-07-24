@@ -1,35 +1,276 @@
-.tcgTitle{
+/* ============================================================ */
+/* 🛠️ CORREÇÃO GLOBAL DE TEXTOS ESCUROS / PRETO NO TEMA ESCURO  */
+/* ============================================================ */
 
-    color:var(--tcg-text);
-
-    font-size:2.8rem;
-
-    font-weight:700;
-
-    letter-spacing:.25rem;
-
+/* 1. Títulos de Itens de Lista (Ex: Pistas) */
+.sapMListItemTitle,
+.sapMStandardLI .sapMLITitle,
+.sapMCustomLI {
+    color: var(--tcg-text) !important;
 }
 
-.tcgPage{
-
-    background:#071B42;
-
+/* 2. Textos de Estado/Status (Ex: Resposta e Resultados) */
+.sapMObjStatusText,
+.sapMObjStatusTitle,
+.sapMObjStatus {
+    color: var(--tcg-text) !important;
 }
 
-.sapMPanel{
-
-    border-radius:18px;
-
+/* 3. Textos genéricos do SAPUI5 (Labels, Headers, Formatter texts) */
+.sapMText,
+.sapMLabel,
+.sapMTitle {
+    color: var(--tcg-text) !important;
 }
 
-.sapMObjNumber{
-
-    font-size:2rem !important;
-
+/* 4. Subtextos e Mensagens de Ilustração */
+.sapMIllMsgTitle,
+.sapMIllMsgText,
+.sapMIllMsgHeader {
+    color: var(--tcg-text-secondary) !important;
 }
 
-.sapMTitle{
+/* 5. Inputs (Caixa de digitar a resposta) */
+.sapMInputBaseInner {
+    color: #FFFFFF !important;
+    background-color: var(--tcg-surface-light) !important;
+}
 
-    color: white !important;
+/* Cor do texto de dica (Placeholder) do Input */
+.sapMInputBaseInner::placeholder {
+    color: var(--tcg-text-secondary) !important;
+    opacity: 0.8;
+}
 
+/* 6. Cabeçalhos e Títulos de Painéis/Cards */
+.sapMPanelHdr,
+.sapMPanelHeaderText {
+    color: var(--tcg-text) !important;
+}
+
+/* ============================================================ */
+/* 🎯 CORREÇÃO DO OBJECT NUMBER (NÚMEROS DO PLACAR / PÓDIO)    */
+/* ============================================================ */
+
+/* Força a cor do número e da unidade */
+.sapMObjNumber,
+.sapMObjNumberNum,
+.sapMObjNumberUnit {
+    color: var(--tcg-gold) !important;
+}
+
+/* Garante que até mesmo quando o ObjectNumber tiver um estado (Success, Error, Warning), ele continue legível */
+.sapMObjNumberStateNone .sapMObjNumberNum,
+.sapMObjNumberStateNone .sapMObjNumberUnit,
+.sapMObjNumberStatusNone .sapMObjNumberNum,
+.sapMObjNumberStatusNone .sapMObjNumberUnit,
+.sapMObjectNumberText {
+    color: var(--tcg-gold) !important;
+}
+
+/* Força a cor amarela/dourada em TODOS os ObjectNumbers da aplicação */
+html body .sapMObjNumber,
+html body .sapMObjNumberNum,
+html body .sapMObjNumberUnit,
+html body span.sapMObjNumberNum,
+html body span.sapMObjNumberUnit {
+    color: #F4C542 !important;
+}
+
+/* Correção de cor, tamanho e legibilidade do ObjectNumber */
+.sapMObjectNumberText,
+.sapMObjNumberNum,
+.sapMObjNumberUnit {
+    color: var(--tcg-gold) !important;
+    
+    /* 1. Aumenta o tamanho (pode ajustar para 2.2rem ou 2.5rem se quiser maior) */
+    font-size: 1.0rem !important; 
+    
+    /* 2. Suaviza o peso da fonte (400 é o normal, 500 é levemente encorpado) */
+    font-weight: 500 !important; 
+    
+    /* 3. Melhora a renderização de texto em fundos escuros */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================ */
+/* 💥 FORÇAR ESTILO DOS POPUPS (MESSAGEBOX / DIALOG) GLOBALMENTE */
+/* ============================================================ */
+
+/* 1. Fundo da janela e Borda Dourada */
+html body .sapMDialog.sapMMessageBox {
+    background: linear-gradient(180deg, #0D255A 0%, #071B42 100%) !important;
+    border: 2px solid #F4C542 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* 2. Cabeçalho / Título do Popup */
+html body .sapMDialog.sapMMessageBox .sapMDialogHeader,
+html body .sapMDialog.sapMMessageBox header {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html body .sapMDialog.sapMMessageBox .sapMTitle,
+html body .sapMDialog.sapMMessageBox .sapMDialogTitle {
+    color: #F4C542 !important;
+    font-size: 1.25rem !important;
+    font-weight: bold !important;
+}
+
+/* 3. Área de Conteúdo e Texto da Mensagem */
+html body .sapMDialog.sapMMessageBox .sapMDialogSection {
+    background: transparent !important;
+}
+
+html body .sapMDialog.sapMMessageBox .sapMText,
+html body .sapMDialog.sapMMessageBox .sapMMessageBoxText {
+    color: #FFFFFF !important;
+    font-size: 1.1rem !important;
+}
+
+/* 4. Ícone do Erro/Alerta */
+html body .sapMDialog.sapMMessageBox .sapMMessageBoxIcon {
+    color: #E74C3C !important;
+}
+
+/* 5. Rodapé e Botões */
+html body .sapMDialog.sapMMessageBox footer,
+html body .sapMDialog.sapMMessageBox .sapMDialogFooter {
+    background: transparent !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html body .sapMDialog.sapMMessageBox footer .sapMBtnInner {
+    background: #F4C542 !important;
+    border-color: #C99A1C !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    padding: 0 16px !important;
+}
+
+/* 6. Escurecer o fundo atrás da janela (Modal Backdrop) */
+html body .sapMDialogBlockLayer {
+    background-color: rgba(2, 17, 39, 0.85) !important;
+}
+
+/* ============================================================ */
+/* 🛠️ REMOÇÃO DO FUNDO BRANCO DO CABEÇALHO E FOOTER DO POPUP    */
+/* ============================================================ */
+
+/* 1. Remove o fundo branco e bordas das barras internas (Bar / Toolbar) */
+html body .sapMDialog.sapMMessageBox .sapMBar,
+html body .sapMDialog.sapMMessageBox .sapMHeader-CTX,
+html body .sapMDialog.sapMMessageBox .sapMFooter-CTX,
+html body .sapMDialog.sapMMessageBox header,
+html body .sapMDialog.sapMMessageBox footer {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* 2. Suaviza as linhas divisórias do cabeçalho e rodapé */
+html body .sapMDialog.sapMMessageBox .sapMDialogHeader {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: transparent !important;
+}
+
+html body .sapMDialog.sapMMessageBox .sapMDialogFooter {
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: transparent !important;
+}
+
+/* 3. Garante que o texto do título continue dourado no cabeçalho */
+html body .sapMDialog.sapMMessageBox .sapMBar .sapMTitle,
+html body .sapMDialog.sapMMessageBox .sapMBar .sapMText {
+    color: var(--tcg-gold, #F4C542) !important;
+    font-weight: bold !important;
+    text-shadow: none !important;
+}
+
+/* ============================================================ */
+/* ⏱️ AJUSTE DE FOCO E SELEÇÃO PARA O SELECT (.sapMSelect)      */
+/* ============================================================ */
+
+/* Garante texto visível quando oSelect está FOCADO / ATIVO */
+.sapMSelect:focus,
+.sapMSelect:focus-within,
+.sapMSelect.sapMSelectFocused {
+    border-color: var(--tcg-gold, #F4C542) !important;
+    outline: none !important;
+}
+
+.sapMSelect:focus .sapMSelectLabel,
+.sapMSelect:focus-within .sapMSelectLabel,
+.sapMSelect.sapMSelectFocused .sapMSelectLabel {
+    color: var(--tcg-gold, #F4C542) !important; /* Texto em dourado quando ativo */
+}
+
+/* Força a cor do item SELECIONADO/FOCADO no menu suspenso sem depender do Hover */
+.sapMSelectListItem[aria-selected="true"],
+.sapMSelectListItem.sapMSelectListItemSelected,
+.sapMSelectListItem:focus,
+.sapMSelectListItem:active {
+    background-color: var(--tcg-gold, #F4C542) !important;
+    color: #0f172a !important;
+}
+
+/* Garante que o texto interno do item selecionado/focado também fique escuro */
+.sapMSelectListItem[aria-selected="true"] *,
+.sapMSelectListItem.sapMSelectListItemSelected *,
+.sapMSelectListItem:focus *,
+.sapMSelectListItem:active * {
+    color: #0f172a !important;
+    font-weight: bold !important;
+}
+
+
+/* ============================================================ */
+/* 🎯 CORREÇÃO DO SELECT FECHADO (BOTÃO PRINCIPAL)               */
+/* ============================================================ */
+
+/* 1. O Botão Principal do Select (Fechado) */
+.sapMSelect,
+.sapMSlt,
+.sapMSelectFocused,
+.sapMSltFocused {
+    background-color: var(--tcg-surface-light, #334155) !important;
+    background-image: none !important; /* Remove gradientes nativos da SAP */
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+/* 2. O Texto e a Seta dentro do Select Fechado */
+.sapMSelect .sapMSelectLabel,
+.sapMSlt .sapMSltLabel,
+.sapMSelect .sapMSltIcon,
+.sapMSlt .sapMSltIcon,
+.sapMSelect *,
+.sapMSlt * {
+    color: var(--tcg-text, #ffffff) !important;
+    font-weight: 600 !important;
+    text-shadow: none !important;
+}
+
+/* 3. Evita que o campo fique branco ao clicar ou dar foco */
+.sapMSelect:active,
+.sapMSlt:active,
+.sapMSelect:focus,
+.sapMSlt:focus,
+.sapMSelect.sapMSelectPressed,
+.sapMSlt.sapMSltPressed {
+    background-color: var(--tcg-surface, #1e293b) !important;
+    border-color: var(--tcg-gold, #F4C542) !important;
+}
+
+/* Texto em dourado quando o campo está com foco ou pressionado */
+.sapMSelect:focus .sapMSelectLabel,
+.sapMSlt:focus .sapMSltLabel,
+.sapMSelect:active .sapMSelectLabel,
+.sapMSlt:active .sapMSltLabel {
+    color: var(--tcg-gold, #F4C542) !important;
 }

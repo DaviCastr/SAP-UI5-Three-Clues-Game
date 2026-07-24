@@ -88,7 +88,7 @@ export default class EnvelopeSpinner extends Control {
 
         this.setAvailableEnvelopes(envelopes);
 
-        this.visibleEnvelopes = envelopes.slice(0, 4);
+        this.visibleEnvelopes = envelopes.slice(0, 5);
 
         this.invalidate();
 

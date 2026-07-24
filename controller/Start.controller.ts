@@ -73,11 +73,43 @@ export default class Start extends Controller {
             MessageBox.error(
                 error instanceof Error
                     ? error.message
-                    : "Não foi possível carregar o arquivo."
+                    : "Não foi possível carregar o arquivo.",
+                {
+                    title: "Erro no Jogo",
+                    styleClass: "tcgMessageBox", // 👈 Injeta nossa classe do jogo
+                    actions: [MessageBox.Action.OK]
+                }
             );
 
         }
 
+    }
+
+    public async onDownloadTemplate(): Promise<void> {
+
+        try {
+            const sPath = sap.ui.require.toUrl("apps/dflc/threecluesgame/json/envelopes.json");
+            const response = await fetch(sPath);
+
+            if (!response.ok) {
+                throw new Error("Arquivo modelo não encontrado.");
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "envelopes.json";
+            document.body.appendChild(link);
+            link.click();
+
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Erro ao baixar o modelo:", error);
+        }
+        
     }
 
 }

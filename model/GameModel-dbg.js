@@ -23,7 +23,7 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "./GameEngine", "./Turn"], functio
           score: 0
         },
         settings: {
-          roundTime: 20,
+          roundTime: 15,
           sounds: true,
           animations: true
         },
@@ -53,6 +53,10 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "./GameEngine", "./Turn"], functio
           total: 0,
           percent: 0,
           themeName: ""
+        },
+        timer: {
+          seconds: 15,
+          active: false
         }
       };
       super(data);

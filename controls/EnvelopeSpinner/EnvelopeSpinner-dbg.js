@@ -56,7 +56,7 @@ sap.ui.define(["sap/ui/core/Control", "./EnvelopeSpinnerRenderer", "sap/ui/dom/i
     },
     resetVisibleEnvelopes: function _resetVisibleEnvelopes(envelopes) {
       this.setAvailableEnvelopes(envelopes);
-      this.visibleEnvelopes = envelopes.slice(0, 4);
+      this.visibleEnvelopes = envelopes.slice(0, 5);
       this.invalidate();
     },
     updateVisibleEnvelopes: function _updateVisibleEnvelopes(currentIndex) {

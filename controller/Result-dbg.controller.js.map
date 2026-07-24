@@ -1,1 +1,0 @@
-{"version":3,"file":"Result-dbg.controller.js","names":["Result","Controller","extend"],"sources":["Result.controller.ts"],"sourcesContent":["import Controller from \"sap/ui/core/mvc/Controller\";\n\nexport default class Result extends Controller {\n\n}"],"mappings":";;;QAEqBA,MAAM,GAASC,UAAU,CAAAC,MAAA;EAAA,OAAzBF,MAAM;AAAA","ignoreList":[]}

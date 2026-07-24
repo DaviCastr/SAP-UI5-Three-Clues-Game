@@ -29,7 +29,32 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/M
         this.gameEngine.restartGame();
         MessageToast.show("Envelopes carregados com sucesso!");
       } catch (error) {
-        MessageBox.error(error instanceof Error ? error.message : "Não foi possível carregar o arquivo.");
+        MessageBox.error(error instanceof Error ? error.message : "Não foi possível carregar o arquivo.", {
+          title: "Erro no Jogo",
+          styleClass: "tcgMessageBox",
+          // 👈 Injeta nossa classe do jogo
+          actions: [MessageBox.Action.OK]
+        });
+      }
+    },
+    onDownloadTemplate: async function _onDownloadTemplate() {
+      try {
+        const sPath = sap.ui.require.toUrl("apps/dflc/threecluesgame/json/envelopes.json");
+        const response = await fetch(sPath);
+        if (!response.ok) {
+          throw new Error("Arquivo modelo não encontrado.");
+        }
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "envelopes.json";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error("Erro ao baixar o modelo:", error);
       }
     }
   });

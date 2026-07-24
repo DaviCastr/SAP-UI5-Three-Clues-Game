@@ -16,6 +16,8 @@ export default class Game extends Controller {
 
     private envelopeSpinner: EnvelopeSpinner;
 
+    private _timerId: number | null = null;
+
     public onInit(): void {
 
         void this.initialize();
@@ -73,6 +75,8 @@ export default class Game extends Controller {
 
         }
 
+        this.gameEngine.playSpinSound();
+
         await this.envelopeSpinner.spinTo(
             envelope.id
         );
@@ -110,15 +114,34 @@ export default class Game extends Controller {
     public async onRestartGame(): Promise<void> {
 
         const envelopes =
-            await this.envelopeRepository.loadDefault();
+            this.envelopeRepository.getCurrent();
 
-        this.gameEngine.restartGame();
+        MessageBox.confirm(
+            "Deseja realmente reiniciar o jogo? Todo o progresso atual será perdido.",
+            {
+                title: "Reiniciar jogo",
+                actions: [
+                    MessageBox.Action.YES,
+                    MessageBox.Action.NO
+                ],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: (action) => {
 
-        this.gameEngine.loadEnvelopes(envelopes);
+                    if (action === MessageBox.Action.YES) {
 
-        (this as any).getOwnerComponent()
-            .getRouter()
-            .navTo("Start");
+                        this.gameEngine.restartGame();
+
+                        this.gameEngine.loadEnvelopes(envelopes);
+
+                        (this as any).getOwnerComponent()
+                            .getRouter()
+                            .navTo("Start");
+
+                    }
+
+                }
+            }
+        );
 
     }
 
@@ -165,7 +188,7 @@ export default class Game extends Controller {
 
             this.gameEngine.loadEnvelopes(envelopes);
 
-            if(this.envelopeSpinner){
+            if (this.envelopeSpinner) {
 
                 this.envelopeSpinner.resetVisibleEnvelopes(this.gameEngine.getAvailableEnvelopeIds());
 

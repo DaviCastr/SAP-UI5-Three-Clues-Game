@@ -1,3 +1,4 @@
+/// <reference types="@openui5/types" />
 import Controller from "sap/ui/core/mvc/Controller";
 import UIComponent from "sap/ui/core/UIComponent";
 import MessageBox from "sap/m/MessageBox";
@@ -13,22 +14,22 @@ export default class Start extends Controller {
 
     public onInit(): void {
 
-        const oGameModel = this.getOwnerComponent().getModel("game");
+        const oGameModel = (this as any).getOwnerComponent().getModel("game");
 
-        this.getView().setModel(oGameModel, "game");
+        (this as any).getView().setModel(oGameModel, "game");
 
         this.envelopeRepository =
-            this.getOwnerComponent().getEnvelopeRepository();
+            (this as any).getOwnerComponent().getEnvelopeRepository();
 
         this.gameEngine =
-            this.getOwnerComponent()
+            (this as any).getOwnerComponent()
                 .getGameEngine();
 
     }
 
     public onStartGame(): void {
 
-        const oModel = this.getView().getModel("game");
+        const oModel = (this as any).getView().getModel("game");
 
         const player1 = oModel.getProperty("/players/player1/name");
         const player2 = oModel.getProperty("/players/player2/name");
@@ -49,7 +50,7 @@ export default class Start extends Controller {
 
     public async onFileSelected(oEvent: Event): Promise<void> {
 
-        const files = oEvent.getParameter("files") as File[];
+        const files = (oEvent as any).getParameter("files") as File[];
 
         if (!files || files.length === 0) {
             return;

@@ -38,15 +38,15 @@ export default class Game extends Controller {
 
     private async initialize(): Promise<void> {
 
-        const oModel = this.getOwnerComponent().getModel("game") as GameModel;
+        const oModel = (this as any).getOwnerComponent().getModel("game") as GameModel;
 
-        this.getView().setModel(oModel, "game");
+        (this as any).getView().setModel(oModel, "game");
 
         this.gameEngine =
-            this.getOwnerComponent()
+            (this as any).getOwnerComponent()
                 .getGameEngine();
 
-        const oRouter = this.getOwnerComponent()
+        const oRouter = (this as any).getOwnerComponent()
             .getRouter();
 
         if (oRouter) {
@@ -90,7 +90,7 @@ export default class Game extends Controller {
      */
     public onAnswer(): void {
 
-        const oModel = this.getView().getModel("game") as GameModel;
+        const oModel = (this as any).getView().getModel("game") as GameModel;
 
         const answer = oModel.getProperty("/game/currentAnswer");
 
@@ -116,7 +116,7 @@ export default class Game extends Controller {
 
         this.gameEngine.loadEnvelopes(envelopes);
 
-        this.getOwnerComponent()
+        (this as any).getOwnerComponent()
             .getRouter()
             .navTo("Start");
 
@@ -126,7 +126,7 @@ export default class Game extends Controller {
 
         if (!this.hasValidPlayers()) {
 
-            this.getOwnerComponent().getRouter().navTo("Start");
+            (this as any).getOwnerComponent().getRouter().navTo("Start");
             return;
 
         }
@@ -137,7 +137,7 @@ export default class Game extends Controller {
 
     private hasValidPlayers(): boolean {
 
-        const model = this.getOwnerComponent().getModel("game") as GameModel;
+        const model = (this as any).getOwnerComponent().getModel("game") as GameModel;
 
         const player1 = model.getProperty("/players/player1/name");
         const player2 = model.getProperty("/players/player2/name");
@@ -149,7 +149,7 @@ export default class Game extends Controller {
     private async loadEnvelopes(): Promise<void> {
 
         this.envelopeRepository =
-            this.getOwnerComponent().getEnvelopeRepository();
+            (this as any).getOwnerComponent().getEnvelopeRepository();
 
         try {
 

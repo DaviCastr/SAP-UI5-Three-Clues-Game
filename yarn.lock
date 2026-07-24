@@ -1155,6 +1155,14 @@
     proc-log "^5.0.0"
     which "^5.0.0"
 
+"@openui5/types@^1.150.0":
+  version "1.150.0"
+  resolved "https://registry.npmjs.org/@openui5/types/-/types-1.150.0.tgz"
+  integrity sha512-bVzN5UFDHf0T4iPPmuixvkTvCjxlT8BB5MiGCT0JUNE5XPXHGL1u49+cjvy5cHpjqaReoFVYcfU4Ao60yl9srA==
+  dependencies:
+    "@types/jquery" "3.5.13"
+    "@types/qunit" "2.5.4"
+
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz"

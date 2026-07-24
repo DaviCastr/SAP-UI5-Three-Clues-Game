@@ -62,8 +62,6 @@ export default class EnvelopeSpinner extends Control {
 
     declare getEnvelopeNumber: () => number;
 
-    declare setEnvelopeNumber: (value: number) => this;
-
     public setEnvelopeNumber(value: number): this {
 
         this.setProperty("envelopeNumber", value);

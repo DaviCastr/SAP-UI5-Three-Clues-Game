@@ -5,7 +5,8 @@ sap.ui.define(["sap/ui/model/json/JSONModel"], function (JSONModel) {
     envelopes = [];
     async loadDefault() {
       const model = new JSONModel();
-      await model.loadData("../json/envelopes.json");
+      const jsonUrl = sap.ui.require.toUrl("apps/dflc/threecluesgame/json/envelopes.json");
+      await model.loadData(jsonUrl);
       this.envelopes = model.getData();
       return this.envelopes;
     }

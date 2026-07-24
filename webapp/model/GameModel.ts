@@ -27,7 +27,7 @@ export interface IGameState {
 
         sounds: boolean;
 
-        animations: boolean;
+        showCategory: boolean;
 
     };
 
@@ -112,7 +112,7 @@ export default class GameModel extends JSONModel {
 
                 sounds: true,
 
-                animations: true
+                showCategory: true
 
             },
 

@@ -436,3 +436,38 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
         width: 100% !important;
     }
 }
+
+/* ============================================================ */
+/* 📱 CORREÇÃO DEFINITIVA DO FOOTER NO MOBILE                   */
+/* ============================================================ */
+
+@media screen and (max-width: 768px) {
+    /* 1. Garante que o footer da Page fique fixo e visível na tela */
+    .tcgPage .sapMPageFooter {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 10 !important;
+    }
+
+    /* 2. Dá um espaço no final do conteúdo para não cobrir o último elemento sob o footer */
+    .tcgGameContainer {
+        height: auto !important;
+        min-height: calc(100vh - 56px) !important;
+        padding-bottom: 70px !important; /* Espaço para o rodapé */
+    }
+
+    /* 3. Permite que o rolete e as pistas empilhem sem estourar o limite */
+    .tcgMainContent {
+        flex-direction: column !important;
+        height: auto !important;
+    }
+
+    .tcgLeftCard, 
+    .tcgRightCard {
+        width: 100% !important;
+        height: auto !important;
+        margin-bottom: 12px;
+    }
+}

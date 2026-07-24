@@ -1,80 +1,337 @@
 [
   {
     "id": 1,
-    "category": "Animais",
-    "answer": "PEIXE",
+    "category": "Personagens",
+    "answer": "CHAVES",
     "synonyms": [
-      "PEIXE"
+      "CHAVES",
+      "O CHAVES"
     ],
     "hints": [
-      "Vive na água",
-      "Tem escamas",
-      "Nada"
+      "Mora em uma vila",
+      "Adora sanduíche de presunto",
+      "Mora dentro de um barril"
     ]
   },
   {
     "id": 2,
-    "category": "Objetos",
-    "answer": "GELADEIRA",
+    "category": "Alimentos",
+    "answer": "PIZZA",
     "synonyms": [
-      "GELADEIRA"
+      "PIZZA",
+      "PIZA"
     ],
     "hints": [
-      "Fica na cozinha",
-      "Conserva alimentos",
-      "Tem porta"
+      "Vem da Itália",
+      "É cortada em fatias",
+      "Tem de calabresa e muçarela"
     ]
   },
   {
     "id": 3,
-    "category": "Esportes",
-    "answer": "FUTEBOL",
+    "category": "Lugares",
+    "answer": "CINEMA",
     "synonyms": [
-      "FUTEBOL"
+      "CINEMA",
+      "CINE"
     ],
     "hints": [
-      "Tem bola",
-      "Onze jogadores",
-      "Tem gol"
+      "Tem uma tela grande",
+      "Vende pipoca na entrada",
+      "Onde assistimos a filmes"
     ]
   },
   {
     "id": 4,
-    "category": "Frutas",
-    "answer": "BANANA",
+    "category": "Objetos",
+    "answer": "CELULAR",
     "synonyms": [
-      "BANANA"
+      "CELULAR",
+      "TELEFONE CELULAR",
+      "SMARTPHONE"
     ],
     "hints": [
-      "É amarela",
-      "Macacos gostam",
-      "Tem casca"
+      "Fica no bolso",
+      "Usa para mandar mensagens",
+      "Tem tela sensível ao toque"
     ]
   },
   {
     "id": 5,
-    "category": "Esportes",
-    "answer": "FUTEBOL",
+    "category": "Profissões",
+    "answer": "BOMBEIRO",
     "synonyms": [
-      "FUTEBOL"
+      "BOMBEIRO",
+      "BOMBEIROS"
     ],
     "hints": [
-      "Tem bola",
-      "Onze jogadores",
-      "Tem gol"
+      "Usa farda e capacete",
+      "Anda em um caminhão vermelho",
+      "Apaga incêndios"
     ]
   },
   {
     "id": 6,
-    "category": "Frutas",
-    "answer": "BANANA",
+    "category": "Animais",
+    "answer": "CACHORRO",
     "synonyms": [
-      "BANANA"
+      "CACHORRO",
+      "CÃO",
+      "CAO"
     ],
     "hints": [
-      "É amarela",
-      "Macacos gostam",
-      "Tem casca"
+      "Melhor amigo do homem",
+      "Gosta de roer ossos",
+      "Faz au au"
+    ]
+  },
+  {
+    "id": 7,
+    "category": "Meios de Transporte",
+    "answer": "AVIÃO",
+    "synonyms": [
+      "AVIAO",
+      "AVIÃO"
+    ],
+    "hints": [
+      "Tem asas e turbinas",
+      "Fica no aeroporto",
+      "Voa pelo céu"
+    ]
+  },
+  {
+    "id": 8,
+    "category": "Alimentos",
+    "answer": "PIPOCA",
+    "synonyms": [
+      "PIPOCA"
+    ],
+    "hints": [
+      "Feita de milho",
+      "Estoura na panela",
+      "Comemos no cinema"
+    ]
+  },
+  {
+    "id": 9,
+    "category": "Natureza",
+    "answer": "PRAIA",
+    "synonyms": [
+      "PRAIA"
+    ],
+    "hints": [
+      "Tem água salgada",
+      "Pessoas usam filtro solar",
+      "Tem areia e mar"
+    ]
+  },
+  {
+    "id": 10,
+    "category": "Objetos",
+    "answer": "GUARDA-CHUVA",
+    "synonyms": [
+      "GUARDA CHUVA",
+      "GUARDA-CHUVA",
+      "SOMBRINHA"
+    ],
+    "hints": [
+      "Fica fechado no canto",
+      "Protege da água",
+      "Usamos quando chove"
+    ]
+  },
+  {
+    "id": 11,
+    "category": "Datas Comemorativas",
+    "answer": "NATAL",
+    "synonyms": [
+      "NATAL"
+    ],
+    "hints": [
+      "Comemorado em dezembro",
+      "Tem árvore decorada",
+      "Dia do Papai Noel"
+    ]
+  },
+  {
+    "id": 12,
+    "category": "Animais",
+    "answer": "GATO",
+    "synonyms": [
+      "GATO",
+      "GATINHO"
+    ],
+    "hints": [
+      "Tem sete vidas",
+      "Gosta de caçar ratos",
+      "Faz miau"
+    ]
+  },
+  {
+    "id": 13,
+    "category": "Música",
+    "answer": "VIOLÃO",
+    "synonyms": [
+      "VIOLAO",
+      "VIOLÃO"
+    ],
+    "hints": [
+      "Instrumento de madeira",
+      "Tem seis cordas",
+      "Usado para tocar na roda de amigos"
+    ]
+  },
+  {
+    "id": 14,
+    "category": "Objetos",
+    "answer": "ESPELHO",
+    "synonyms": [
+      "ESPELHO"
+    ],
+    "hints": [
+      "Feito de vidro",
+      "Fica no banheiro ou quarto",
+      "Reflete nossa imagem"
+    ]
+  },
+  {
+    "id": 15,
+    "category": "Utensílios",
+    "answer": "TESOURA",
+    "synonyms": [
+      "TESOURA"
+    ],
+    "hints": [
+      "Tem duas lâminas",
+      "Usada em trabalhos manuais",
+      "Serve para cortar papel"
+    ]
+  },
+  {
+    "id": 16,
+    "category": "Eletrodomésticos",
+    "answer": "TELEVISÃO",
+    "synonyms": [
+      "TELEVISAO",
+      "TELEVISÃO",
+      "TV"
+    ],
+    "hints": [
+      "Fica na sala de estar",
+      "Usa controle remoto",
+      "Assistimos novelas e jornais"
+    ]
+  },
+  {
+    "id": 17,
+    "category": "Doces",
+    "answer": "CHOCOLATE",
+    "synonyms": [
+      "CHOCOLATE"
+    ],
+    "hints": [
+      "Feito com cacau",
+      "Símbolo da Páscoa",
+      "Pode ser ao leite ou amargo"
+    ]
+  },
+  {
+    "id": 18,
+    "category": "Vestuário",
+    "answer": "SAPATO",
+    "synonyms": [
+      "SAPATO",
+      "TÊNIS",
+      "TENIS"
+    ],
+    "hints": [
+      "Vendido aos pares",
+      "Usamos com meias",
+      "Calçamos nos pés"
+    ]
+  },
+  {
+    "id": 19,
+    "category": "Festa",
+    "answer": "BOLO",
+    "synonyms": [
+      "BOLO",
+      "BOLO DE ANIVERSÁRIO"
+    ],
+    "hints": [
+      "Tem recheio e cobertura",
+      "Não pode faltar no aniversário",
+      "Sopramos as velinhas nele"
+    ]
+  },
+  {
+    "id": 20,
+    "category": "Corpo Humano",
+    "answer": "DENTE",
+    "synonyms": [
+      "DENTE",
+      "DENTES"
+    ],
+    "hints": [
+      "Fica dentro da boca",
+      "Escovamos todos os dias",
+      "Usado para mastigar"
+    ]
+  },
+  {
+    "id": 21,
+    "category": "Brinquedos",
+    "answer": "PIPA",
+    "synonyms": [
+      "PIPA",
+      "PAPAGAIO",
+      "PANDORGA"
+    ],
+    "hints": [
+      "Feita de vareta e papel",
+      "Usa rabiola e linha",
+      "Voa quando tem vento"
+    ]
+  },
+  {
+    "id": 22,
+    "category": "Bebidas",
+    "answer": "CAFÉ",
+    "synonyms": [
+      "CAFE",
+      "CAFÉ"
+    ],
+    "hints": [
+      "Tomamos de manhã cedo",
+      "Feito com grãos moídos",
+      "Bebida quente e escura"
+    ]
+  },
+  {
+    "id": 23,
+    "category": "Escola",
+    "answer": "LÁPIS",
+    "synonyms": [
+      "LAPIS",
+      "LÁPIS"
+    ],
+    "hints": [
+      "Feito de madeira e grafite",
+      "Usamos para desenhar",
+      "Apontamos quando a ponta quebra"
+    ]
+  },
+  {
+    "id": 24,
+    "category": "Natureza",
+    "answer": "SOL",
+    "synonyms": [
+      "SOL"
+    ],
+    "hints": [
+      "Aparece durante o dia",
+      "Aquece a Terra",
+      "Estrela principal do sistema solar"
     ]
   }
 ]

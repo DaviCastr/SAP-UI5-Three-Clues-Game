@@ -18,8 +18,8 @@ declare const sap: {
  */
 export default class EnvelopeSpinner extends Control {
 
-    private readonly initialDelay = 100;
-    private readonly finalDelay = 650;
+    private readonly initialDelay = 60;
+    private readonly finalDelay = 200;
     private availableEnvelopes: number[] = [];
     private readonly completeTurns = 4;
     private visibleEnvelopes: number[] = [0, 0, 0, 0, 0];

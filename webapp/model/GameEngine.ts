@@ -130,6 +130,8 @@ export default class GameEngine {
 
     public drawEnvelope(): IEnvelope | null {
 
+        this.model.setProperty("/game/canSpinWheel", false);
+
         if (this.envelopes.length === 0) {
 
             this.model.setProperty(
@@ -205,7 +207,6 @@ export default class GameEngine {
         envelope: IEnvelope
     ): void {
 
-        this.model.setProperty("/game/canSpinWheel", false);
         this.model.setProperty("/game/canAnswer", true);
 
         this.clearRoundResult();

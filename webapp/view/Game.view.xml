@@ -77,7 +77,9 @@
                         </VBox>
 
                         <!-- CATEGORIA -->
-                        <VBox class="tcgInfoBanner" visible="{= ${game>/game/state} !== 'WAITING_SPIN' }">
+                        <VBox 
+                            class="tcgInfoBanner" 
+                            visible="{= ${game>/game/state} !== 'WAITING_SPIN' &amp;&amp; ${game>/settings/showCategory} === true }">
                             <Text text="🏷 CATEGORIA" class="tcgTextSecondary"/>
                             <Text text="{game>/game/currentCategory}" class="tcgCategoryText"/>
                         </VBox>
@@ -157,7 +159,7 @@
                     </VBox>
                 </HBox>
 
-                <!-- 🔘 AÇÕES (RODAPÉ FIXO NA PARTE INFERIOR) -->
+                <!-- 🔘 AÇÕES (RODAPÉ FIXO NA PARTE INFERIOR)
                 <HBox justifyContent="Center" class="tcgFooterActions">
                     
                     <Button
@@ -179,7 +181,7 @@
                         type="Transparent"
                         class="tcgSecondaryBtn"/>
 
-                </HBox>
+                </HBox> -->
             </VBox>
 
             <!-- 🏁 TELA DE FIM DE JOGO (PÓDIO) -->
@@ -222,5 +224,36 @@
                 </VBox>
             </VBox>
         </content>
+        <!-- 🔘 AÇÕES FIXAS NO RODAPÉ DA PÁGINA (Aparecem em qualquer tamanho de tela) -->
+        <footer>
+    <OverflowToolbar 
+        design="Transparent"
+        visible="{= ${game>/game/state} !== 'GAME_FINISHED'}"
+        class="tcgFooterToolbar">
+        <ToolbarSpacer />
+        
+        <Button
+            text="🎡 GIRAR ROLETA"
+            press=".onSpinWheel"
+            enabled="{game>/game/canSpinWheel}"
+            type="Emphasized"
+            class="tcgMainBtn"/>
+
+        <Button
+            text="PULAR PLATEIA"
+            press=".onSkipAudience"
+            visible="{game>/game/showSkipAudience}"
+            class="tcgSecondaryBtn"/>
+
+        <Button
+            text="🔄 REINICIAR"
+            press=".onRestartGame"
+            type="Transparent"
+            class="tcgSecondaryBtn"/>
+        
+        <ToolbarSpacer />
+    </OverflowToolbar>
+</footer>
     </Page>
+    
 </mvc:View>

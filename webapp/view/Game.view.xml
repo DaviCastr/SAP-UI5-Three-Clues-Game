@@ -5,60 +5,37 @@
     xmlns:core="sap.ui.core"
     xmlns:custom="apps.dflc.threecluesgame.controls.EnvelopeSpinner">
 
-    <Page
-        showHeader="false"
-        class="tcgPage">
-
+    <Page showHeader="false" class="tcgPage">
         <content>
-            <!-- class="sapUiLargeMargin" -->
-            <VBox
-                width="100%"
-                class="sapUiSmallMargin"
+            <!-- TELA PRINCIPAL DO JOGO -->
+            <VBox 
+                width="100%" 
+                height="100%" 
+                class="tcgGameContainer"
                 visible="{= ${game>/game/state} !== 'GAME_FINISHED'}">
 
-                <!-- ============================= -->
-                <!-- SCORE -->
-                <!-- ============================= -->
-
-                <HBox
-                    width="100%"
-                    justifyContent="SpaceAround"
-                    class="sapUiMediumMarginBottom">
-
-                    <VBox alignItems="Center">
-
-                        <Title
-                            text="{game>/players/player1/name}" />
-
-                        <ObjectNumber
-                            number="{game>/players/player1/score}" />
-
+                <!-- 🏆 PLACAR SUPERIOR DE PONTOS -->
+                <HBox width="100%" justifyContent="SpaceBetween" alignItems="Center" class="tcgScoreCard">
+                    <VBox alignItems="Center" width="30%">
+                        <Title text="{game>/players/player1/name}" class="tcgPlayerName" />
+                        <ObjectNumber number="{game>/players/player1/score}" class="tcgScoreNumber" />
                     </VBox>
 
-                    <VBox alignItems="Center">
-
-                        <Title text="PLATEIA"/>
-
-                        <ObjectNumber
-                            number="{game>/audience/score}" />
-
+                    <VBox alignItems="Center" width="30%" class="tcgAudienceBox">
+                        <Title text="PLATEIA" class="tcgAudienceTitle" />
+                        <ObjectNumber number="{game>/audience/score}" class="tcgScoreNumber" />
                     </VBox>
 
-                    <VBox alignItems="Center">
-
-                        <Title
-                            text="{game>/players/player2/name}" />
-
-                        <ObjectNumber
-                            number="{game>/players/player2/score}" />
-
+                    <VBox alignItems="Center" width="30%">
+                        <Title text="{game>/players/player2/name}" class="tcgPlayerName" />
+                        <ObjectNumber number="{game>/players/player2/score}" class="tcgScoreNumber" />
                     </VBox>
-
                 </HBox>
 
-                <VBox>
-
-                    <Text
+                <!-- 📊 BARRA DE PROGRESSO -->
+                <VBox class="tcgProgressWrapper">
+                    <Text 
+                        class="tcgTextSecondary tcgProgressText"
                         text="{
                             parts:[
                                 'game>/progress/current',
@@ -66,201 +43,184 @@
                             ],
                             formatter:'.formatter.formatProgress'
                         }"/>
-
                     <ProgressIndicator
                         percentValue="{game>/progress/percent}"
-                        displayValue="{game>/progress/percent}%"/>
-                
+                        displayValue="{game>/progress/percent}%"
+                        state="Success"/>
                 </VBox>
 
-                <!-- ============================= -->
-                <!-- VEZ -->
-                <!-- ============================= -->
-
-                <Panel
-                    headerText="🎯 VEZ DE"
-                    visible="{= ${game>/game/state} !== 'WAITING_SPIN' }">
-
-                    <VBox
-                        alignItems="Center"
-                        class="sapUiMediumMargin">
-
-                        <Title
-                            text="{
-                                parts: [
-                                    'game>/game/currentPlayer',
-                                    'game>/players/player1/name',
-                                    'game>/players/player2/name'
-                                ],
-                                formatter: '.formatter.currentPlayerName'
-                            }"/>
-
-                    </VBox>
-
-                </Panel>
-
-                <custom:EnvelopeSpinner 
-                    id="spinner"
-                    envelopeNumber="5" />
-
-                <!-- ============================= -->
-                <!-- CATEGORIA -->
-                <!-- ============================= -->
-
-                <Panel
-                    headerText="🏷 CATEGORIA"
-                    class="sapUiMediumMarginTop"
-                    visible="{= ${game>/game/state} !== 'WAITING_SPIN' }">
-
-                    <VBox
-                        class="sapUiMediumMargin">
-
-                        <Text
-                            text="{game>/game/currentCategory}"/>
-
-                    </VBox>
-
-                </Panel>
-
-                <!-- ============================= -->
-                <!-- PISTAS -->
-                <!-- ============================= -->
-
-                <Panel
-                    headerText="PISTAS"
-                    class="sapUiMediumMarginTop">
-
-                    <List
-                        visible="{= ${game>/game/visibleHints}.length > 0 }"
-                        items="{game>/game/visibleHints}">
-
-                        <StandardListItem
-                            title="{game>}"/>
-
-                    </List>
-
-                    <IllustratedMessage
-                        visible="{= ${game>/game/visibleHints}.length === 0 }"
-                        illustrationType="sapIllus-EmptyList"
-                        title="Nenhuma rodada iniciada"
-                        description="Clique em '🎡 Girar Roleta' para iniciar a rodada."/>
-
-                </Panel>
-
-                <!-- ============================= -->
-                <!-- RESPOSTA -->
-                <!-- ============================= -->
-
-                <Panel
-                    headerText="RESPOSTA"
-                    class="sapUiMediumMarginTop"
-                    visible="{game>/game/canAnswer}">
-
-                    <VBox
-                        class="sapUiMediumMargin">
-
-                        <Input
-                            value="{game>/game/currentAnswer}"
-                            placeholder="Digite a resposta"/>
-
-                        <Button
-                            text="RESPONDER"
-                            press=".onAnswer"
-                            type="Emphasized"
-                            class="sapUiSmallMarginTop"/>
-
-                    </VBox>
-
-                </Panel>
-
-                <!-- ============================= -->
-                <!-- RESPOSTA CORRETA -->
-                <!-- ============================= -->
-
-                <Panel
-                    expandable="true"
-                    expanded="true"
-                    visible="{game>/game/showAnswer}"
-                    headerText="RESPOSTA">
-
-                    <Panel
-                    headerText="🏆 Resultado da Rodada"
-                    visible="{game>/roundResult/visible}">
-                        <VBox>
-                            <Text
+                <!-- 🎮 ÁREA CENTRAL (PREENCHE O ESPAÇO DISPONÍVEL) -->
+                <HBox width="100%" class="tcgMainContent" justifyContent="SpaceBetween">
+                    
+                    <!-- ESQUERDA: ROLETA E INFOS -->
+                    <VBox width="48%" class="tcgCardBox tcgLeftCard">
+                        
+                        <!-- VEZ DO JOGADOR (Reservamos o espaço mesmo invisível) -->
+                        <VBox class="tcgInfoBanner" visible="{= ${game>/game/state} !== 'WAITING_SPIN' }">
+                            <Text text="🎯 VEZ DE" class="tcgTextSecondary"/>
+                            <Title 
+                                level="H3"
                                 text="{
-                                    parts:[
-                                        'game>/roundResult/winner',
+                                    parts: [
+                                        'game>/game/currentPlayer',
                                         'game>/players/player1/name',
                                         'game>/players/player2/name'
                                     ],
-                                    formatter: '.formatter.formatRoundWinner'
-                                }"/>
+                                    formatter: '.formatter.currentPlayerName'
+                                }"
+                                class="tcgHighlightText"/>
+                        </VBox>
 
-                            <ObjectStatus
-                                title="Resposta"
-                                text="{game>/roundResult/answer}"/>
-                            
-                            <Text
-                                visible="{= ${game>/roundResult/points} > 0 }"
-                                text="{
-                                    path:'game>/roundResult/points',
-                                    formatter:'.formatter.formatPoints'
-                                }"/>
+                        <!-- ROLETA ENVELOPE SPINNER -->
+                        <VBox alignItems="Center" justifyContent="Center" class="tcgSpinnerWrapper">
+                            <custom:EnvelopeSpinner id="spinner" envelopeNumber="5" />
+                        </VBox>
+
+                        <!-- CATEGORIA -->
+                        <VBox class="tcgInfoBanner" visible="{= ${game>/game/state} !== 'WAITING_SPIN' }">
+                            <Text text="🏷 CATEGORIA" class="tcgTextSecondary"/>
+                            <Text text="{game>/game/currentCategory}" class="tcgCategoryText"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- DIREITA: PISTAS E RESPOSTA -->
+                    <VBox width="50%" class="tcgCardBox tcgRightCard">
+                        <Title text="💡 PISTAS DA RODADA" level="H4" class="tcgCardTitle"/>
+                        
+                        <!-- LISTA DE PISTAS -->
+                        <VBox class="tcgHintsContainer">
+                            <List
+                                visible="{= ${game>/game/visibleHints}.length > 0 }"
+                                items="{game>/game/visibleHints}"
+                                class="tcgList">
+                                <StandardListItem title="{game>}" class="tcgListItem"/>
+                            </List>
+
+                            <IllustratedMessage
+                                visible="{= ${game>/game/visibleHints}.length === 0 }"
+                                illustrationType="sapIllus-EmptyList"
+                                title="Nenhuma rodada iniciada"
+                                description="Clique em '🎡 Girar Roleta' para começar."
+                                class="tcgIllustratedMsg"/>
+                        </VBox>
+
+                        <!-- ÁREA DE RESPOSTA E RESULTADO -->
+                        <VBox class="tcgBottomRightZone">
+                            <VBox class="tcgAnswerSection" visible="{game>/game/canAnswer}">
+                                
+                                <!-- ⏱️ CRONÔMETRO DA RODADA -->
+                                <HBox 
+                                    justifyContent="SpaceBetween" 
+                                    alignItems="Center" 
+                                    class="tcgTimerBox sapUiTinyMarginBottom"
+                                    visible="{game>/timer/active}">
+                                    <Text text="⏱️ Tempo restante:" class="tcgTimerLabel"/>
+                                    <Text 
+                                        text="{game>/timer/seconds}s" 
+                                        class="{= ${game>/timer/seconds} &lt;= 5 ? 'tcgTimerValue tcgTimerDanger' : 'tcgTimerValue' }"/>
+                                </HBox>
+                                
+                                <Input
+                                    value="{game>/game/currentAnswer}"
+                                    placeholder="Digite a resposta aqui..."
+                                    class="tcgInput"/>
+                                <Button
+                                    text="RESPONDER"
+                                    press=".onAnswer"
+                                    type="Emphasized"
+                                    width="100%"
+                                    class="tcgBtnAnswer"/>
                             </VBox>
-                    </Panel>
-                </Panel>
 
-                <!-- ============================= -->
-                <!-- BOTÕES -->
-                <!-- ============================= -->
+                            <!-- RESULTADO DA RODADA -->
+                            <VBox class="tcgRoundResultBox" visible="{game>/roundResult/visible}">
+                                <Text 
+                                    class="tcgHighlightText"
+                                    text="{
+                                        parts:[
+                                            'game>/roundResult/winner',
+                                            'game>/players/player1/name',
+                                            'game>/players/player2/name'
+                                        ],
+                                        formatter: '.formatter.formatRoundWinner'
+                                    }"/>
+                                <Text text="{= 'Resposta: ' + ${game>/roundResult/answer}}" class="tcgTextLight"/>
+                                <Text
+                                    visible="{= ${game>/roundResult/points} > 0 }"
+                                    class="tcgGoldText"
+                                    text="{
+                                        path:'game>/roundResult/points',
+                                        formatter:'.formatter.formatPoints'
+                                    }"/>
+                            </VBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
 
-                <HBox
-                    justifyContent="Center"
-                    class="sapUiLargeMarginTop">
-
+                <!-- 🔘 AÇÕES (RODAPÉ FIXO NA PARTE INFERIOR) -->
+                <HBox justifyContent="Center" class="tcgFooterActions">
+                    
                     <Button
                         text="🎡 GIRAR ROLETA"
                         press=".onSpinWheel"
-                            enabled="{game>/game/canSpinWheel}"
-                            type="Emphasized"
-                        class="sapUiTinyMarginEnd"/>
+                        enabled="{game>/game/canSpinWheel}"
+                        type="Emphasized"
+                        class="tcgMainBtn sapUiTinyMarginEnd"/>
 
                     <Button
                         text="PULAR PLATEIA"
                         press=".onSkipAudience"
-                        visible="{game>/game/showSkipAudience}"/>
+                        visible="{game>/game/showSkipAudience}"
+                        class="tcgSecondaryBtn sapUiTinyMarginEnd"/>
+
+                    <Button
+                        text="🔄 REINICIAR JOGO"
+                        press=".onRestartGame"
+                        type="Transparent"
+                        class="tcgSecondaryBtn"/>
 
                 </HBox>
-
             </VBox>
 
+            <!-- 🏁 TELA DE FIM DE JOGO (PÓDIO) -->
             <VBox
                 visible="{= ${game>/game/state} === 'GAME_FINISHED'}"
-                class="sapUiLargeMargin">
+                alignItems="Center"
+                justifyContent="Center"
+                class="tcgFinishedContainer">
 
-                <Title
-                    text="🏁 FIM DO JOGO"
-                    level="H2"/>
+                <VBox class="tcgFinishCard" alignItems="Center">
+                    <Title text="🏆 PÓDIO FINAL" level="H1" class="tcgTitleFinished sapUiMediumMarginBottom"/>
 
-                <Text
-                    text="{= '👤 ' + ${game>/players/player1/name} + ': ' + ${game>/players/player1/score} + ' pts'}"/>
+                    <VBox 
+                        class="tcgPodiumList sapUiMediumMarginBottom" 
+                        width="100%"
+                        items="{game>/leaderboard}">
+                        <HBox 
+                            alignItems="Center" 
+                            justifyContent="SpaceBetween" 
+                            class="tcgPodiumItem sapUiSmallPadding">
+                            
+                            <HBox alignItems="Center">
+                                <Text text="{game>badge}" class="tcgPodiumBadge sapUiTinyMarginEnd"/>
+                                <Text text="{game>position}º" class="tcgPodiumRank sapUiTinyMarginEnd"/>
+                                <Text text="{game>name}" class="tcgPodiumName"/>
+                            </HBox>
 
-                <Text
-                    text="{= '🎤 Plateia: ' + ${game>/audience/score} + ' pts'}"/>
+                            <ObjectNumber 
+                                number="{game>score}" 
+                                unit="pts" 
+                                class="tcgPodiumScore"/>
+                        </HBox>
+                    </VBox>
 
-                <Text
-                    text="{= '👤 ' + ${game>/players/player2/name} + ': ' + ${game>/players/player2/score} + ' pts'}"/>
-
-                <Button
-                    text="🔄 Novo Jogo"
-                    press=".onRestartGame"
-                    type="Emphasized"/>
-
+                    <Button
+                        text="🔄 Novo Jogo"
+                        press=".onRestartGame"
+                        type="Emphasized"
+                        class="tcgMainBtn"/>
+                </VBox>
             </VBox>
-
         </content>
-
     </Page>
-
 </mvc:View>

@@ -1,49 +1,27 @@
-:root{
-
+:root {
     /* Primary */
-
-    --tcg-primary:#0B2D68;
-
-    --tcg-primary-light:#1D4E9E;
-
-    --tcg-primary-dark:#071B42;
+    --tcg-primary: #0B2D68;
+    --tcg-primary-light: #1D4E9E;
+    --tcg-primary-dark: #071B42;
 
     /* Gold */
-
-    --tcg-gold:#F4C542;
-
-    --tcg-gold-dark:#C99A1C;
+    --tcg-gold: #F4C542;
+    --tcg-gold-dark: #C99A1C;
 
     /* Background */
-
-    --tcg-background:#04152D;
-
-    --tcg-surface:#0D255A;
-
-    --tcg-surface-light:#173A88;
-
-    /* Status */
-
-    --tcg-success:#2ECC71;
-
-    --tcg-error:#E74C3C;
-
-    --tcg-warning:#F39C12;
+    --tcg-background: #04152D;
+    --tcg-surface: #0D255A;
+    --tcg-surface-light: #173A88;
 
     /* Text */
+    --tcg-text: #FFFFFF;
+    --tcg-text-secondary: #C9D5F5;
 
-    --tcg-text:#FFFFFF;
+    /* Status */
+    --tcg-success: #2ECC71;
+    --tcg-error: #E74C3C;
+    --tcg-warning: #F39C12;
 
-    --tcg-text-secondary:#C9D5F5;
-
-    /* Radius */
-
-    --tcg-radius:18px;
-
-    /* Shadow */
-
-    --tcg-shadow:
-
-        0 12px 35px rgba(0,0,0,.45);
-
+    --tcg-radius: 12px;
+    --tcg-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
 }

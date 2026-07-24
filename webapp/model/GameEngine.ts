@@ -1,6 +1,7 @@
 import GameModel from "./GameModel";
 import AnswerService from "./AnswerService";
 import Turn from "./Turn";
+import SoundService, { SoundEffect } from "../utils/SoundService";
 
 export enum RoundState {
     WAITING_SPIN = "WAITING_SPIN",
@@ -32,8 +33,13 @@ export default class GameEngine {
 
     private envelopes: IEnvelope[] = [];
 
+    private timerId: number | null = null;
+
+    private soundService: SoundService;
+
     constructor(model: GameModel) {
         this.model = model;
+        this.soundService = SoundService.getInstance(model); // 🔊 Instancia o SoundService
     }
 
     public loadEnvelopes(envelopes: IEnvelope[]): void {
@@ -80,6 +86,8 @@ export default class GameEngine {
 
         if (AnswerService.isCorrectAnswer(answer, envelope)) {
 
+            this.soundService.play(SoundEffect.CORRECT);
+
             const currentPlayer =
                 this.model.getProperty("/game/currentPlayer");
 
@@ -88,6 +96,8 @@ export default class GameEngine {
             return true;
 
         }
+
+        this.soundService.play(SoundEffect.WRONG);
 
         this.nextAttempt();
 
@@ -109,6 +119,8 @@ export default class GameEngine {
     }
 
     public restartGame(): void {
+
+        this.stopTimer();
 
         this.resetScores();
 
@@ -143,6 +155,52 @@ export default class GameEngine {
 
     }
 
+    public startTimer(): void {
+        this.stopTimer();
+
+        // Pega o tempo das configurações (20, 30, 40s)
+        const roundTime = Number(this.model.getProperty("/settings/roundTime")) || 20;
+
+        this.model.setProperty("/timer", {
+            seconds: roundTime,
+            active: true
+        });
+
+        this.timerId = window.setInterval(() => {
+            const currentSeconds = this.model.getProperty("/timer/seconds") as number;
+
+            if (currentSeconds > 1) {
+                this.model.setProperty("/timer/seconds", currentSeconds - 1);
+            } else {
+
+                this.model.setProperty("/timer/seconds", 0);
+                this.stopTimer();
+                this.soundService.play(SoundEffect.TIME_EXPIRED);
+                this.handleTimeExpired(); 
+
+            }
+        }, 1000);
+    }
+
+    /**
+     * Cancela o timer ativo
+     */
+    public stopTimer(): void {
+        if (this.timerId !== null) {
+            clearInterval(this.timerId);
+            this.timerId = null;
+        }
+        this.model.setProperty("/timer/active", false);
+    }
+
+    /**
+     * Ação disparada quando o tempo estoura
+     */
+    private handleTimeExpired(): void {
+        // Se o tempo estourou durante uma resposta incorreta/esgotada, avança de tentativa ou passa pra plateia
+        this.nextAttempt();
+    }
+
     public prepareRound(
         envelope: IEnvelope
     ): void {
@@ -161,6 +219,8 @@ export default class GameEngine {
         this.model.setProperty("/game/correctAnswer", "");
 
         this.model.setProperty("/game/showAnswer", false);
+
+        this.model.setProperty("/roundResult/visible", false);
 
         this.model.setProperty("/game/showSkipAudience", false);
 
@@ -187,6 +247,8 @@ export default class GameEngine {
             startingPlayer
         );
 
+        this.startTimer();
+
     }
 
     public getAvailableEnvelopeIds(): number[] {
@@ -197,7 +259,7 @@ export default class GameEngine {
 
     }
 
-    private nextAttempt(): void {
+    public nextAttempt(): void {
 
         let hint = this.model.getProperty("/game/currentHint");
 
@@ -220,14 +282,21 @@ export default class GameEngine {
 
             this.updateCurrentPlayer(hint);
 
+            this.startTimer();
+
             return;
 
         }
 
+        this.stopTimer();
         this.model.setProperty("/game/currentPlayer", Turn.AUDIENCE);
         this.model.setProperty("/game/state", RoundState.AUDIENCE);
         this.model.setProperty("/game/showSkipAudience", true);
 
+    }
+
+    public playSpinSound(): void {
+        this.soundService.play(SoundEffect.SPIN);
     }
 
     private finishRound(winner: Turn): void {
@@ -252,6 +321,8 @@ export default class GameEngine {
                 ? Turn.PLAYER2
                 : Turn.PLAYER1
         );
+
+        this.stopTimer();
 
         if (this.hasRemainingEnvelopes()) {
 
@@ -400,10 +471,38 @@ export default class GameEngine {
             false
         );
 
+        this.model.setProperty("/game/showAnswer", false);
+
+        this.model.setProperty("/roundResult/visible", false);
+
         this.model.setProperty(
             "/game/showSkipAudience",
             false
         );
+
+        const player1 = this.model.getProperty("/players/player1");
+        const player2 = this.model.getProperty("/players/player2");
+        const audienceScore = this.model.getProperty("/audience/score");
+
+        const participants = [
+            { name: player1.name, score: player1.score },
+            { name: player2.name, score: player2.score },
+            { name: "Plateia", score: audienceScore }
+        ];
+
+        participants.sort((a, b) => b.score - a.score);
+
+        const badges = ["🥇", "🥈", "🥉"];
+        const leaderboard = participants.map((item, index) => ({
+            position: index + 1,
+            badge: badges[index] || "🏅",
+            name: item.name,
+            score: item.score
+        }));
+
+        this.soundService.play(SoundEffect.GAME_OVER);
+        this.model.setProperty("/leaderboard", leaderboard);
+        this.model.setProperty("/game/state", "GAME_FINISHED");
 
     }
 
@@ -429,6 +528,8 @@ export default class GameEngine {
 
         this.model.setProperty("/game/showAnswer", false);
 
+        this.model.setProperty("/roundResult/visible", false);
+
         this.model.setProperty("/game/showSkipAudience", false);
 
         this.model.setProperty("/game/canSpinWheel", true);
@@ -440,10 +541,6 @@ export default class GameEngine {
         this.model.setProperty("/game/currentEnvelope", null);
 
         this.model.setProperty("/game/state", RoundState.WAITING_SPIN);
-
-        this.model.setProperty("/players/player1/name", "");
-
-        this.model.setProperty("/players/player2/name", "");
 
         this.model.setProperty(
             "/game/currentPlayer",

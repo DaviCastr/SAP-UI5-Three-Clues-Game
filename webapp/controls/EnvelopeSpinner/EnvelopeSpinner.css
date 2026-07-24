@@ -1,139 +1,85 @@
-.spinnerIcon{
-
-    font-size:2.5rem;
-
+/* === CONTAINER DA ROLETA === */
+.envelopeSpinner {
+    width: 200px;
+    padding: 1rem 0.75rem;
+    border-radius: var(--tcg-radius);
+    background: linear-gradient(180deg, var(--tcg-surface) 0%, var(--tcg-primary-dark) 100%);
+    border: 2px solid var(--tcg-gold);
+    box-shadow: 0 0 20px rgba(244, 197, 66, 0.25), inset 0 0 15px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px auto;
+    position: relative;
+    overflow: hidden;
 }
 
-.spinnerNumber{
-
-    margin-top:.5rem;
-
-    font-size:3rem;
-
-    font-weight:bold;
-
+/* Ícone do Topo */
+.spinnerIcon {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
 
-.envelopeSpinner{
-
-    width:180px;
-
-    padding:1rem;
-
-    border-radius:12px;
-
-    border:2px solid #d9d9d9;
-
-    background:white;
-
-    display:flex;
-
-    margin-left: auto;
-    margin-right: auto;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    margin-top: 10px;
-
+/* Track Vertical */
+.spinnerTrack {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
 }
 
-.spinnerRow{
-
-    width:100%;
-
-    text-align:center;
-
-    font-size:1.2rem;
-
-    opacity:.35;
-
-    padding:.25rem 0;
-
-    transition:
-    opacity .12s linear,
-    transform .12s linear,
-    color .12s linear;
-
-    background-color: black;
-
+/* Linha Individual da Roleta */
+.spinnerRow {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent; /* Remove o fundo preto estático */
 }
 
-.spinnerSelected{
-
-    font-size:2rem;
-
-    font-weight:bold;
-
-    opacity:1;
-
-    color:#d4a017;
-
-    transform: scale(1.15);
-
+/* ENVELOPE PADRÃO (NÃO SELECIONADO) */
+.spinnerEnvelope {
+    width: 130px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--tcg-text-secondary);
+    opacity: 0.4;
+    transform: scale(0.9);
+    transition: all 0.2s ease;
 }
 
-.spinnerTrack{
-
-    width:100%;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
+/* ENVELOPE SELECIONADO (O CENTRAL / FOCO) */
+.spinnerEnvelopeSelected {
+    opacity: 1;
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #FFE58A 0%, var(--tcg-gold) 100%);
+    border: 2px solid #FFFFFF;
+    color: #071B42 !important; /* Texto escuro dentro do cartão dourado para dar leitura */
+    font-size: 1.3rem;
+    font-weight: 800;
+    box-shadow: 0 4px 15px rgba(244, 197, 66, 0.6);
 }
 
-.spinnerEdge{
-
-    opacity:.20;
-
-    transform:scale(.85);
-
+/* Ponteiro / Seta Indicadora */
+.spinnerPointer {
+    color: var(--tcg-gold);
+    margin-right: 6px;
+    font-size: 1rem;
+    animation: pulsePointer 1s infinite alternate;
 }
 
-.spinnerNear{
-
-    opacity:.55;
-
-    transform:scale(.95);
-
-}
-
-.spinnerEnvelope{
-
-    width:120px;
-
-    height:20px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:#f8f3dd;
-
-    border:2px solid #d4c08a;
-
-    border-radius:6px;
-
-    font-weight:bold;
-
-    font-size:1.4rem;
-
-    box-shadow:0 2px 4px rgba(0,0,0,.2);
-
-}
-
-.spinnerEnvelopeSelected{
-
-    background:#ffe58a;
-
-    border-color:#c79d00;
-
-    transform:scale(1.08);
-
+@keyframes pulsePointer {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-3px); }
 }

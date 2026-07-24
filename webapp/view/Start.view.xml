@@ -17,13 +17,9 @@
                 <!-- 🎭 TÍTULO DO JOGO -->
                 <VBox alignItems="Center" class="tcgHeaderBox sapUiMediumMarginBottom">
                     <Title
-                        text="THREE CLUES GAME"
+                        text="JOGO DAS 3 PISTAS"
                         level="H1"
                         class="tcgMainTitle"/>
-
-                    <Text
-                        text="JOGO DAS 3 PISTAS"
-                        class="tcgSubTitle"/>
                 </VBox>
 
                 <!-- 🎛️ CARD DE CONFIGURAÇÕES -->

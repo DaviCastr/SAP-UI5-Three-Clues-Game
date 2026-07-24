@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "category": "Animais",
+    "answer": "PEIXE",
+    "synonyms": [
+      "PEIXE"
+    ],
+    "hints": [
+      "Vive na água",
+      "Tem escamas",
+      "Nada"
+    ]
+  },
+  {
+    "id": 2,
+    "category": "Objetos",
+    "answer": "GELADEIRA",
+    "synonyms": [
+      "GELADEIRA"
+    ],
+    "hints": [
+      "Fica na cozinha",
+      "Conserva alimentos",
+      "Tem porta"
+    ]
+  },
+  {
+    "id": 3,
+    "category": "Esportes",
+    "answer": "FUTEBOL",
+    "synonyms": [
+      "FUTEBOL"
+    ],
+    "hints": [
+      "Tem bola",
+      "Onze jogadores",
+      "Tem gol"
+    ]
+  },
+  {
+    "id": 4,
+    "category": "Frutas",
+    "answer": "BANANA",
+    "synonyms": [
+      "BANANA"
+    ],
+    "hints": [
+      "É amarela",
+      "Macacos gostam",
+      "Tem casca"
+    ]
+  },
+  {
+    "id": 5,
+    "category": "Esportes",
+    "answer": "FUTEBOL",
+    "synonyms": [
+      "FUTEBOL"
+    ],
+    "hints": [
+      "Tem bola",
+      "Onze jogadores",
+      "Tem gol"
+    ]
+  },
+  {
+    "id": 6,
+    "category": "Frutas",
+    "answer": "BANANA",
+    "synonyms": [
+      "BANANA"
+    ],
+    "hints": [
+      "É amarela",
+      "Macacos gostam",
+      "Tem casca"
+    ]
+  }
+]

@@ -1,0 +1,1 @@
+{"version":3,"file":"Turn.js","names":["Turn"],"sources":["Turn.ts"],"sourcesContent":["enum Turn {\n\n    PLAYER1 = \"PLAYER1\",\n\n    PLAYER2 = \"PLAYER2\",\n\n    AUDIENCE = \"AUDIENCE\"\n\n}\n\nexport default Turn;"],"mappings":"6CAAKA,EAAI,SAAJA,KAAI,qBAAJA,EAAI,qBAAJA,EAAI,8BAAJA,CAAI,EAAJA,GAAI,WAUMA,CAAI","ignoreList":[]}

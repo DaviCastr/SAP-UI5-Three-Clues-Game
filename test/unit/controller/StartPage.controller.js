@@ -1,0 +1,2 @@
+sap.ui.define(["apps/dflc/threecluesgame/controller/Start.controller"],function(t){"use strict";function e(t){return t&&t.__esModule&&typeof t.default!=="undefined"?t.default:t}const n=e(t);QUnit.module("Start Controller");QUnit.test("I should test the Start controller",function(t){const e=new n("Start");e.onInit();t.ok(e)})});
+//# sourceMappingURL=StartPage.controller.js.map

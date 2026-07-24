@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/test/Opa5"],function(e){"use strict";const s="Start";class i extends e{iShouldSeeThePageView(){return this.waitFor({id:"page",viewName:s,success:function(){e.assert.ok(true,"The "+s+" view is displayed")},errorMessage:"Did not find the "+s+" view"})}}return i});
+//# sourceMappingURL=StartPage.js.map

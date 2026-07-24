@@ -1,0 +1,87 @@
+<mvc:View
+    controllerName="apps.dflc.threecluesgame.controller.Start"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified">
+
+    <Page
+        showHeader="false"
+        class="tcgPage">
+
+        <content>
+
+            <VBox
+                width="100%"
+                justifyContent="Center"
+                alignItems="Center"
+                class="tcgContainer">
+
+                <Title
+                    text="THREE CLUES GAME"
+                    class="tcgTitle"/>
+
+                <Text
+                    text="Jogo das 3 Pistas"
+                    class="tcgSubtitle"/>
+
+                <VBox
+                    width="420px"
+                    class="tcgCard">
+
+                    <Label text="Jogador 1"/>
+
+                    <Input
+                        value="{game>/players/player1/name}"
+                        placeholder="Nome do Jogador 1"/>
+
+                    <Label
+                        text="Jogador 2"
+                        class="sapUiSmallMarginTop"/>
+
+                    <Input
+                        value="{game>/players/player2/name}"
+                        placeholder="Nome do Jogador 2"/>
+
+                    <Label
+                        text="Tempo da rodada"
+                        class="sapUiSmallMarginTop"/>
+
+                    <Select
+                        selectedKey="{game>/settings/roundTime}">
+
+                        <core:Item key="20" text="20 segundos"/>
+                        <core:Item key="30" text="30 segundos"/>
+                        <core:Item key="40" text="40 segundos"/>
+
+                    </Select>
+
+                    <CheckBox
+                        text="Sons"
+                        selected="{game>/settings/sounds}"
+                        class="sapUiSmallMarginTop"/>
+
+                    <CheckBox
+                        text="Animações"
+                        selected="{game>/settings/animations}"/>
+
+                    <Button
+                        text="INICIAR JOGO"
+                        type="Emphasized"
+                        press=".onStartGame"
+                        class="sapUiMediumMarginTop"/>
+                    
+                    <u:FileUploader
+                        id="fileUploader"
+                        fileType="json"
+                        change=".onFileSelected"/>
+
+                </VBox>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

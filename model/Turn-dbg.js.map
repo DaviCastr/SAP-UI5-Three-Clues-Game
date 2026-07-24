@@ -1,0 +1,1 @@
+{"version":3,"file":"Turn-dbg.js","names":["Turn"],"sources":["Turn.ts"],"sourcesContent":["enum Turn {\n\n    PLAYER1 = \"PLAYER1\",\n\n    PLAYER2 = \"PLAYER2\",\n\n    AUDIENCE = \"AUDIENCE\"\n\n}\n\nexport default Turn;"],"mappings":";;;MAAKA,IAAI,0BAAJA,IAAI;IAAJA,IAAI;IAAJA,IAAI;IAAJA,IAAI;IAAA,OAAJA,IAAI;EAAA,EAAJA,IAAI;EAAA,OAUMA,IAAI;AAAA","ignoreList":[]}

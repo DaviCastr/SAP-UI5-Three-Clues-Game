@@ -1,0 +1,266 @@
+<mvc:View
+    controllerName="apps.dflc.threecluesgame.controller.Game"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="apps.dflc.threecluesgame.controls.EnvelopeSpinner">
+
+    <Page
+        showHeader="false"
+        class="tcgPage">
+
+        <content>
+            <!-- class="sapUiLargeMargin" -->
+            <VBox
+                width="100%"
+                class="sapUiSmallMargin"
+                visible="{= ${game>/game/state} !== 'GAME_FINISHED'}">
+
+                <!-- ============================= -->
+                <!-- SCORE -->
+                <!-- ============================= -->
+
+                <HBox
+                    width="100%"
+                    justifyContent="SpaceAround"
+                    class="sapUiMediumMarginBottom">
+
+                    <VBox alignItems="Center">
+
+                        <Title
+                            text="{game>/players/player1/name}" />
+
+                        <ObjectNumber
+                            number="{game>/players/player1/score}" />
+
+                    </VBox>
+
+                    <VBox alignItems="Center">
+
+                        <Title text="PLATEIA"/>
+
+                        <ObjectNumber
+                            number="{game>/audience/score}" />
+
+                    </VBox>
+
+                    <VBox alignItems="Center">
+
+                        <Title
+                            text="{game>/players/player2/name}" />
+
+                        <ObjectNumber
+                            number="{game>/players/player2/score}" />
+
+                    </VBox>
+
+                </HBox>
+
+                <VBox>
+
+                    <Text
+                        text="{
+                            parts:[
+                                'game>/progress/current',
+                                'game>/progress/total'
+                            ],
+                            formatter:'.formatter.formatProgress'
+                        }"/>
+
+                    <ProgressIndicator
+                        percentValue="{game>/progress/percent}"
+                        displayValue="{game>/progress/percent}%"/>
+                
+                </VBox>
+
+                <!-- ============================= -->
+                <!-- VEZ -->
+                <!-- ============================= -->
+
+                <Panel
+                    headerText="🎯 VEZ DE"
+                    visible="{= ${game>/game/state} !== 'WAITING_SPIN' }">
+
+                    <VBox
+                        alignItems="Center"
+                        class="sapUiMediumMargin">
+
+                        <Title
+                            text="{
+                                parts: [
+                                    'game>/game/currentPlayer',
+                                    'game>/players/player1/name',
+                                    'game>/players/player2/name'
+                                ],
+                                formatter: '.formatter.currentPlayerName'
+                            }"/>
+
+                    </VBox>
+
+                </Panel>
+
+                <custom:EnvelopeSpinner 
+                    id="spinner"
+                    envelopeNumber="5" />
+
+                <!-- ============================= -->
+                <!-- CATEGORIA -->
+                <!-- ============================= -->
+
+                <Panel
+                    headerText="🏷 CATEGORIA"
+                    class="sapUiMediumMarginTop"
+                    visible="{= ${game>/game/state} !== 'WAITING_SPIN' }">
+
+                    <VBox
+                        class="sapUiMediumMargin">
+
+                        <Text
+                            text="{game>/game/currentCategory}"/>
+
+                    </VBox>
+
+                </Panel>
+
+                <!-- ============================= -->
+                <!-- PISTAS -->
+                <!-- ============================= -->
+
+                <Panel
+                    headerText="PISTAS"
+                    class="sapUiMediumMarginTop">
+
+                    <List
+                        visible="{= ${game>/game/visibleHints}.length > 0 }"
+                        items="{game>/game/visibleHints}">
+
+                        <StandardListItem
+                            title="{game>}"/>
+
+                    </List>
+
+                    <IllustratedMessage
+                        visible="{= ${game>/game/visibleHints}.length === 0 }"
+                        illustrationType="sapIllus-EmptyList"
+                        title="Nenhuma rodada iniciada"
+                        description="Clique em '🎡 Girar Roleta' para iniciar a rodada."/>
+
+                </Panel>
+
+                <!-- ============================= -->
+                <!-- RESPOSTA -->
+                <!-- ============================= -->
+
+                <Panel
+                    headerText="RESPOSTA"
+                    class="sapUiMediumMarginTop"
+                    visible="{game>/game/canAnswer}">
+
+                    <VBox
+                        class="sapUiMediumMargin">
+
+                        <Input
+                            value="{game>/game/currentAnswer}"
+                            placeholder="Digite a resposta"/>
+
+                        <Button
+                            text="RESPONDER"
+                            press=".onAnswer"
+                            type="Emphasized"
+                            class="sapUiSmallMarginTop"/>
+
+                    </VBox>
+
+                </Panel>
+
+                <!-- ============================= -->
+                <!-- RESPOSTA CORRETA -->
+                <!-- ============================= -->
+
+                <Panel
+                    expandable="true"
+                    expanded="true"
+                    visible="{game>/game/showAnswer}"
+                    headerText="RESPOSTA">
+
+                    <Panel
+                    headerText="🏆 Resultado da Rodada"
+                    visible="{game>/roundResult/visible}">
+                        <VBox>
+                            <Text
+                                text="{
+                                    parts:[
+                                        'game>/roundResult/winner',
+                                        'game>/players/player1/name',
+                                        'game>/players/player2/name'
+                                    ],
+                                    formatter: '.formatter.formatRoundWinner'
+                                }"/>
+
+                            <ObjectStatus
+                                title="Resposta"
+                                text="{game>/roundResult/answer}"/>
+                            
+                            <Text
+                                visible="{= ${game>/roundResult/points} > 0 }"
+                                text="{
+                                    path:'game>/roundResult/points',
+                                    formatter:'.formatter.formatPoints'
+                                }"/>
+                            </VBox>
+                    </Panel>
+                </Panel>
+
+                <!-- ============================= -->
+                <!-- BOTÕES -->
+                <!-- ============================= -->
+
+                <HBox
+                    justifyContent="Center"
+                    class="sapUiLargeMarginTop">
+
+                    <Button
+                        text="🎡 GIRAR ROLETA"
+                        press=".onSpinWheel"
+                            enabled="{game>/game/canSpinWheel}"
+                            type="Emphasized"
+                        class="sapUiTinyMarginEnd"/>
+
+                    <Button
+                        text="PULAR PLATEIA"
+                        press=".onSkipAudience"
+                        visible="{game>/game/showSkipAudience}"/>
+
+                </HBox>
+
+            </VBox>
+
+            <VBox
+                visible="{= ${game>/game/state} === 'GAME_FINISHED'}"
+                class="sapUiLargeMargin">
+
+                <Title
+                    text="🏁 FIM DO JOGO"
+                    level="H2"/>
+
+                <Text
+                    text="{= '👤 ' + ${game>/players/player1/name} + ': ' + ${game>/players/player1/score} + ' pts'}"/>
+
+                <Text
+                    text="{= '🎤 Plateia: ' + ${game>/audience/score} + ' pts'}"/>
+
+                <Text
+                    text="{= '👤 ' + ${game>/players/player2/name} + ': ' + ${game>/players/player2/score} + ' pts'}"/>
+
+                <Button
+                    text="🔄 Novo Jogo"
+                    press=".onRestartGame"
+                    type="Emphasized"/>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

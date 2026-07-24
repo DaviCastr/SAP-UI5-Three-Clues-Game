@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";class e{static normalize(e){return e.normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim().replace(/\s+/g," ").toUpperCase()}static isCorrectAnswer(e,r){const s=this.normalize(e);if(s===this.normalize(r.answer)){return true}return r.synonyms.some(e=>this.normalize(e)===s)}}return e});
+//# sourceMappingURL=AnswerService.js.map

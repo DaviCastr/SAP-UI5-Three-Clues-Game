@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";const n=e.extend("apps.dflc.threecluesgame.controller.App",{onInit:function e(){}});return n});
+//# sourceMappingURL=App.controller.js.map

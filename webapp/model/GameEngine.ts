@@ -160,7 +160,11 @@ export default class GameEngine {
     public startTimer(): void {
         this.stopTimer();
 
-        const roundTime = Number(this.model.getProperty("/settings/roundTime")) || 20;
+        const roundTime = Number(this.model.getProperty("/settings/roundTime")) || 0;
+
+        if (roundTime <= 0) {
+            return;
+        }
 
         this.model.setProperty("/timer", {
             seconds: roundTime,

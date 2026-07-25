@@ -1,4 +1,4 @@
-import GameModel from "./GameModel";
+import GameModel from "../model/GameModel";
 
 export enum SoundEffect {
     SPIN = "spin",

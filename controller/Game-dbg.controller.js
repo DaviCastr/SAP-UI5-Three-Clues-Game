@@ -24,6 +24,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
     afterRender: async function _afterRender() {
       const oSpinner = this.byId("spinner");
       this.envelopeSpinner = oSpinner;
+      const model = this.getOwnerComponent().getModel("game");
+      const oBinding = model.bindProperty("/game/visibleHints");
+      oBinding.attachChange(() => {
+        const aHints = model.getProperty("/game/visibleHints");
+        if (aHints && aHints.length > 0) {
+          this.focusAnswerInput();
+        }
+      });
     },
     initialize: async function _initialize() {
       const oModel = this.getOwnerComponent().getModel("game");
@@ -79,6 +87,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
           }
         }
       });
+    },
+    focusAnswerInput: function _focusAnswerInput() {
+      setTimeout(() => {
+        const oInput = this.byId("answerInput");
+        if (oInput && oInput.getDomRef() && oInput.getEnabled()) {
+          oInput.focus();
+        }
+      }, 100);
     },
     gameMatched: async function _gameMatched() {
       if (!this.hasValidPlayers()) {

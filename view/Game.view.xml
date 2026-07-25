@@ -121,6 +121,7 @@
                                 </HBox>
                                 
                                 <Input
+                                    id="answerInput"
                                     value="{game>/game/currentAnswer}"
                                     placeholder="{i18n>game.answerPlaceholder}"
                                     submit=".onAnswer"
@@ -195,7 +196,7 @@
                     
                     <ToolbarSpacer />
                 </OverflowToolbar>
-                
+
             </VBox>
 
             <!-- 🏁 TELA DE FIM DE JOGO (PÓDIO) -->

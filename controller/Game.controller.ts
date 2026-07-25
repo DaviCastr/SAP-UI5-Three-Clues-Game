@@ -8,6 +8,7 @@ import MessageBox from "sap/m/MessageBox";
 import EnvelopeSpinner from "../controls/EnvelopeSpinner/EnvelopeSpinner";
 import ResourceBundle from "sap/base/i18n/ResourceBundle";
 import ResourceModel from "sap/ui/model/resource/ResourceModel";
+import Input from "sap/m/Input";
 
 export default class Game extends Controller {
 
@@ -42,6 +43,17 @@ export default class Game extends Controller {
         const oSpinner = this.byId("spinner") as EnvelopeSpinner;
 
         this.envelopeSpinner = oSpinner;
+
+        const model = (this as any).getOwnerComponent().getModel("game") as GameModel;
+
+        const oBinding = model.bindProperty("/game/visibleHints");
+
+        oBinding.attachChange(() => {
+            const aHints = model.getProperty("/game/visibleHints");
+            if (aHints && aHints.length > 0) {
+                this.focusAnswerInput();
+            }
+        });
 
     }
 
@@ -158,6 +170,17 @@ export default class Game extends Controller {
                 }
             }
         );
+
+    }
+
+    private focusAnswerInput(): void {
+
+        setTimeout(() => {
+            const oInput = this.byId("answerInput") as Input;
+            if (oInput && oInput.getDomRef() && oInput.getEnabled()) {
+                oInput.focus();
+            }
+        }, 100);
 
     }
 

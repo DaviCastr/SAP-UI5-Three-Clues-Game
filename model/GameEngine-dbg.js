@@ -17,7 +17,7 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
     return RoundState;
   }(RoundState || {});
   class GameEngine {
-    SCORE_PER_HINT = [10, 8, 6];
+    SCORE_PER_HINT = [10, 9, 8];
     AUDIENCE_SCORE = 10;
     envelopes = [];
     timerId = null;

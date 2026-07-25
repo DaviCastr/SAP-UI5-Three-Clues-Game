@@ -23,8 +23,8 @@ export default class GameEngine {
 
     private readonly SCORE_PER_HINT = [
         10,
-        8,
-        6
+        9,
+        8
     ];
 
     private readonly AUDIENCE_SCORE = 10;

@@ -1,0 +1,101 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    
+    <Dialog
+        id="howToPlayDialog"
+        title="{i18n>howToPlay.title}"
+        class="tcgDialog"
+        contentWidth="420px"
+        resizable="false">
+        
+        <content>
+            <VBox class="sapUiSmallMargin">
+                
+                <!-- SOBRE O JOGO -->
+                <VBox class="tcgDialogSection sapUiSmallMarginBottom">
+                    <Label text="{i18n>howToPlay.aboutTitle}" class="tcgInputLabel sapUiTinyMarginBottom"/>
+                    <Text text="{i18n>howToPlay.aboutText}" class="tcgDialogText"/>
+                </VBox>
+
+                <!-- PONTUAÇÃO -->
+                <VBox class="tcgDialogSection sapUiSmallMarginBottom">
+                    <Label text="{i18n>howToPlay.scoreTitle}" class="tcgInputLabel sapUiTinyMarginBottom"/>
+                    <HBox justifyContent="SpaceBetween" class="tcgScoreBadgeContainer">
+                        <VBox alignItems="Center" class="tcgScoreBadge">
+                            <Text text="{i18n>howToPlay.hint1}" class="tcgBadgeLabel"/>
+                            <Text text="{i18n>howToPlay.hint1Pts}" class="tcgBadgeValue"/>
+                        </VBox>
+                        <VBox alignItems="Center" class="tcgScoreBadge">
+                            <Text text="{i18n>howToPlay.hint2}" class="tcgBadgeLabel"/>
+                            <Text text="{i18n>howToPlay.hint2Pts}" class="tcgBadgeValue"/>
+                        </VBox>
+                        <VBox alignItems="Center" class="tcgScoreBadge">
+                            <Text text="{i18n>howToPlay.hint3}" class="tcgBadgeLabel"/>
+                            <Text text="{i18n>howToPlay.hint3Pts}" class="tcgBadgeValue"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- REGRAS PASSO A PASSO -->
+                <VBox class="tcgDialogSection sapUiSmallMarginBottom">
+                    <Label text="{i18n>howToPlay.rulesTitle}" class="tcgInputLabel sapUiTinyMarginBottom"/>
+                    
+                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <Text text="1️⃣" class="tcgRuleIcon sapUiTinyMarginEnd"/>
+                        <Text text="{i18n>howToPlay.rule1}" class="tcgDialogText"/>
+                    </HBox>
+
+                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <Text text="2️⃣" class="tcgRuleIcon sapUiTinyMarginEnd"/>
+                        <Text text="{i18n>howToPlay.rule2}" class="tcgDialogText"/>
+                    </HBox>
+
+                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <Text text="3️⃣" class="tcgRuleIcon sapUiTinyMarginEnd"/>
+                        <Text text="{i18n>howToPlay.rule3}" class="tcgDialogText"/>
+                    </HBox>
+                </VBox>
+
+                <!-- REGRA DA PLATEIA / AUDITÓRIO -->
+                <VBox class="tcgDialogSection sapUiSmallMarginBottom">
+                    <Label text="{i18n>howToPlay.audienceTitle}" class="tcgInputLabel sapUiTinyMarginBottom"/>
+                    <Text text="{i18n>howToPlay.audienceRule1}" class="tcgDialogText sapUiTinyMarginBottom"/>
+                    
+                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <Text text="🎯" class="tcgRuleIcon sapUiTinyMarginEnd"/>
+                        <Text text="{i18n>howToPlay.audienceRule2}" class="tcgDialogText"/>
+                    </HBox>
+
+                    <HBox alignItems="Center">
+                        <Text text="⭐" class="tcgRuleIcon sapUiTinyMarginEnd"/>
+                        <Text text="{i18n>howToPlay.audienceRule3}" class="tcgDialogTextHighlight"/>
+                    </HBox>
+                </VBox>
+
+                <!-- DICA EXTRA -->
+                <VBox class="tcgDialogSection">
+                    <HBox alignItems="Center">
+                        <Text text="💡" class="tcgRuleIcon sapUiTinyMarginEnd"/>
+                        <Text text="{i18n>howToPlay.tipText}" class="tcgDialogTextHighlight"/>
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </content>
+
+        <!-- RODAPÉ CUSTOMIZADO -->
+        <buttons class="tcgDialogFooterToolbar">
+            <Button
+                text="{i18n>howToPlay.btnGotIt}"
+                type="Emphasized"
+                press=".onCloseHowToPlay"
+                class="tcgMainBtn">
+                <layoutData>
+                    <OverflowToolbarLayoutData priority="NeverOverflow" />
+                </layoutData>
+            </Button>
+        </buttons>
+
+    </Dialog>
+</core:FragmentDefinition>

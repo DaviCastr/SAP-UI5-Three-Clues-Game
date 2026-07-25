@@ -23,7 +23,7 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
     timerId = null;
     constructor(model) {
       this.model = model;
-      this.soundService = SoundService.getInstance(model); // 🔊 Instancia o SoundService
+      this.soundService = SoundService.getInstance(model);
     }
     loadEnvelopes(envelopes) {
       this.envelopes = [...envelopes];
@@ -68,6 +68,7 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
       this.resetRoundState();
     }
     drawEnvelope() {
+      this.model.setProperty("/game/canSpinWheel", false);
       if (this.envelopes.length === 0) {
         this.model.setProperty("/game/state", RoundState.GAME_FINISHED);
         return null;
@@ -80,8 +81,6 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
     }
     startTimer() {
       this.stopTimer();
-
-      // Pega o tempo das configurações (20, 30, 40s)
       const roundTime = Number(this.model.getProperty("/settings/roundTime")) || 20;
       this.model.setProperty("/timer", {
         seconds: roundTime,
@@ -110,16 +109,10 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
       }
       this.model.setProperty("/timer/active", false);
     }
-
-    /**
-     * Ação disparada quando o tempo estoura
-     */
     handleTimeExpired() {
-      // Se o tempo estourou durante uma resposta incorreta/esgotada, avança de tentativa ou passa pra plateia
       this.nextAttempt();
     }
     prepareRound(envelope) {
-      this.model.setProperty("/game/canSpinWheel", false);
       this.model.setProperty("/game/canAnswer", true);
       this.clearRoundResult();
       this.model.setProperty("/game/currentEnvelope", envelope);

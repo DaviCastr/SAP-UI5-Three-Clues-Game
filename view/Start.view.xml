@@ -16,14 +16,19 @@
 
                 <!-- 🎭 TÍTULO DO JOGO -->
                 <VBox alignItems="Center" class="tcgHeaderBox sapUiMediumMarginBottom">
-                    <Title
-                        text="THREE CLUES GAME"
-                        level="H1"
-                        class="tcgMainTitle"/>
-
-                    <Text
-                        text="JOGO DAS 3 PISTAS"
-                        class="tcgSubTitle"/>
+                    
+                        <Title
+                            text="JOGO DAS 3 PISTAS"
+                            level="H3"
+                            class="tcgMainTitle"/>
+                        <Button
+                            icon="sap-icon://hint"
+                            text="Como Jogar"
+                            type="Emphasized"
+                            press=".onShowHowToPlay"
+                            tooltip="Como Jogar"
+                            class="sapUiTinyMarginBegin"/>
+                    
                 </VBox>
 
                 <!-- 🎛️ CARD DE CONFIGURAÇÕES -->
@@ -49,7 +54,7 @@
                         selectedKey="{game>/settings/roundTime}"
                         width="100%"
                         class="tcgSelect sapUiTinyMarginBottom"
-                        visible="false">
+                        visible="true">
                         <core:Item key="5" text="5 segundos"/>
                         <core:Item key="10" text="10 segundos"/>
                         <core:Item key="20" text="20 segundos"/>
@@ -62,6 +67,10 @@
                         <CheckBox
                             text="🔊 Sons"
                             selected="{game>/settings/sounds}"
+                            class="tcgCheckBox"/>
+                        <CheckBox
+                            text="🏷 Mostrar categoria"
+                            selected="{game>/settings/showCategory}"
                             class="tcgCheckBox"/>
                     </HBox>
 

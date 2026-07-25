@@ -27,7 +27,7 @@ export interface IGameState {
 
         sounds: boolean;
 
-        animations: boolean;
+        showCategory: boolean;
 
     };
 
@@ -58,6 +58,8 @@ export interface IGameState {
         canAnswer: boolean;
 
         currentCategory: string;
+
+        isSubmitting: boolean;
 
     }
 
@@ -112,7 +114,7 @@ export default class GameModel extends JSONModel {
 
                 sounds: true,
 
-                animations: true
+                showCategory: true
 
             },
 
@@ -142,7 +144,9 @@ export default class GameModel extends JSONModel {
 
                 canAnswer: false,
 
-                currentCategory: ""
+                currentCategory: "",
+
+                isSubmitting: false
 
             },
 

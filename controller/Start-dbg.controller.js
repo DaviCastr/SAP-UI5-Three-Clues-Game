@@ -1,7 +1,11 @@
-sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/MessageBox", "sap/m/MessageToast"], function (Controller, UIComponent, MessageBox, MessageToast) {
+sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/MessageBox", "sap/m/MessageToast", "sap/ui/core/Fragment"], function (Controller, UIComponent, MessageBox, MessageToast, Fragment) {
   "use strict";
 
   const Start = Controller.extend("webapp.controller.Start", {
+    constructor: function constructor() {
+      Controller.prototype.constructor.apply(this, arguments);
+      this.howToPlayDialog = null;
+    },
     onInit: function _onInit() {
       const oGameModel = this.getOwnerComponent().getModel("game");
       this.getView().setModel(oGameModel, "game");
@@ -32,7 +36,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/M
         MessageBox.error(error instanceof Error ? error.message : "Não foi possível carregar o arquivo.", {
           title: "Erro no Jogo",
           styleClass: "tcgMessageBox",
-          // 👈 Injeta nossa classe do jogo
           actions: [MessageBox.Action.OK]
         });
       }
@@ -55,6 +58,28 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/M
         window.URL.revokeObjectURL(url);
       } catch (error) {
         console.error("Erro ao baixar o modelo:", error);
+      }
+    },
+    onShowHowToPlay: async function _onShowHowToPlay() {
+      const oView = this.getView();
+      if (!this.howToPlayDialog) {
+        this.howToPlayDialog = Fragment.load({
+          id: oView.getId(),
+          name: "apps.dflc.threecluesgame.view.HowToPlayDialog",
+          // Ajuste o namespace para sua estrutura de pastas
+          controller: this
+        }).then(oDialog => {
+          oView.addDependent(oDialog);
+          return oDialog;
+        });
+      }
+      const oDialog = await this.howToPlayDialog;
+      oDialog.open();
+    },
+    onCloseHowToPlay: async function _onCloseHowToPlay() {
+      if (this.howToPlayDialog) {
+        const oDialog = await this.howToPlayDialog;
+        oDialog.close();
       }
     }
   });

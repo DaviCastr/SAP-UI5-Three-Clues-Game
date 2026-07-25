@@ -4,23 +4,19 @@ sap.ui.define(["sap/ui/core/Control", "./EnvelopeSpinnerRenderer", "sap/ui/dom/i
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule && typeof obj.default !== "undefined" ? obj.default : obj;
   }
-  const EnvelopeSpinnerRenderer = _interopRequireDefault(__EnvelopeSpinnerRenderer); // Declaração do namespace para o TypeScript ignorar o erro do global
+  const EnvelopeSpinnerRenderer = _interopRequireDefault(__EnvelopeSpinnerRenderer);
   /**
    * @namespace apps.dflc.threecluesgame.controls
    */
   const EnvelopeSpinner = Control.extend("apps.dflc.threecluesgame.controls.EnvelopeSpinner", {
     constructor: function constructor() {
       Control.prototype.constructor.apply(this, arguments);
-      this.initialDelay = 100;
-      this.finalDelay = 650;
       this.availableEnvelopes = [];
-      this.completeTurns = 4;
       this.visibleEnvelopes = [0, 0, 0, 0, 0];
       this.currentTranslateY = 0;
+      this.SPIN_DURATION_MS = 3200;
     },
-    // 2. Definição do Renderer Inline
     renderer: EnvelopeSpinnerRenderer,
-    // 1. Definição da Metadata
     metadata: {
       properties: {
         envelopeNumber: {
@@ -28,20 +24,15 @@ sap.ui.define(["sap/ui/core/Control", "./EnvelopeSpinnerRenderer", "sap/ui/dom/i
           defaultValue: 0
         }
       },
-      events: {
-        // Seus eventos entram aqui
-      }
+      events: {}
     },
     init: function _init() {
       Control.prototype.init.call(this);
-      // Carrega o CSS customizado no DOM dinamicamente
       const cssPath = sap.ui.require.toUrl("apps/dflc/threecluesgame/controls/EnvelopeSpinner/EnvelopeSpinner.css");
       includeStylesheet(cssPath);
     },
     wait: function _wait(milliseconds) {
-      return new Promise(resolve => {
-        setTimeout(resolve, milliseconds);
-      });
+      return new Promise(resolve => setTimeout(resolve, milliseconds));
     },
     setEnvelopeNumber: function _setEnvelopeNumber(value) {
       this.setProperty("envelopeNumber", value);
@@ -72,32 +63,47 @@ sap.ui.define(["sap/ui/core/Control", "./EnvelopeSpinnerRenderer", "sap/ui/dom/i
       }
       this.invalidate();
     },
+    /**
+     * Função de Easing Quad (Ease Out) para suavizar o final do giro
+     */
+    easeOutQuad: function _easeOutQuad(t) {
+      return t * (2 - t);
+    },
     spinTo: async function _spinTo(targetEnvelope) {
       if (this.availableEnvelopes.length === 0) {
         this.setEnvelopeNumber(targetEnvelope);
         return;
       }
-      const startIndex = Math.floor(Math.random() * this.availableEnvelopes.length);
-      let currentIndex = startIndex;
-      let delay = this.initialDelay;
+      const totalEnvelopes = this.availableEnvelopes.length;
+      const startIndex = Math.floor(Math.random() * totalEnvelopes);
       const targetIndex = this.availableEnvelopes.indexOf(targetEnvelope);
-      let steps = targetIndex - startIndex;
-      if (steps < 0) {
-        steps += this.availableEnvelopes.length;
+      const turns = 3;
+      let stepsToTarget = targetIndex - startIndex;
+      if (stepsToTarget < 0) {
+        stepsToTarget += totalEnvelopes;
       }
-      steps += this.availableEnvelopes.length * this.completeTurns;
-      const delayIncrement = steps > 1 ? (this.finalDelay - this.initialDelay) / (steps - 1) : 0;
-      for (let i = 0; i < steps; i++) {
-        this.setEnvelopeNumber(this.availableEnvelopes[currentIndex]);
-        this.updateVisibleEnvelopes(currentIndex);
-        await this.wait(Math.round(delay));
-        delay += delayIncrement;
-        currentIndex++;
-        if (currentIndex >= this.availableEnvelopes.length) {
-          currentIndex = 0;
+      const totalSteps = stepsToTarget + totalEnvelopes * turns;
+      const startTime = performance.now();
+      let lastStepExecuted = -1;
+      while (true) {
+        const now = performance.now();
+        const elapsed = now - startTime;
+        if (elapsed >= this.SPIN_DURATION_MS) {
+          break;
         }
+        const timeProgress = elapsed / this.SPIN_DURATION_MS;
+        const easedProgress = this.easeOutQuad(timeProgress);
+        const currentStep = Math.floor(easedProgress * totalSteps);
+        if (currentStep !== lastStepExecuted) {
+          lastStepExecuted = currentStep;
+          const currentIndex = (startIndex + currentStep) % totalEnvelopes;
+          this.setEnvelopeNumber(this.availableEnvelopes[currentIndex]);
+          this.updateVisibleEnvelopes(currentIndex);
+        }
+        await this.wait(16);
       }
-      this.updateVisibleEnvelopes(currentIndex);
+      this.setEnvelopeNumber(targetEnvelope);
+      this.updateVisibleEnvelopes(targetIndex);
     },
     animateTrack: function _animateTrack() {
       return Promise.resolve();

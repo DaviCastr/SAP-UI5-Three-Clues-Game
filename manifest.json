@@ -6,7 +6,8 @@
 		"i18n": {
 			"bundleUrl": "i18n/i18n.properties",
 			"supportedLocales": [
-				""
+				"",
+				"en"
 			]
 		},
 		"applicationVersion": {
@@ -70,7 +71,8 @@
 				"settings": {
 					"bundleName": "apps.dflc.threecluesgame.i18n.i18n",
 					"supportedLocales": [
-						""
+						"",
+						"en"
 					]
 				}
 			}

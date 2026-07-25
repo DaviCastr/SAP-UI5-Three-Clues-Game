@@ -39,7 +39,7 @@ export default class GameEngine {
 
     constructor(model: GameModel) {
         this.model = model;
-        this.soundService = SoundService.getInstance(model); // 🔊 Instancia o SoundService
+        this.soundService = SoundService.getInstance(model);
     }
 
     public loadEnvelopes(envelopes: IEnvelope[]): void {
@@ -130,6 +130,8 @@ export default class GameEngine {
 
     public drawEnvelope(): IEnvelope | null {
 
+        this.model.setProperty("/game/canSpinWheel", false);
+
         if (this.envelopes.length === 0) {
 
             this.model.setProperty(
@@ -158,7 +160,6 @@ export default class GameEngine {
     public startTimer(): void {
         this.stopTimer();
 
-        // Pega o tempo das configurações (20, 30, 40s)
         const roundTime = Number(this.model.getProperty("/settings/roundTime")) || 20;
 
         this.model.setProperty("/timer", {
@@ -193,11 +194,7 @@ export default class GameEngine {
         this.model.setProperty("/timer/active", false);
     }
 
-    /**
-     * Ação disparada quando o tempo estoura
-     */
     private handleTimeExpired(): void {
-        // Se o tempo estourou durante uma resposta incorreta/esgotada, avança de tentativa ou passa pra plateia
         this.nextAttempt();
     }
 
@@ -205,7 +202,6 @@ export default class GameEngine {
         envelope: IEnvelope
     ): void {
 
-        this.model.setProperty("/game/canSpinWheel", false);
         this.model.setProperty("/game/canAnswer", true);
 
         this.clearRoundResult();

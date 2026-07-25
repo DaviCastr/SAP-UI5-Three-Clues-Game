@@ -13,15 +13,6 @@ export default class SoundService {
     private model: GameModel;
     private audioCache: Map<string, HTMLAudioElement> = new Map();
 
-    // Mapeamento dos arquivos de áudio (você pode ajustar os caminhos/links)
-    private readonly soundUrls: Record<SoundEffect, string> = {
-        [SoundEffect.SPIN]: "../sounds/spin.mp3",
-        [SoundEffect.CORRECT]: "../sounds/correct.mp3",
-        [SoundEffect.WRONG]: "../sounds/wrong.mp3",
-        [SoundEffect.TIME_EXPIRED]: "../sounds/time_expired.mp3",
-        [SoundEffect.GAME_OVER]: "../sounds/game_over.mp3"
-    };
-
     private constructor(model: GameModel) {
         this.model = model;
         this.preloadSounds();
@@ -34,39 +25,42 @@ export default class SoundService {
         return SoundService.instance;
     }
 
-    /**
-     * Pré-carrega os áudios em memória para não haver atraso na reprodução
-     */
+    private getSoundUrl(soundFile: string): string {
+        return sap.ui.require.toUrl("apps/dflc/threecluesgame/sounds/" + soundFile);
+    }
+
     private preloadSounds(): void {
-        Object.entries(this.soundUrls).forEach(([key, url]) => {
-            const audio = new Audio(url);
+        const soundFiles: Record<SoundEffect, string> = {
+            [SoundEffect.SPIN]: "spin.mp3",
+            [SoundEffect.CORRECT]: "correct.mp3",
+            [SoundEffect.WRONG]: "wrong.mp3",
+            [SoundEffect.TIME_EXPIRED]: "time_expired.mp3",
+            [SoundEffect.GAME_OVER]: "game_over.mp3"
+        };
+
+        Object.entries(soundFiles).forEach(([key, fileName]) => {
+            const resolvedUrl = this.getSoundUrl(fileName); 
+            const audio = new Audio(resolvedUrl);
             audio.preload = "auto";
             this.audioCache.set(key, audio);
         });
     }
 
-    /**
-     * Toca um efeito sonoro caso a opção de som esteja ativada nas configurações
-     */
     public play(effect: SoundEffect): void {
         const soundsEnabled = this.model.getProperty("/settings/sounds");
-        
         if (!soundsEnabled) {
-            return; // Som desligado no menu
+            return;
         }
 
         const audio = this.audioCache.get(effect);
         if (audio) {
-            audio.currentTime = 0; // Reinicia o áudio do início
-            audio.play().catch(() => {
-                // Previne erros de reprodução bloqueada pelo navegador
+            audio.currentTime = 0;
+            audio.play().catch((err) => {
+                console.warn(`[SoundService] Erro ao reproduzir o som ${effect}:`, err);
             });
         }
     }
 
-    /**
-     * Para a reprodução de um som específico (ex: interromper o som de girar a roleta)
-     */
     public stop(effect: SoundEffect): void {
         const audio = this.audioCache.get(effect);
         if (audio) {

@@ -25,7 +25,7 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "./GameEngine", "./Turn"], functio
         settings: {
           roundTime: 15,
           sounds: true,
-          animations: true
+          showCategory: true
         },
         game: {
           startingPlayer: Turn.PLAYER1,
@@ -40,7 +40,8 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "./GameEngine", "./Turn"], functio
           showAnswer: false,
           showSkipAudience: false,
           canAnswer: false,
-          currentCategory: ""
+          currentCategory: "",
+          isSubmitting: false
         },
         roundResult: {
           visible: false,

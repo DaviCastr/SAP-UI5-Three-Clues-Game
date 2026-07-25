@@ -9,7 +9,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
     constructor: function constructor() {
       Controller.prototype.constructor.apply(this, arguments);
       this.formatter = formatter;
-      this._timerId = null;
     },
     onInit: function _onInit() {
       void this.initialize();
@@ -49,12 +48,21 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
      */
     onAnswer: function _onAnswer() {
       const oModel = this.getView().getModel("game");
+      if (oModel.getProperty("/game/isSubmitting")) {
+        return;
+      }
       const answer = oModel.getProperty("/game/currentAnswer");
-      this.gameEngine.answer(answer);
+      if (!answer || !answer.trim()) {
+        return;
+      }
+      oModel.setProperty("/game/isSubmitting", true);
+      try {
+        oModel.setProperty("/game/currentAnswer", "");
+        this.gameEngine.answer(answer);
+      } finally {
+        oModel.setProperty("/game/isSubmitting", false);
+      }
     },
-    /**
-     * Plateia pulou
-     */
     onSkipAudience: function _onSkipAudience() {
       this.gameEngine.skipAudience();
     },

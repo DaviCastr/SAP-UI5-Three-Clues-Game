@@ -53,11 +53,14 @@
                         width="100%"
                         class="tcgSelect sapUiTinyMarginBottom"
                         visible="true">
+                        <core:Item key="0" text="∞" />
                         <core:Item key="5" text="5 s" />
                         <core:Item key="10" text="10 s"/>
                         <core:Item key="20" text="20 s"/>
                         <core:Item key="30" text="30 s"/>
                         <core:Item key="40" text="40 s"/>
+                        <core:Item key="50" text="50 s"/>
+                        <core:Item key="60" text="60 s"/>
                     </Select>
 
                     <!-- Se preferir manter o texto simples nos itens do Select sem o formatter complexo:

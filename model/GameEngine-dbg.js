@@ -81,7 +81,10 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
     }
     startTimer() {
       this.stopTimer();
-      const roundTime = Number(this.model.getProperty("/settings/roundTime")) || 20;
+      const roundTime = Number(this.model.getProperty("/settings/roundTime")) || 0;
+      if (roundTime <= 0) {
+        return;
+      }
       this.model.setProperty("/timer", {
         seconds: roundTime,
         active: true

@@ -167,6 +167,35 @@
                         </VBox>
                     </VBox>
                 </HBox>
+
+                <OverflowToolbar 
+                    design="Transparent"
+                    visible="{= ${game>/game/state} !== 'GAME_FINISHED'}"
+                    class="tcgFooterToolbar sapUiSmallMarginTop">
+                    <ToolbarSpacer />
+                    
+                    <Button
+                        text="{i18n>game.spinWheel}"
+                        press=".onSpinWheel"
+                        enabled="{game>/game/canSpinWheel}"
+                        type="Emphasized"
+                        class="tcgMainBtn"/>
+
+                    <Button
+                        text="{i18n>game.skipAudience}"
+                        press=".onSkipAudience"
+                        visible="{game>/game/showSkipAudience}"
+                        class="tcgSecondaryBtn"/>
+
+                    <Button
+                        text="{i18n>game.restartGame}"
+                        press=".onRestartGame"
+                        type="Transparent"
+                        class="tcgSecondaryBtn"/>
+                    
+                    <ToolbarSpacer />
+                </OverflowToolbar>
+                
             </VBox>
 
             <!-- 🏁 TELA DE FIM DE JOGO (PÓDIO) -->
@@ -210,7 +239,7 @@
             </VBox>
         </content>
 
-        <!-- 🔘 AÇÕES FIXAS NO RODAPÉ DA PÁGINA -->
+        <!-- 🔘 AÇÕES FIXAS NO RODAPÉ DA PÁGINA
         <footer>
             <OverflowToolbar 
                 design="Transparent"
@@ -239,7 +268,7 @@
                 
                 <ToolbarSpacer />
             </OverflowToolbar>
-        </footer>
+        </footer> -->
     </Page>
     
 </mvc:View>

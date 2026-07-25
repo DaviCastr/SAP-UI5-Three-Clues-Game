@@ -453,3 +453,19 @@ html body .sapMDialog .tcgDialogText {
 .sapMPIBar {
     background-color: #2ECC71 !important;
 }
+
+@media screen and (max-width: 768px) {
+    html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section, .tcgPage {
+        height: 100dvh !important; /* Em vez de 100vh */
+        min-height: 100dvh !important;
+        overflow-y: auto !important;
+    }
+
+    .tcgGameContainer,
+    .tcgStartContainer,
+    .tcgFinishedContainer {
+        height: auto !important;
+        min-height: 100dvh !important;
+    }
+}
+

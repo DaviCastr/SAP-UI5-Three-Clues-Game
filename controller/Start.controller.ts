@@ -7,51 +7,48 @@ import MessageToast from "sap/m/MessageToast";
 import GameEngine from "../model/GameEngine";
 import Fragment from "sap/ui/core/Fragment";
 import Dialog from "sap/m/Dialog";
+import ResourceBundle from "sap/base/i18n/ResourceBundle";
+import ResourceModel from "sap/ui/model/resource/ResourceModel";
 
 export default class Start extends Controller {
 
-    private envelopeRepository: EnvelopeRepository;
+    private envelopeRepository!: EnvelopeRepository;
     private gameEngine!: GameEngine;
     private howToPlayDialog: Promise<Dialog> | null = null;
 
     public onInit(): void {
-
-        const oGameModel = (this as any).getOwnerComponent().getModel("game");
+        const oOwnerComponent = (this as any).getOwnerComponent();
+        const oGameModel = oOwnerComponent.getModel("game");
 
         (this as any).getView().setModel(oGameModel, "game");
 
-        this.envelopeRepository =
-            (this as any).getOwnerComponent().getEnvelopeRepository();
+        this.envelopeRepository = oOwnerComponent.getEnvelopeRepository();
+        this.gameEngine = oOwnerComponent.getGameEngine();
+    }
 
-        this.gameEngine =
-            (this as any).getOwnerComponent()
-                .getGameEngine();
-
+    private getI18nText(sKey: string, aArgs?: any[]): string {
+        const oResourceModel = (this as any).getOwnerComponent().getModel("i18n") as ResourceModel;
+        const oBundle = oResourceModel.getResourceBundle() as ResourceBundle;
+        return oBundle.getText(sKey, aArgs) || sKey;
     }
 
     public onStartGame(): void {
-
         const oModel = (this as any).getView().getModel("game");
 
         const player1 = oModel.getProperty("/players/player1/name");
         const player2 = oModel.getProperty("/players/player2/name");
 
         if (!player1 || !player2) {
-
-            MessageBox.error("Informe o nome dos dois jogadores.");
-
+            MessageBox.error(this.getI18nText("msg.fillPlayerNames"));
             return;
-
         }
 
         UIComponent
             .getRouterFor(this)
             .navTo("Game");
-
     }
 
     public async onFileSelected(oEvent: Event): Promise<void> {
-
         const files = (oEvent as any).getParameter("files") as File[];
 
         if (!files || files.length === 0) {
@@ -61,40 +58,35 @@ export default class Start extends Controller {
         const file = files[0];
 
         try {
-
             await this.envelopeRepository.loadFromFile(file);
 
             this.gameEngine.restartGame();
 
             MessageToast.show(
-                "Envelopes carregados com sucesso!"
+                this.getI18nText("msg.envelopesLoadedSuccess")
             );
 
         } catch (error) {
-
             MessageBox.error(
                 error instanceof Error
                     ? error.message
-                    : "Não foi possível carregar o arquivo.",
+                    : this.getI18nText("msg.defaultLoadError"),
                 {
-                    title: "Erro no Jogo",
+                    title: this.getI18nText("msg.errorTitle"),
                     styleClass: "tcgMessageBox",
                     actions: [MessageBox.Action.OK]
                 }
             );
-
         }
-
     }
 
     public async onDownloadTemplate(): Promise<void> {
-
         try {
             const sPath = sap.ui.require.toUrl("apps/dflc/threecluesgame/json/envelopes.json");
             const response = await fetch(sPath);
 
             if (!response.ok) {
-                throw new Error("Arquivo modelo não encontrado.");
+                throw new Error(this.getI18nText("msg.templateNotFoundError"));
             }
 
             const blob = await response.blob();
@@ -111,19 +103,18 @@ export default class Start extends Controller {
         } catch (error) {
             console.error("Erro ao baixar o modelo:", error);
         }
-
     }
 
     public async onShowHowToPlay(): Promise<void> {
-        const oView = this.getView();
+        const oView = (this as any).getView();
 
         if (!this.howToPlayDialog) {
             this.howToPlayDialog = Fragment.load({
-                id: (oView as any).getId(),
-                name: "apps.dflc.threecluesgame.view.HowToPlayDialog", // Ajuste o namespace para sua estrutura de pastas
+                id: oView.getId(),
+                name: "apps.dflc.threecluesgame.view.HowToPlayDialog",
                 controller: this
             }).then((oDialog) => {
-                (oView as any).addDependent(oDialog as Dialog);
+                oView.addDependent(oDialog as Dialog);
                 return oDialog as Dialog;
             });
         }
@@ -138,5 +129,4 @@ export default class Start extends Controller {
             oDialog.close();
         }
     }
-
 }

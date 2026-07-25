@@ -132,23 +132,6 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
     font-weight: bold;
 }
 
-/* === BOTÕES CUSTOMIZADOS === */
-.tcgMainBtn .sapMBtnInner {
-    background-color: var(--tcg-gold) !important;
-    border-color: var(--tcg-gold-dark) !important;
-    color: #000 !important;
-    font-weight: bold !important;
-    font-size: 1.1rem !important;
-    padding: 0 20px !important;
-    box-shadow: 0 4px 15px rgba(244, 197, 66, 0.3);
-}
-
-.tcgBtnAnswer .sapMBtnInner {
-    background-color: var(--tcg-primary-light) !important;
-    color: #fff !important;
-    font-weight: bold !important;
-}
-
 /* === TELA FIM DE JOGO === */
 .tcgFinishedContainer {
     height: 100vh;
@@ -217,159 +200,8 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
     font-weight: bold;
 }
 
-/* ============================================================ */
-/* 🎨 CUSTOMIZAÇÃO DO MESSAGEBOX (POPUP DO JOGO)                 */
-/* ============================================================ */
-
-/* 1. Fundo e Borda da Janela Popup */
-.tcgMessageBox.sapMDialog {
-    background: linear-gradient(180deg, var(--tcg-surface) 0%, var(--tcg-primary-dark) 100%) !important;
-    border: 2px solid var(--tcg-gold) !important;
-    border-radius: var(--tcg-radius) !important;
-    box-shadow: var(--tcg-shadow) !important;
-}
-
-/* 2. Cabeçalho (Título) do Popup */
-.tcgMessageBox .sapMDialogHeader {
-    background: transparent !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.tcgMessageBox .sapMDialogTitle {
-    color: var(--tcg-gold) !important;
-    font-size: 1.3rem !important;
-    font-weight: bold !important;
-}
-
-/* 3. Corpo e Mensagem de Texto */
-.tcgMessageBox .sapMDialogSection {
-    background: transparent !important;
-}
-
-.tcgMessageBox .sapMMessageBoxText,
-.tcgMessageBox .sapMText {
-    color: var(--tcg-text) !important;
-    font-size: 1.1rem !important;
-}
-
-/* Ícone de Alerta/Erro */
-.tcgMessageBox .sapMMessageBoxIcon {
-    color: var(--tcg-error) !important;
-    font-size: 2rem !important;
-}
-
-/* 4. Rodapé e Botões do Popup */
-.tcgMessageBox .sapMDialogFooter {
-    background: transparent !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.tcgMessageBox .sapMBtnInner {
-    background-color: var(--tcg-gold) !important;
-    border-color: var(--tcg-gold-dark) !important;
-    color: #000000 !important;
-    font-weight: bold !important;
-    border-radius: 8px !important;
-    padding: 0 20px !important;
-}
-
-/* Backdrop / Fundo escuro atrás do popup */
-.sapMDialogBlockLayer {
-    background-color: rgba(2, 17, 39, 0.8) !important;
-}
-
-/* ============================================================ */
-/* 🎮 ESTILIZAÇÃO DA TELA INICIAL (START VIEW)                   */
-/* ============================================================ */
-
-/* Container Principal Centralizado */
-.tcgStartContainer {
-    box-sizing: border-box;
-    padding: 20px;
-    height: 100vh;
-}
-
-/* Título Principal com Letras Douradas/Sombreamento */
-.tcgMainTitle {
-    color: var(--tcg-gold) !important;
-    font-size: 1.6rem !important;
-    font-weight: 900 !important;
-    letter-spacing: 0.2rem;
-    text-shadow: 0 4px 15px rgba(244, 197, 66, 0.4);
-    text-align: center;
-}
-
-.tcgSubTitle {
-    color: var(--tcg-text-secondary) !important;
-    font-size: 1.1rem !important;
-    letter-spacing: 0.15rem;
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-/* Card do Formulário */
-.tcgStartCard {
-    width: 100%;
-    max-width: 440px;
-    background: var(--tcg-surface);
-    border-radius: var(--tcg-radius);
-    padding: 24px 28px;
-    box-shadow: var(--tcg-shadow);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Rótulos de Texto (Labels) */
-.tcgInputLabel {
-    color: var(--tcg-text-secondary) !important;
-    font-weight: 600 !important;
-    font-size: 0.95rem !important;
-    margin-bottom: 4px;
-}
-
-/* Estilo do Componente Select (Tempo da Rodada) */
-.tcgSelect .sapMSlt {
-    background-color: var(--tcg-surface-light) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    border-radius: 8px !important;
-}
-
-.tcgSelect .sapMSltLabel,
-.tcgSelect .sapMSltArrow {
-    color: var(--tcg-text) !important;
-}
-
-/* Checkboxes (Sons e Animações) */
-.tcgCheckBox .sapMCbCb {
-    background-color: var(--tcg-surface-light) !important;
-    border-color: var(--tcg-primary-light) !important;
-}
-
-.tcgCheckBox .sapMCbLabel {
-    color: var(--tcg-text) !important;
-    font-size: 0.95rem !important;
-}
-
-/* Área do FileUploader (Customização do Botão de Buscar Arquivo) */
-.tcgFileSection {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px dashed rgba(255, 255, 255, 0.15);
-}
-
-.tcgFileUploader .sapMBtnInner {
-    background: var(--tcg-surface-light) !important;
-    color: var(--tcg-text) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-}
-
-/* ============================================================ */
-/* 📱 RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS (Telas < 768px)    */
-/* ============================================================ */
-
+/* 📱 RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS (Telas < 768px) */
 @media screen and (max-width: 768px) {
-    
-    /* 1. Libera a rolagem vertical suave no mobile se necessário */
     html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section, .tcgPage {
         height: auto !important;
         min-height: 100vh !important;
@@ -382,7 +214,6 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
         padding: 8px;
     }
 
-    /* 2. Placar Superior Compacto */
     .tcgScoreCard {
         padding: 8px 4px !important;
     }
@@ -391,7 +222,6 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
         font-size: 0.85rem !important;
     }
 
-    /* 3. Converte a área central de Lado-a-Lado para Uma Abaixo da Outra */
     .tcgMainContent {
         flex-direction: column !important;
         height: auto !important;
@@ -403,13 +233,11 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
         height: auto !important;
     }
 
-    /* Reduz o tamanho do Spinner/Roleta no celular */
     .tcgSpinnerWrapper {
         transform: scale(0.85);
         margin: 10px 0;
     }
 
-    /* 4. Lista de Pistas Adaptável */
     .tcgHintsContainer {
         max-height: 200px;
         overflow-y: auto;
@@ -420,7 +248,6 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
         margin: -20px 0;
     }
 
-    /* 5. Botões do Rodapé Empilhados para Toque Fácil */
     .tcgFooterActions {
         flex-direction: column !important;
         width: 100%;
@@ -435,14 +262,7 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
     .tcgFooterActions .sapMBtnInner {
         width: 100% !important;
     }
-}
 
-/* ============================================================ */
-/* 📱 CORREÇÃO DEFINITIVA DO FOOTER NO MOBILE                   */
-/* ============================================================ */
-
-@media screen and (max-width: 768px) {
-    /* 1. Garante que o footer da Page fique fixo e visível na tela */
     .tcgPage .sapMPageFooter {
         position: fixed !important;
         bottom: 0 !important;
@@ -451,17 +271,10 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
         z-index: 10 !important;
     }
 
-    /* 2. Dá um espaço no final do conteúdo para não cobrir o último elemento sob o footer */
     .tcgGameContainer {
         height: auto !important;
         min-height: calc(100vh - 56px) !important;
-        padding-bottom: 70px !important; /* Espaço para o rodapé */
-    }
-
-    /* 3. Permite que o rolete e as pistas empilhem sem estourar o limite */
-    .tcgMainContent {
-        flex-direction: column !important;
-        height: auto !important;
+        padding-bottom: 70px !important;
     }
 
     .tcgLeftCard, 
@@ -472,147 +285,171 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
     }
 }
 
-/* Customização do Dialog para o tema do jogo */
-.tcgDialog .sapMDialogHeader {
-    background-color: #1a1a2e; /* Ajuste para a cor escura do seu tema */
+/* 🛠️ CORREÇÃO GLOBAL DE TEXTOS ESCUROS / PRETO NO TEMA ESCURO */
+.sapMListItemTitle,
+.sapMStandardLI .sapMLITitle,
+.sapMCustomLI {
+    color: var(--tcg-text) !important;
 }
 
-.tcgDialog .sapMBarChild {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 1.1rem;
+.sapMObjStatusText,
+.sapMObjStatusTitle,
+.sapMObjStatus {
+    color: var(--tcg-text) !important;
 }
 
+.sapMText,
+.sapMLabel,
+.sapMTitle {
+    color: var(--tcg-text) !important;
+}
+
+.sapMIllMsgTitle,
+.sapMIllMsgText,
+.sapMIllMsgHeader {
+    color: var(--tcg-text-secondary) !important;
+}
+
+.sapMInputBaseInner {
+    color: #FFFFFF !important;
+    background-color: var(--tcg-surface-light) !important;
+}
+
+.sapMInputBaseInner::placeholder {
+    color: var(--tcg-text-secondary) !important;
+    opacity: 0.8;
+}
+
+.sapMPanelHdr,
+.sapMPanelHeaderText {
+    color: var(--tcg-text) !important;
+}
+
+/* 🎯 CORREÇÃO DO OBJECT NUMBER */
+.sapMObjNumber,
+.sapMObjNumberNum,
+.sapMObjNumberUnit {
+    color: var(--tcg-gold) !important;
+}
+
+.sapMObjNumberStateNone .sapMObjNumberNum,
+.sapMObjNumberStateNone .sapMObjNumberUnit,
+.sapMObjNumberStatusNone .sapMObjNumberNum,
+.sapMObjNumberStatusNone .sapMObjNumberUnit,
+.sapMObjectNumberText {
+    color: var(--tcg-gold) !important;
+}
+
+html body .sapMObjNumber,
+html body .sapMObjNumberNum,
+html body .sapMObjNumberUnit,
+html body span.sapMObjNumberNum,
+html body span.sapMObjNumberUnit {
+    color: #F4C542 !important;
+}
+
+.sapMObjectNumberText,
+.sapMObjNumberNum,
+.sapMObjNumberUnit {
+    color: var(--tcg-gold) !important;
+    font-size: 1.0rem !important; 
+    font-weight: 500 !important; 
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================ */
+/* ❓ DIÁLOGO DE REGRAS ("COMO JOGAR") - FONTES NO TAMANHO IDEAL  */
+/* ============================================================ */
+
+/* 1. Reset de tamanho global para o diálogo não herdar o 1.1rem exagerado */
+html body .sapMDialog.tcgDialog .sapMText,
+html body .sapMDialog .tcgDialogText {
+    font-size: 0.88rem !important;
+    line-height: 1.35 !important;
+    color: var(--tcg-text-secondary, #C9D5F5) !important;
+}
+
+/* 2. Seção/Card interno com fundo sutil */
 .tcgDialogSection {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    padding: 12px;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+    padding: 10px 12px !important;
+    margin-bottom: 8px !important;
 }
 
-.tcgDialogText {
-    color: #e0e0e0;
-    font-size: 0.9rem;
-}
-
+/* 3. Ajuste fino do Destaque */
 .tcgDialogTextHighlight {
-    color: #ffd700; /* Cor dourada/destaque */
-    font-size: 0.85rem;
-    font-style: italic;
+    color: var(--tcg-gold, #F4C542) !important;
+    font-size: 0.82rem !important;
+    font-style: italic !important;
 }
 
-/* Badges de pontuação (10 pts, 9 pts, 8 pts) */
-.tcgScoreBadgeContainer {
-    width: 100%;
-}
-
-.tcgScoreBadge {
-    background: #252a44;
-    border: 1px solid #3f4771;
-    border-radius: 6px;
-    padding: 6px 16px;
-    min-width: 80px;
-}
-
-.tcgBadgeLabel {
-    font-size: 0.75rem;
-    color: #aaa;
-}
-
-.tcgBadgeValue {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #4caf50; /* Cor verde para pontos */
-}
-
+/* 4. Ícones proporcionais ao texto */
 .tcgRuleIcon {
-    font-size: 1.1rem;
+    font-size: 1rem !important;
+    color: var(--tcg-gold, #F4C542) !important;
+    margin-right: 6px !important;
 }
 
-/* 1. Fundo do Diálogo Geral */
-.tcgDialog .sapMDialogSection,
-.tcgDialog section {
-    background-color: #1a1a2e !important; /* Cor de fundo escura do seu app */
-}
-
-/* 2. Cabeçalho (Header) */
-.tcgDialog header.sapMDialogHeader,
-.tcgDialog .sapMBar {
-    background-color: #161626 !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-/* Texto do Título */
-.tcgDialog .sapMTitle {
-    color: #ffffff !important;
-    font-weight: bold;
-}
-
-/* 3. Rodapé (Footer / Área dos Botões) */
-.tcgDialog footer.sapMDialogFooter,
-.tcgDialog .sapMBar-CTX {
-    background-color: #161626 !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-/* Ajuste nos textos das Labels e Itens dentro do Dialog */
-.tcgDialogText {
-    color: #e0e0e0;
-    font-size: 0.9rem;
-}
-
-.tcgDialogTextHighlight {
-    color: #ffd700;
-    font-size: 0.85rem;
-    font-style: italic;
-}
-
-/* Badges de pontuação */
+/* 5. Compactação das Badges de Pontuação */
 .tcgScoreBadgeContainer {
-    width: 100%;
+    width: 100% !important;
+    display: flex !important;
+    gap: 6px !important;
+    justify-content: space-between !important;
+    margin-top: 6px !important;
 }
 
 .tcgScoreBadge {
-    background: #252a44;
-    border: 1px solid #3f4771;
-    border-radius: 6px;
-    padding: 6px 12px;
-    min-width: 80px;
+    background: #252a44 !important;
+    border: 1px solid #3f4771 !important;
+    border-radius: 6px !important;
+    padding: 4px 8px !important;
+    min-width: unset !important;
+    flex: 1 !important;
+    text-align: center !important;
 }
 
 .tcgBadgeLabel {
-    font-size: 0.75rem;
-    color: #aaa;
+    font-size: 0.7rem !important;
+    color: #aaa !important;
+    display: block !important;
 }
 
 .tcgBadgeValue {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #4caf50;
+    font-size: 0.9rem !important;
+    font-weight: bold !important;
+    color: #2ECC71 !important;
+    display: block !important;
 }
 
-/* 1. Remove o fundo branco do Footer do Dialog */
-.tcgDialog footer,
-.tcgDialog .sapMDialogFooter,
-.tcgDialog .sapMBar,
-.tcgDialog .sapMBarContainer,
-.tcgDialog .sapMBar-CTX {
-    background-color: #161626 !important;
-    background: #161626 !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+/* ============================================================ */
+/* 📊 CORREÇÃO DO PROGRESS INDICATOR (BARRA DE PROGRESSO)       */
+/* ============================================================ */
+
+/* Fundo do trilho da barra (Cinza escuro transparente) */
+.sapMPI {
+    border-radius: 12px !important;
+    overflow: hidden !important;
 }
 
-/* 2. Força a Toolbar interna do Rodapé a ser totalmente transparente */
-.tcgDialogFooterToolbar,
-.tcgDialog .sapMTB {
-    background-color: transparent !important;
-    background: transparent !important;
-    border: none !important;
-    padding: 8px 16px !important;
-    width: 100% !important;
+/* Texto de porcentagem dentro/fora da barra */
+.sapMPIText, 
+.sapMPITextLeft, 
+.sapMPITextRight {
+    color: #FFFFFF !important;
+    font-weight: bold !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
 }
 
-/* 3. Garante que o botão ocupe toda a largura disponível no rodapé */
-.tcgDialogFooterToolbar .sapMBtn {
-    width: 100% !important;
-    margin: 0 !important;
+/* Preenchimento Verde quando o state é 'Success' */
+.sapMPI.sapMPIStateSuccess .sapMPIBar {
+    border-radius: 10px 0 0 10px !important;
+}
+
+/* Caso o componente use o contêiner interno .sapMPIBarNeutral ou padrão */
+.sapMPIBar {
+    background-color: #2ECC71 !important;
 }

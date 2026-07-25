@@ -7,17 +7,23 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/M
       this.howToPlayDialog = null;
     },
     onInit: function _onInit() {
-      const oGameModel = this.getOwnerComponent().getModel("game");
+      const oOwnerComponent = this.getOwnerComponent();
+      const oGameModel = oOwnerComponent.getModel("game");
       this.getView().setModel(oGameModel, "game");
-      this.envelopeRepository = this.getOwnerComponent().getEnvelopeRepository();
-      this.gameEngine = this.getOwnerComponent().getGameEngine();
+      this.envelopeRepository = oOwnerComponent.getEnvelopeRepository();
+      this.gameEngine = oOwnerComponent.getGameEngine();
+    },
+    getI18nText: function _getI18nText(sKey, aArgs) {
+      const oResourceModel = this.getOwnerComponent().getModel("i18n");
+      const oBundle = oResourceModel.getResourceBundle();
+      return oBundle.getText(sKey, aArgs) || sKey;
     },
     onStartGame: function _onStartGame() {
       const oModel = this.getView().getModel("game");
       const player1 = oModel.getProperty("/players/player1/name");
       const player2 = oModel.getProperty("/players/player2/name");
       if (!player1 || !player2) {
-        MessageBox.error("Informe o nome dos dois jogadores.");
+        MessageBox.error(this.getI18nText("msg.fillPlayerNames"));
         return;
       }
       UIComponent.getRouterFor(this).navTo("Game");
@@ -31,10 +37,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/M
       try {
         await this.envelopeRepository.loadFromFile(file);
         this.gameEngine.restartGame();
-        MessageToast.show("Envelopes carregados com sucesso!");
+        MessageToast.show(this.getI18nText("msg.envelopesLoadedSuccess"));
       } catch (error) {
-        MessageBox.error(error instanceof Error ? error.message : "Não foi possível carregar o arquivo.", {
-          title: "Erro no Jogo",
+        MessageBox.error(error instanceof Error ? error.message : this.getI18nText("msg.defaultLoadError"), {
+          title: this.getI18nText("msg.errorTitle"),
           styleClass: "tcgMessageBox",
           actions: [MessageBox.Action.OK]
         });
@@ -45,7 +51,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/M
         const sPath = sap.ui.require.toUrl("apps/dflc/threecluesgame/json/envelopes.json");
         const response = await fetch(sPath);
         if (!response.ok) {
-          throw new Error("Arquivo modelo não encontrado.");
+          throw new Error(this.getI18nText("msg.templateNotFoundError"));
         }
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
@@ -66,7 +72,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/M
         this.howToPlayDialog = Fragment.load({
           id: oView.getId(),
           name: "apps.dflc.threecluesgame.view.HowToPlayDialog",
-          // Ajuste o namespace para sua estrutura de pastas
           controller: this
         }).then(oDialog => {
           oView.addDependent(oDialog);

@@ -1,3 +1,4 @@
+/// <reference types="@openui5/types" />
 import Controller from "sap/ui/core/mvc/Controller";
 import GameModel from "../model/GameModel";
 import GameEngine, { IEnvelope } from "../model/GameEngine";
@@ -5,6 +6,8 @@ import formatter from "../model/formatter";
 import EnvelopeRepository from "../repository/EnvelopeRepository";
 import MessageBox from "sap/m/MessageBox";
 import EnvelopeSpinner from "../controls/EnvelopeSpinner/EnvelopeSpinner";
+import ResourceBundle from "sap/base/i18n/ResourceBundle";
+import ResourceModel from "sap/ui/model/resource/ResourceModel";
 
 export default class Game extends Controller {
 
@@ -12,9 +15,9 @@ export default class Game extends Controller {
 
     private gameEngine!: GameEngine;
 
-    private envelopeRepository: EnvelopeRepository;
+    private envelopeRepository!: EnvelopeRepository;
 
-    private envelopeSpinner: EnvelopeSpinner;
+    private envelopeSpinner!: EnvelopeSpinner;
 
     public onInit(): void {
 
@@ -26,6 +29,12 @@ export default class Game extends Controller {
 
         void this.afterRender();
 
+    }
+
+    private getI18nText(sKey: string, aArgs?: any[]): string {
+        const oResourceModel = (this as any).getOwnerComponent().getModel("i18n") as ResourceModel;
+        const oBundle = oResourceModel.getResourceBundle() as ResourceBundle;
+        return oBundle.getText(sKey, aArgs) || sKey;
     }
 
     private async afterRender(): Promise<void> {
@@ -55,9 +64,6 @@ export default class Game extends Controller {
 
     }
 
-    /**
-     * Simula o giro da roleta
-     */
     public async onSpinWheel(): Promise<void> {
 
         this.envelopeSpinner.setAvailableEnvelopes(
@@ -87,9 +93,6 @@ export default class Game extends Controller {
 
     }
 
-    /**
-     * Próxima implementação
-     */
     public onAnswer(): void {
 
         const oModel = (this as any).getView().getModel("game") as GameModel;
@@ -130,9 +133,9 @@ export default class Game extends Controller {
             this.envelopeRepository.getCurrent();
 
         MessageBox.confirm(
-            "Deseja realmente reiniciar o jogo? Todo o progresso atual será perdido.",
+            this.getI18nText("msg.restartConfirmText"),
             {
-                title: "Reiniciar jogo",
+                title: this.getI18nText("msg.restartConfirmTitle"),
                 actions: [
                     MessageBox.Action.YES,
                     MessageBox.Action.NO
@@ -210,17 +213,13 @@ export default class Game extends Controller {
         } catch (error) {
 
             MessageBox.error(
-                "Não foi possível carregar os envelopes do jogo."
+                this.getI18nText("msg.loadEnvelopesError")
             );
 
         }
 
     }
 
-    /**
-     * Apenas para testes.
-     * Depois será substituído pelo envelopes.json
-     */
     private getMockEnvelopes(): IEnvelope[] {
 
         return [

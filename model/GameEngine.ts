@@ -183,9 +183,6 @@ export default class GameEngine {
         }, 1000);
     }
 
-    /**
-     * Cancela o timer ativo
-     */
     public stopTimer(): void {
         if (this.timerId !== null) {
             clearInterval(this.timerId);

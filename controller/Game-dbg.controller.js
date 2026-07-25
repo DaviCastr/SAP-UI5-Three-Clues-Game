@@ -16,6 +16,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
     onAfterRendering: function _onAfterRendering() {
       void this.afterRender();
     },
+    getI18nText: function _getI18nText(sKey, aArgs) {
+      const oResourceModel = this.getOwnerComponent().getModel("i18n");
+      const oBundle = oResourceModel.getResourceBundle();
+      return oBundle.getText(sKey, aArgs) || sKey;
+    },
     afterRender: async function _afterRender() {
       const oSpinner = this.byId("spinner");
       this.envelopeSpinner = oSpinner;
@@ -29,9 +34,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
         oRouter.getRoute("Game")?.attachPatternMatched(this.gameMatched, this);
       }
     },
-    /**
-     * Simula o giro da roleta
-     */
     onSpinWheel: async function _onSpinWheel() {
       this.envelopeSpinner.setAvailableEnvelopes(this.gameEngine.getAvailableEnvelopeIds());
       const envelope = this.gameEngine.drawEnvelope();
@@ -43,9 +45,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
       await this.envelopeSpinner.wait(1000);
       this.gameEngine.prepareRound(envelope);
     },
-    /**
-     * Próxima implementação
-     */
     onAnswer: function _onAnswer() {
       const oModel = this.getView().getModel("game");
       if (oModel.getProperty("/game/isSubmitting")) {
@@ -68,8 +67,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
     },
     onRestartGame: async function _onRestartGame() {
       const envelopes = this.envelopeRepository.getCurrent();
-      MessageBox.confirm("Deseja realmente reiniciar o jogo? Todo o progresso atual será perdido.", {
-        title: "Reiniciar jogo",
+      MessageBox.confirm(this.getI18nText("msg.restartConfirmText"), {
+        title: this.getI18nText("msg.restartConfirmTitle"),
         actions: [MessageBox.Action.YES, MessageBox.Action.NO],
         emphasizedAction: MessageBox.Action.YES,
         onClose: action => {
@@ -106,13 +105,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
           this.envelopeSpinner.resetVisibleEnvelopes(this.gameEngine.getAvailableEnvelopeIds());
         }
       } catch (error) {
-        MessageBox.error("Não foi possível carregar os envelopes do jogo.");
+        MessageBox.error(this.getI18nText("msg.loadEnvelopesError"));
       }
     },
-    /**
-     * Apenas para testes.
-     * Depois será substituído pelo envelopes.json
-     */
     getMockEnvelopes: function _getMockEnvelopes() {
       return [{
         id: 1,

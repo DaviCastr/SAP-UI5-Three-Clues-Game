@@ -98,10 +98,6 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
         }
       }, 1000);
     }
-
-    /**
-     * Cancela o timer ativo
-     */
     stopTimer() {
       if (this.timerId !== null) {
         clearInterval(this.timerId);

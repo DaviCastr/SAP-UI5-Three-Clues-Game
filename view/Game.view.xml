@@ -22,7 +22,7 @@
                     </VBox>
 
                     <VBox alignItems="Center" width="30%" class="tcgAudienceBox">
-                        <Title text="PLATEIA" class="tcgAudienceTitle" />
+                        <Title text="{i18n>game.audience}" class="tcgAudienceTitle" />
                         <ObjectNumber number="{game>/audience/score}" class="tcgScoreNumber" />
                     </VBox>
 
@@ -34,30 +34,28 @@
 
                 <!-- 📊 BARRA DE PROGRESSO -->
                 <VBox class="tcgProgressWrapper">
-                    <Text 
-                        class="tcgTextSecondary tcgProgressText"
-                        text="{
-                            parts:[
-                                'game>/progress/current',
-                                'game>/progress/total'
-                            ],
-                            formatter:'.formatter.formatProgress'
-                        }"/>
                     <ProgressIndicator
                         percentValue="{game>/progress/percent}"
-                        displayValue="{game>/progress/percent}%"
+                        displayValue="{
+                            parts: [
+                                'game>/progress/current',
+                                'game>/progress/total',
+                                'game>/progress/percent'
+                            ],
+                            formatter: '.formatter.formatProgressWithPercent'
+                        }"
                         state="Success"/>
                 </VBox>
 
-                <!-- 🎮 ÁREA CENTRAL (PREENCHE O ESPAÇO DISPONÍVEL) -->
+                <!-- 🎮 ÁREA CENTRAL -->
                 <HBox width="100%" class="tcgMainContent" justifyContent="SpaceBetween">
                     
                     <!-- ESQUERDA: ROLETA E INFOS -->
                     <VBox width="48%" class="tcgCardBox tcgLeftCard">
                         
-                        <!-- VEZ DO JOGADOR (Reservamos o espaço mesmo invisível) -->
+                        <!-- VEZ DO JOGADOR -->
                         <VBox class="tcgInfoBanner" visible="{= ${game>/game/state} !== 'WAITING_SPIN' }">
-                            <Text text="🎯 VEZ DE" class="tcgTextSecondary"/>
+                            <Text text="{i18n>game.turnOf}" class="tcgTextSecondary"/>
                             <Title 
                                 level="H3"
                                 text="{
@@ -80,14 +78,14 @@
                         <VBox 
                             class="tcgInfoBanner" 
                             visible="{= ${game>/game/state} !== 'WAITING_SPIN' &amp;&amp; ${game>/settings/showCategory} === true }">
-                            <Text text="🏷 CATEGORIA" class="tcgTextSecondary"/>
+                            <Text text="{i18n>game.category}" class="tcgTextSecondary"/>
                             <Text text="{game>/game/currentCategory}" class="tcgCategoryText"/>
                         </VBox>
                     </VBox>
 
                     <!-- DIREITA: PISTAS E RESPOSTA -->
                     <VBox width="50%" class="tcgCardBox tcgRightCard">
-                        <Title text="💡 PISTAS DA RODADA" level="H4" class="tcgCardTitle"/>
+                        <Title text="{i18n>game.roundClues}" level="H4" class="tcgCardTitle"/>
                         
                         <!-- LISTA DE PISTAS -->
                         <VBox class="tcgHintsContainer">
@@ -101,8 +99,8 @@
                             <IllustratedMessage
                                 visible="{= ${game>/game/visibleHints}.length === 0 }"
                                 illustrationType="sapIllus-EmptyList"
-                                title="Nenhuma rodada iniciada"
-                                description="Clique em '🎡 Girar Roleta' para começar."
+                                title="{i18n>game.noRoundTitle}"
+                                description="{i18n>game.noRoundDescription}"
                                 class="tcgIllustratedMsg"/>
                         </VBox>
 
@@ -116,7 +114,7 @@
                                     alignItems="Center" 
                                     class="tcgTimerBox sapUiTinyMarginBottom"
                                     visible="{game>/timer/active}">
-                                    <Text text="⏱️ Tempo restante:" class="tcgTimerLabel"/>
+                                    <Text text="{i18n>game.timeRemaining}" class="tcgTimerLabel"/>
                                     <Text 
                                         text="{game>/timer/seconds}s" 
                                         class="{= ${game>/timer/seconds} &lt;= 5 ? 'tcgTimerValue tcgTimerDanger' : 'tcgTimerValue' }"/>
@@ -124,12 +122,12 @@
                                 
                                 <Input
                                     value="{game>/game/currentAnswer}"
-                                    placeholder="Digite a resposta aqui..."
+                                    placeholder="{i18n>game.answerPlaceholder}"
                                     submit=".onAnswer"
                                     enabled="{= !${game>/game/isSubmitting} }"
                                     class="tcgInput"/>
                                 <Button
-                                    text="RESPONDER"
+                                    text="{i18n>game.answerButton}"
                                     press=".onAnswer"
                                     type="Emphasized"
                                     enabled="{= !${game>/game/isSubmitting} }"
@@ -149,7 +147,15 @@
                                         ],
                                         formatter: '.formatter.formatRoundWinner'
                                     }"/>
-                                <Text text="{= 'Resposta: ' + ${game>/roundResult/answer}}" class="tcgTextLight"/>
+                                <Text 
+                                    text="{
+                                        parts: [
+                                            'i18n>game.answerLabel',
+                                            'game>/roundResult/answer'
+                                        ],
+                                        formatter: 'sap.ui.model.composite.SimpleType'
+                                    }" 
+                                    class="tcgTextLight"/>
                                 <Text
                                     visible="{= ${game>/roundResult/points} > 0 }"
                                     class="tcgGoldText"
@@ -161,30 +167,6 @@
                         </VBox>
                     </VBox>
                 </HBox>
-
-                <!-- 🔘 AÇÕES (RODAPÉ FIXO NA PARTE INFERIOR)
-                <HBox justifyContent="Center" class="tcgFooterActions">
-                    
-                    <Button
-                        text="🎡 GIRAR ROLETA"
-                        press=".onSpinWheel"
-                        enabled="{game>/game/canSpinWheel}"
-                        type="Emphasized"
-                        class="tcgMainBtn sapUiTinyMarginEnd"/>
-
-                    <Button
-                        text="PULAR PLATEIA"
-                        press=".onSkipAudience"
-                        visible="{game>/game/showSkipAudience}"
-                        class="tcgSecondaryBtn sapUiTinyMarginEnd"/>
-
-                    <Button
-                        text="🔄 REINICIAR JOGO"
-                        press=".onRestartGame"
-                        type="Transparent"
-                        class="tcgSecondaryBtn"/>
-
-                </HBox> -->
             </VBox>
 
             <!-- 🏁 TELA DE FIM DE JOGO (PÓDIO) -->
@@ -195,7 +177,7 @@
                 class="tcgFinishedContainer">
 
                 <VBox class="tcgFinishCard" alignItems="Center">
-                    <Title text="🏆 PÓDIO FINAL" level="H1" class="tcgTitleFinished sapUiMediumMarginBottom"/>
+                    <Title text="{i18n>game.finalPodium}" level="H1" class="tcgTitleFinished sapUiMediumMarginBottom"/>
 
                     <VBox 
                         class="tcgPodiumList sapUiMediumMarginBottom" 
@@ -214,20 +196,21 @@
 
                             <ObjectNumber 
                                 number="{game>score}" 
-                                unit="pts" 
+                                unit="{i18n>game.ptsUnit}" 
                                 class="tcgPodiumScore"/>
                         </HBox>
                     </VBox>
 
                     <Button
-                        text="🔄 Novo Jogo"
+                        text="{i18n>game.newGame}"
                         press=".onRestartGame"
                         type="Emphasized"
                         class="tcgMainBtn"/>
                 </VBox>
             </VBox>
         </content>
-        <!-- 🔘 AÇÕES FIXAS NO RODAPÉ DA PÁGINA (Aparecem em qualquer tamanho de tela) -->
+
+        <!-- 🔘 AÇÕES FIXAS NO RODAPÉ DA PÁGINA -->
         <footer>
             <OverflowToolbar 
                 design="Transparent"
@@ -236,20 +219,20 @@
                 <ToolbarSpacer />
                 
                 <Button
-                    text="🎡 GIRAR ROLETA"
+                    text="{i18n>game.spinWheel}"
                     press=".onSpinWheel"
                     enabled="{game>/game/canSpinWheel}"
                     type="Emphasized"
                     class="tcgMainBtn"/>
 
                 <Button
-                    text="PULAR PLATEIA"
+                    text="{i18n>game.skipAudience}"
                     press=".onSkipAudience"
                     visible="{game>/game/showSkipAudience}"
                     class="tcgSecondaryBtn"/>
 
                 <Button
-                    text="🔄 REINICIAR"
+                    text="{i18n>game.restartGame}"
                     press=".onRestartGame"
                     type="Transparent"
                     class="tcgSecondaryBtn"/>

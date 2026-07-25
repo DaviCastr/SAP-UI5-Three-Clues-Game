@@ -39,6 +39,12 @@ sap.ui.define(["./Turn"], function (__Turn) {
         return "";
       }
       return `Envelope ${current} de ${total}`;
+    },
+    formatProgressWithPercent(iCurrent, iTotal, iPercent) {
+      if (!iCurrent || !iTotal) {
+        return "";
+      }
+      return iCurrent + " de " + iTotal + " (" + (iPercent || 0) + "%)";
     }
   };
   return formatter;

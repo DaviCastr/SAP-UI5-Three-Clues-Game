@@ -70,6 +70,20 @@ const formatter = {
 
         return `Envelope ${current} de ${total}`;
 
+    },
+
+    formatProgressWithPercent(
+        iCurrent: number,
+        iTotal: number,
+        iPercent: number
+    ) {
+
+        if (!iCurrent || !iTotal) {
+            return "";  
+        }
+
+        return iCurrent + " de " + iTotal + " (" + (iPercent || 0) + "%)";
+
     }
 
 };

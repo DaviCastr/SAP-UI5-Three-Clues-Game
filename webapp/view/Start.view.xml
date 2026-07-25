@@ -16,60 +16,74 @@
 
                 <!-- 🎭 TÍTULO DO JOGO -->
                 <VBox alignItems="Center" class="tcgHeaderBox sapUiMediumMarginBottom">
-                    
-                        <Title
-                            text="JOGO DAS 3 PISTAS"
-                            level="H3"
-                            class="tcgMainTitle"/>
-                        <Button
-                            icon="sap-icon://hint"
-                            text="Como Jogar"
-                            type="Emphasized"
-                            press=".onShowHowToPlay"
-                            tooltip="Como Jogar"
-                            class="sapUiTinyMarginBegin"/>
-                    
+                    <Title
+                        text="{i18n>start.title}"
+                        level="H3"
+                        class="tcgMainTitle"/>
+                    <Button
+                        icon="sap-icon://hint"
+                        text="{i18n>start.howToPlay}"
+                        type="Emphasized"
+                        press=".onShowHowToPlay"
+                        tooltip="{i18n>start.howToPlay}"
+                        class="sapUiTinyMarginBegin"/>
                 </VBox>
 
                 <!-- 🎛️ CARD DE CONFIGURAÇÕES -->
                 <VBox class="tcgStartCard">
 
                     <!-- JOGADOR 1 -->
-                    <Label text="👤 Jogador 1" class="tcgInputLabel"/>
+                    <Label text="{i18n>start.player1Label}" class="tcgInputLabel"/>
                     <Input
                         value="{game>/players/player1/name}"
-                        placeholder="Nome do Jogador 1"
+                        placeholder="{i18n>start.player1Placeholder}"
                         class="tcgInput sapUiTinyMarginBottom"/>
 
                     <!-- JOGADOR 2 -->
-                    <Label text="👤 Jogador 2" class="tcgInputLabel sapUiTinyMarginTop"/>
+                    <Label text="{i18n>start.player2Label}" class="tcgInputLabel sapUiTinyMarginTop"/>
                     <Input
                         value="{game>/players/player2/name}"
-                        placeholder="Nome do Jogador 2"
+                        placeholder="{i18n>start.player2Placeholder}"
                         class="tcgInput sapUiTinyMarginBottom"/>
 
                     <!-- TEMPO DA RODADA -->
-                    <Label text="⏱️ Tempo da rodada" class="tcgInputLabel sapUiTinyMarginTop"/>
+                    <Label text="{i18n>start.roundTimeLabel}" class="tcgInputLabel sapUiTinyMarginTop"/>
                     <Select
                         selectedKey="{game>/settings/roundTime}"
                         width="100%"
                         class="tcgSelect sapUiTinyMarginBottom"
                         visible="true">
-                        <core:Item key="5" text="5 segundos"/>
-                        <core:Item key="10" text="10 segundos"/>
-                        <core:Item key="20" text="20 segundos"/>
-                        <core:Item key="30" text="30 segundos"/>
-                        <core:Item key="40" text="40 segundos"/>
+                        <core:Item key="5" text="5 s" />
+                        <core:Item key="10" text="10 s"/>
+                        <core:Item key="20" text="20 s"/>
+                        <core:Item key="30" text="30 s"/>
+                        <core:Item key="40" text="40 s"/>
                     </Select>
 
+                    <!-- Se preferir manter o texto simples nos itens do Select sem o formatter complexo:
+                         substitua os core:Item por texto direto traduzido ou formate assim: -->
+                    <!-- 
+                    <Select
+                        selectedKey="{game>/settings/roundTime}"
+                        width="100%"
+                        class="tcgSelect sapUiTinyMarginBottom"
+                        visible="true">
+                        <core:Item key="5" text="5s"/>
+                        <core:Item key="10" text="10s"/>
+                        <core:Item key="20" text="20s"/>
+                        <core:Item key="30" text="30s"/>
+                        <core:Item key="40" text="40s"/>
+                    </Select> 
+                    -->
+
                     <!-- OPÇÕES (CHECKBOXES) -->
-                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop sapUiTinyMarginBottom"  visible="true">
+                    <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop sapUiTinyMarginBottom" visible="true">
                         <CheckBox
-                            text="🔊 Sons"
+                            text="{i18n>start.sounds}"
                             selected="{game>/settings/sounds}"
                             class="tcgCheckBox"/>
                         <CheckBox
-                            text="🏷 Mostrar categoria"
+                            text="{i18n>start.showCategory}"
                             selected="{game>/settings/showCategory}"
                             class="tcgCheckBox"/>
                     </HBox>
@@ -77,9 +91,9 @@
                     <!-- UPLOAD DE PERGUNTAS CUSTOMIZADAS (FILE UPLOADER) -->
                     <VBox class="tcgFileSection sapUiTinyMarginTop">
                         <HBox justifyContent="SpaceBetween" alignItems="Center" width="100%">
-                            <Label text="📂 Envelopes (Opcional)" class="tcgInputLabel"/>
+                            <Label text="{i18n>start.envelopesLabel}" class="tcgInputLabel"/>
                             <Button
-                                text="📥 Baixar Modelo"
+                                text="{i18n>start.downloadTemplate}"
                                 type="Transparent"
                                 press=".onDownloadTemplate"
                                 class="tcgDownloadBtn"/>
@@ -88,8 +102,8 @@
                         <u:FileUploader
                             id="fileUploader"
                             fileType="json"
-                            placeholder="Selecione um arquivo .json"
-                            buttonText="Buscar"
+                            placeholder="{i18n>start.filePlaceholder}"
+                            buttonText="{i18n>start.browseBtn}"
                             width="100%"
                             change=".onFileSelected"
                             class="tcgFileUploader sapUiTinyMarginTop"/>
@@ -97,7 +111,7 @@
 
                     <!-- BOTÃO INICIAR -->
                     <Button
-                        text="🚀 INICIAR JOGO"
+                        text="{i18n>start.startGame}"
                         type="Emphasized"
                         press=".onStartGame"
                         width="100%"

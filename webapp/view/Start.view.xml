@@ -16,10 +16,19 @@
 
                 <!-- 🎭 TÍTULO DO JOGO -->
                 <VBox alignItems="Center" class="tcgHeaderBox sapUiMediumMarginBottom">
-                    <Title
-                        text="JOGO DAS 3 PISTAS"
-                        level="H1"
-                        class="tcgMainTitle"/>
+                    
+                        <Title
+                            text="JOGO DAS 3 PISTAS"
+                            level="H3"
+                            class="tcgMainTitle"/>
+                        <Button
+                            icon="sap-icon://hint"
+                            text="Como Jogar"
+                            type="Emphasized"
+                            press=".onShowHowToPlay"
+                            tooltip="Como Jogar"
+                            class="sapUiTinyMarginBegin"/>
+                    
                 </VBox>
 
                 <!-- 🎛️ CARD DE CONFIGURAÇÕES -->

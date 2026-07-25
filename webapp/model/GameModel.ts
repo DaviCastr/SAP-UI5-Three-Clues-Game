@@ -59,6 +59,8 @@ export interface IGameState {
 
         currentCategory: string;
 
+        isSubmitting: boolean;
+
     }
 
     roundResult: {
@@ -142,7 +144,9 @@ export default class GameModel extends JSONModel {
 
                 canAnswer: false,
 
-                currentCategory: ""
+                currentCategory: "",
+
+                isSubmitting: false
 
             },
 

@@ -292,7 +292,7 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
 /* Título Principal com Letras Douradas/Sombreamento */
 .tcgMainTitle {
     color: var(--tcg-gold) !important;
-    font-size: 2.4rem !important;
+    font-size: 1.6rem !important;
     font-weight: 900 !important;
     letter-spacing: 0.2rem;
     text-shadow: 0 4px 15px rgba(244, 197, 66, 0.4);
@@ -470,4 +470,149 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
         height: auto !important;
         margin-bottom: 12px;
     }
+}
+
+/* Customização do Dialog para o tema do jogo */
+.tcgDialog .sapMDialogHeader {
+    background-color: #1a1a2e; /* Ajuste para a cor escura do seu tema */
+}
+
+.tcgDialog .sapMBarChild {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.tcgDialogSection {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.tcgDialogText {
+    color: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+.tcgDialogTextHighlight {
+    color: #ffd700; /* Cor dourada/destaque */
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+/* Badges de pontuação (10 pts, 9 pts, 8 pts) */
+.tcgScoreBadgeContainer {
+    width: 100%;
+}
+
+.tcgScoreBadge {
+    background: #252a44;
+    border: 1px solid #3f4771;
+    border-radius: 6px;
+    padding: 6px 16px;
+    min-width: 80px;
+}
+
+.tcgBadgeLabel {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+.tcgBadgeValue {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #4caf50; /* Cor verde para pontos */
+}
+
+.tcgRuleIcon {
+    font-size: 1.1rem;
+}
+
+/* 1. Fundo do Diálogo Geral */
+.tcgDialog .sapMDialogSection,
+.tcgDialog section {
+    background-color: #1a1a2e !important; /* Cor de fundo escura do seu app */
+}
+
+/* 2. Cabeçalho (Header) */
+.tcgDialog header.sapMDialogHeader,
+.tcgDialog .sapMBar {
+    background-color: #161626 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Texto do Título */
+.tcgDialog .sapMTitle {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+/* 3. Rodapé (Footer / Área dos Botões) */
+.tcgDialog footer.sapMDialogFooter,
+.tcgDialog .sapMBar-CTX {
+    background-color: #161626 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Ajuste nos textos das Labels e Itens dentro do Dialog */
+.tcgDialogText {
+    color: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+.tcgDialogTextHighlight {
+    color: #ffd700;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+/* Badges de pontuação */
+.tcgScoreBadgeContainer {
+    width: 100%;
+}
+
+.tcgScoreBadge {
+    background: #252a44;
+    border: 1px solid #3f4771;
+    border-radius: 6px;
+    padding: 6px 12px;
+    min-width: 80px;
+}
+
+.tcgBadgeLabel {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+.tcgBadgeValue {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #4caf50;
+}
+
+/* 1. Remove o fundo branco do Footer do Dialog */
+.tcgDialog footer,
+.tcgDialog .sapMDialogFooter,
+.tcgDialog .sapMBar,
+.tcgDialog .sapMBarContainer,
+.tcgDialog .sapMBar-CTX {
+    background-color: #161626 !important;
+    background: #161626 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 2. Força a Toolbar interna do Rodapé a ser totalmente transparente */
+.tcgDialogFooterToolbar,
+.tcgDialog .sapMTB {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 8px 16px !important;
+    width: 100% !important;
+}
+
+/* 3. Garante que o botão ocupe toda a largura disponível no rodapé */
+.tcgDialogFooterToolbar .sapMBtn {
+    width: 100% !important;
+    margin: 0 !important;
 }

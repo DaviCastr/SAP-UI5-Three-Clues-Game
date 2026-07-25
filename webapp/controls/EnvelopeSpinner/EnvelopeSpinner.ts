@@ -4,7 +4,6 @@ import type { MetadataOptions } from "sap/ui/core/Element";
 import EnvelopeSpinnerRenderer from "./EnvelopeSpinnerRenderer";
 import includeStylesheet from "sap/ui/dom/includeStylesheet";
 
-// Declaração do namespace para o TypeScript ignorar o erro do global
 declare const sap: {
     ui: {
         require: {
@@ -22,10 +21,8 @@ export default class EnvelopeSpinner extends Control {
     private visibleEnvelopes: number[] = [0, 0, 0, 0, 0];
     private currentTranslateY = 0;
     
-    // Duração fixa da animação em milissegundos (3 segundos)
-    private readonly SPIN_DURATION_MS = 3000;
+    private readonly SPIN_DURATION_MS = 3200;
 
-    // 1. Definição da Metadata
     public static readonly metadata: MetadataOptions = {
         properties: {
             envelopeNumber: {
@@ -34,13 +31,11 @@ export default class EnvelopeSpinner extends Control {
             }
         },
         events: {
-            // Seus eventos entram aqui
         }
     };
 
     public init(): void {
         super.init();
-        // Carrega o CSS customizado no DOM dinamicamente
         const cssPath = sap.ui.require.toUrl("apps/dflc/threecluesgame/controls/EnvelopeSpinner/EnvelopeSpinner.css");
         includeStylesheet(cssPath);
     }
@@ -49,7 +44,6 @@ export default class EnvelopeSpinner extends Control {
         return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
 
-    // 2. Definição do Renderer Inline
     public static renderer = EnvelopeSpinnerRenderer;
 
     declare getEnvelopeNumber: () => number;
@@ -107,7 +101,6 @@ export default class EnvelopeSpinner extends Control {
         const startIndex = Math.floor(Math.random() * totalEnvelopes);
         const targetIndex = this.availableEnvelopes.indexOf(targetEnvelope);
 
-        // Define quantas voltas completas dará dentro dos 3 segundos (ex: 3 voltas)
         const turns = 3;
         
         let stepsToTarget = targetIndex - startIndex;
@@ -120,23 +113,18 @@ export default class EnvelopeSpinner extends Control {
         const startTime = performance.now();
         let lastStepExecuted = -1;
 
-        // Loop controlado pelo tempo absoluto (duração de 3000 ms)
         while (true) {
             const now = performance.now();
             const elapsed = now - startTime;
             
-            // Se ultrapassou os 3 segundos, encerra a animação no envelope correto
             if (elapsed >= this.SPIN_DURATION_MS) {
                 break;
             }
 
-            // Progresso de 0 a 1 no tempo
             const timeProgress = elapsed / this.SPIN_DURATION_MS;
 
-            // Aplica a curva de desaceleração (começa rápido, termina devagar)
             const easedProgress = this.easeOutQuad(timeProgress);
 
-            // Calcula qual é o passo atual
             const currentStep = Math.floor(easedProgress * totalSteps);
 
             if (currentStep !== lastStepExecuted) {
@@ -147,11 +135,9 @@ export default class EnvelopeSpinner extends Control {
                 this.updateVisibleEnvelopes(currentIndex);
             }
 
-            // Pequena pausa para devolver controle à UI (aprox. 60 FPS)
             await this.wait(16);
         }
 
-        // Garante a parada exata no envelope alvo e atualiza o estado final
         this.setEnvelopeNumber(targetEnvelope);
         this.updateVisibleEnvelopes(targetIndex);
     }

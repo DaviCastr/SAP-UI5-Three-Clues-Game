@@ -25,18 +25,10 @@ export default class SoundService {
         return SoundService.instance;
     }
 
-    /**
-     * Retorna a URL absoluta resolvida dinamicamente pelo SAPUI5
-     */
     private getSoundUrl(soundFile: string): string {
-        // Substitua 'apps/dflc/threecluesgame' pelo namespace exato do seu Component.js / manifest.json
-        // Por exemplo: se seu namespace for "apps.dflc.threecluesgame", use:
         return sap.ui.require.toUrl("apps/dflc/threecluesgame/sounds/" + soundFile);
     }
 
-    /**
-     * Pré-carrega os áudios em memória
-     */
     private preloadSounds(): void {
         const soundFiles: Record<SoundEffect, string> = {
             [SoundEffect.SPIN]: "spin.mp3",
@@ -47,9 +39,7 @@ export default class SoundService {
         };
 
         Object.entries(soundFiles).forEach(([key, fileName]) => {
-            // Resolve o caminho real no ambiente atual (localhost ou GitHub Pages)
-            const resolvedUrl = this.getSoundUrl(fileName);
-            
+            const resolvedUrl = this.getSoundUrl(fileName); 
             const audio = new Audio(resolvedUrl);
             audio.preload = "auto";
             this.audioCache.set(key, audio);

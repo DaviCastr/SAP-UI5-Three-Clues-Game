@@ -16,8 +16,6 @@ export default class Game extends Controller {
 
     private envelopeSpinner: EnvelopeSpinner;
 
-    private _timerId: number | null = null;
-
     public onInit(): void {
 
         void this.initialize();
@@ -96,15 +94,30 @@ export default class Game extends Controller {
 
         const oModel = (this as any).getView().getModel("game") as GameModel;
 
+        if (oModel.getProperty("/game/isSubmitting")) {
+            return;
+        }
+
         const answer = oModel.getProperty("/game/currentAnswer");
 
-        this.gameEngine.answer(answer);
+        if (!answer || !answer.trim()) {
+            return;
+        }
+
+        oModel.setProperty("/game/isSubmitting", true);
+
+        try {
+
+            oModel.setProperty("/game/currentAnswer", "");
+
+            this.gameEngine.answer(answer);
+
+        } finally {
+            oModel.setProperty("/game/isSubmitting", false);
+        }
 
     }
 
-    /**
-     * Plateia pulou
-     */
     public onSkipAudience(): void {
 
         this.gameEngine.skipAudience();

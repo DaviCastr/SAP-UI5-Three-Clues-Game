@@ -21,7 +21,7 @@ export default class EnvelopeSpinner extends Control {
     private visibleEnvelopes: number[] = [0, 0, 0, 0, 0];
     private currentTranslateY = 0;
     
-    private readonly SPIN_DURATION_MS = 3200;
+    private readonly SPIN_DURATION_MS = 3600;
 
     public static readonly metadata: MetadataOptions = {
         properties: {
@@ -84,9 +84,6 @@ export default class EnvelopeSpinner extends Control {
         this.invalidate();
     }
 
-    /**
-     * Função de Easing Quad (Ease Out) para suavizar o final do giro
-     */
     private easeOutQuad(t: number): number {
         return t * (2 - t);
     }

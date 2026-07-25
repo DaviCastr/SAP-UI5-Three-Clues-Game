@@ -14,7 +14,7 @@ sap.ui.define(["sap/ui/core/Control", "./EnvelopeSpinnerRenderer", "sap/ui/dom/i
       this.availableEnvelopes = [];
       this.visibleEnvelopes = [0, 0, 0, 0, 0];
       this.currentTranslateY = 0;
-      this.SPIN_DURATION_MS = 3200;
+      this.SPIN_DURATION_MS = 3600;
     },
     renderer: EnvelopeSpinnerRenderer,
     metadata: {
@@ -63,9 +63,6 @@ sap.ui.define(["sap/ui/core/Control", "./EnvelopeSpinnerRenderer", "sap/ui/dom/i
       }
       this.invalidate();
     },
-    /**
-     * Função de Easing Quad (Ease Out) para suavizar o final do giro
-     */
     easeOutQuad: function _easeOutQuad(t) {
       return t * (2 - t);
     },

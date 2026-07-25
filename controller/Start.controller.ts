@@ -35,11 +35,16 @@ export default class Start extends Controller {
     public onStartGame(): void {
         const oModel = (this as any).getView().getModel("game");
 
-        const player1 = oModel.getProperty("/players/player1/name");
-        const player2 = oModel.getProperty("/players/player2/name");
+        const player1 = (oModel.getProperty("/players/player1/name") || "").trim();
+        const player2 = (oModel.getProperty("/players/player2/name") || "").trim();
 
         if (!player1 || !player2) {
             MessageBox.error(this.getI18nText("msg.fillPlayerNames"));
+            return;
+        }
+
+        if (player1.toLowerCase() === player2.toLowerCase()) {
+            MessageBox.error(this.getI18nText("msg.duplicatePlayerNames"));
             return;
         }
 

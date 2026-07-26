@@ -1,4 +1,4 @@
-sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (__AnswerService, __Turn, __SoundService) {
+sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService", "../services/LocalStorageService"], function (__AnswerService, __Turn, __SoundService, __LocalStorageService) {
   "use strict";
 
   function _interopRequireDefault(obj) {
@@ -8,6 +8,7 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
   const Turn = _interopRequireDefault(__Turn);
   const SoundService = _interopRequireDefault(__SoundService);
   const SoundEffect = __SoundService["SoundEffect"];
+  const LocalStorageService = _interopRequireDefault(__LocalStorageService);
   var RoundState = /*#__PURE__*/function (RoundState) {
     RoundState["WAITING_SPIN"] = "WAITING_SPIN";
     RoundState["ANSWERING"] = "ANSWERING";
@@ -49,10 +50,12 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
         this.soundService.play(SoundEffect.CORRECT);
         const currentPlayer = this.model.getProperty("/game/currentPlayer");
         this.finishRound(currentPlayer);
+        this.autoSave();
         return true;
       }
       this.soundService.play(SoundEffect.WRONG);
       this.nextAttempt();
+      this.autoSave();
       return false;
     }
     skipAudience() {
@@ -61,11 +64,13 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
       }
       const currentPlayer = this.model.getProperty("/game/currentPlayer");
       this.finishRound(currentPlayer);
+      this.autoSave();
     }
     restartGame() {
       this.stopTimer();
       this.resetScores();
       this.resetRoundState();
+      LocalStorageService.clear();
     }
     drawEnvelope() {
       this.model.setProperty("/game/canSpinWheel", false);
@@ -79,9 +84,12 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
       this.updateProgress();
       return envelope;
     }
-    startTimer() {
+    startTimer(actualTime) {
       this.stopTimer();
-      const roundTime = Number(this.model.getProperty("/settings/roundTime")) || 0;
+      let roundTime = Number(this.model.getProperty("/settings/roundTime")) || 0;
+      if (actualTime) {
+        roundTime = actualTime;
+      }
       if (roundTime <= 0) {
         return;
       }
@@ -92,6 +100,9 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
       this.timerId = window.setInterval(() => {
         const currentSeconds = this.model.getProperty("/timer/seconds");
         if (currentSeconds > 1) {
+          if (this.model.getProperty("/game/isGamePaused")) {
+            return;
+          }
           this.model.setProperty("/timer/seconds", currentSeconds - 1);
         } else {
           this.model.setProperty("/timer/seconds", 0);
@@ -99,14 +110,29 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
           this.soundService.play(SoundEffect.TIME_EXPIRED);
           this.handleTimeExpired();
         }
+        this.autoSave();
       }, 1000);
     }
-    stopTimer() {
+    stopTimer(keepActive = false) {
       if (this.timerId !== null) {
         clearInterval(this.timerId);
         this.timerId = null;
       }
-      this.model.setProperty("/timer/active", false);
+      if (!keepActive) {
+        this.model.setProperty("/timer/active", false);
+      }
+    }
+    createSave() {
+      return {
+        version: 1,
+        gameState: structuredClone(this.model.getData()),
+        remainingEnvelopes: structuredClone(this.envelopes),
+        currentEnvelope: structuredClone(this.model.getProperty("/game/currentEnvelope")),
+        currentEnvelopeCompleted: this.model.getProperty("/game/canSpinWheel")
+      };
+    }
+    getCurrentEnvelope() {
+      return this.model.getProperty("/game/currentEnvelope");
     }
     handleTimeExpired() {
       this.nextAttempt();
@@ -127,6 +153,7 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
       const startingPlayer = this.model.getProperty("/game/startingPlayer");
       this.model.setProperty("/game/currentPlayer", startingPlayer);
       this.startTimer();
+      this.autoSave();
     }
     getAvailableEnvelopeIds() {
       return this.envelopes.map(envelope => envelope.id);
@@ -151,6 +178,51 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
     }
     playSpinSound() {
       this.soundService.play(SoundEffect.SPIN);
+    }
+    restoreSave(save) {
+      this.model.setData(structuredClone(save.gameState));
+      this.envelopes = structuredClone(save.remainingEnvelopes);
+      this.updateProgress();
+      if (save.currentEnvelopeCompleted) {
+        this.model.setProperty("/game/canSpinWheel", true);
+        this.model.setProperty("/game/canAnswer", false);
+      } else {
+        this.model.setProperty("/game/canSpinWheel", false);
+        this.model.setProperty("/game/canAnswer", true);
+      }
+      if (this.model.getProperty("/timer/active") && !this.model.getProperty("/game/isGamePaused")) {
+        this.startTimer(this.model.getProperty("/timer/seconds"));
+      }
+      this.model.setProperty("/game/isSubmitting", false);
+    }
+    restoreCurrentRound() {
+      const envelope = this.model.getProperty("/game/currentEnvelope");
+      if (!envelope) {
+        return;
+      }
+      const hint = this.model.getProperty("/game/currentHint");
+      const visibleHints = envelope.hints.slice(0, hint + 1);
+      this.model.setProperty("/game/visibleHints", visibleHints);
+      this.model.setProperty("/game/currentCategory", envelope.category);
+    }
+    pauseGame() {
+      this.stopTimer(true);
+      this.model.setProperty("/game/isGamePaused", true);
+      this.autoSave();
+    }
+    resumeGame() {
+      this.model.setProperty("/game/isGamePaused", false);
+      this.model.setProperty("/game/canAnswer", true);
+      const seconds = this.model.getProperty("/timer/seconds");
+      this.startTimer(seconds);
+      this.autoSave();
+    }
+    togglePause() {
+      if (this.model.getProperty("/game/isGamePaused")) {
+        this.resumeGame();
+      } else {
+        this.pauseGame();
+      }
     }
     finishRound(winner) {
       const envelope = this.model.getProperty("/game/currentEnvelope");
@@ -263,6 +335,7 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
       this.model.setProperty("/game/currentPlayer", Turn.PLAYER1);
       this.model.setProperty("/progress/current", 0);
       this.model.setProperty("/progress/percent", 0);
+      this.model.setProperty("/game/isGamePaused", false);
     }
     clearRoundResult() {
       this.model.setProperty("/roundResult", {
@@ -292,6 +365,9 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService"], function (
       const percent = Math.round(current / total * 100);
       this.model.setProperty("/progress/current", current);
       this.model.setProperty("/progress/percent", percent);
+    }
+    autoSave() {
+      LocalStorageService.save(this.createSave());
     }
   }
   GameEngine.RoundState = RoundState;

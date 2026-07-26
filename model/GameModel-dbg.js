@@ -41,7 +41,8 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "./GameEngine", "./Turn"], functio
           showSkipAudience: false,
           canAnswer: false,
           currentCategory: "",
-          isSubmitting: false
+          isSubmitting: false,
+          isGamePaused: false
         },
         roundResult: {
           visible: false,

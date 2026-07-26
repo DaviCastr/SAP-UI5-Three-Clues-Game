@@ -58,6 +58,12 @@ sap.ui.define(["./Turn"], function (__Turn) {
         return "";
       }
       return formatter._getText(this, "msg.progressPercent", [iCurrent, iTotal, iPercent || 0]);
+    },
+    formatTimerTitle(seconds, paused, bundle) {
+      if (paused) {
+        return bundle.getText("lbl.gamePaused");
+      }
+      return `${seconds} s`;
     }
   };
   return formatter;

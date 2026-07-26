@@ -71,6 +71,12 @@ export default class EnvelopeRepository {
 
     }
 
+    public setCurrent(envelopes: IEnvelope[]): void {
+
+        this.envelopes = structuredClone(envelopes);
+
+    }
+
     private validateEnvelope(data: unknown): IEnvelope {
 
         if (typeof data !== "object" || data === null) {

@@ -1,6 +1,10 @@
-sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/MessageBox", "sap/m/MessageToast", "sap/ui/core/Fragment"], function (Controller, UIComponent, MessageBox, MessageToast, Fragment) {
+sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/MessageBox", "sap/m/MessageToast", "sap/ui/core/Fragment", "../services/LocalStorageService"], function (Controller, UIComponent, MessageBox, MessageToast, Fragment, __LocalStorageService) {
   "use strict";
 
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule && typeof obj.default !== "undefined" ? obj.default : obj;
+  }
+  const LocalStorageService = _interopRequireDefault(__LocalStorageService);
   const Start = Controller.extend("webapp.controller.Start", {
     constructor: function constructor() {
       Controller.prototype.constructor.apply(this, arguments);
@@ -12,6 +16,20 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/UIComponent", "sap/m/M
       this.getView().setModel(oGameModel, "game");
       this.envelopeRepository = oOwnerComponent.getEnvelopeRepository();
       this.gameEngine = oOwnerComponent.getGameEngine();
+      const save = LocalStorageService.load();
+      if (save && !oOwnerComponent.restoredGame) {
+        MessageBox.show(this.getI18nText("msg.restoreGameText"), {
+          title: this.getI18nText("msg.restoreGameTitle"),
+          actions: [this.getI18nText("btn.continueGame"), this.getI18nText("btn.newGame")],
+          onClose: action => {
+            if (action === this.getI18nText("btn.continueGame")) {
+              UIComponent.getRouterFor(this).navTo("Game");
+            } else {
+              LocalStorageService.clear();
+            }
+          }
+        });
+      }
     },
     getI18nText: function _getI18nText(sKey, aArgs) {
       const oResourceModel = this.getOwnerComponent().getModel("i18n");

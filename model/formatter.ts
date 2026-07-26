@@ -1,3 +1,4 @@
+import ResourceBundle from "sap/base/i18n/ResourceBundle";
 import Turn from "./Turn";
 
 const formatter = {
@@ -89,7 +90,24 @@ const formatter = {
             return "";
         }
         return formatter._getText(this, "msg.progressPercent", [iCurrent, iTotal, iPercent || 0]);
+    },
+
+    formatTimerTitle(
+        seconds: number,
+        paused: boolean,
+        bundle: ResourceBundle
+    ): string {
+
+        if (paused) {
+
+            return bundle.getText("lbl.gamePaused") as string;
+
+        }
+
+        return `${seconds} s`;
+
     }
+
 };
 
 export default formatter;

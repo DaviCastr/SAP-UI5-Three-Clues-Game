@@ -36,6 +36,9 @@ sap.ui.define(["sap/ui/model/json/JSONModel"], function (JSONModel) {
     getCurrent() {
       return [...this.envelopes];
     }
+    setCurrent(envelopes) {
+      this.envelopes = structuredClone(envelopes);
+    }
     validateEnvelope(data) {
       if (typeof data !== "object" || data === null) {
         throw new Error("Envelope inválido.");

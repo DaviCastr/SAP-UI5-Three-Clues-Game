@@ -1,14 +1,16 @@
-sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/MessageBox"], function (Controller, __formatter, MessageBox) {
+sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/MessageBox", "../services/LocalStorageService"], function (Controller, __formatter, MessageBox, __LocalStorageService) {
   "use strict";
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule && typeof obj.default !== "undefined" ? obj.default : obj;
   }
   const formatter = _interopRequireDefault(__formatter);
+  const LocalStorageService = _interopRequireDefault(__LocalStorageService);
   const Game = Controller.extend("webapp.controller.Game", {
     constructor: function constructor() {
       Controller.prototype.constructor.apply(this, arguments);
       this.formatter = formatter;
+      this.restoredGame = false;
     },
     onInit: function _onInit() {
       void this.initialize();
@@ -32,6 +34,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
           this.focusAnswerInput();
         }
       });
+      if (this.restoredGame) {
+        const currentEnvelope = this.gameEngine.getCurrentEnvelope();
+        if (currentEnvelope) {
+          this.envelopeSpinner.restoreState(this.gameEngine.getAvailableEnvelopeIds(), currentEnvelope.id);
+        } else {
+          this.envelopeSpinner.resetVisibleEnvelopes(this.gameEngine.getAvailableEnvelopeIds());
+        }
+      }
     },
     initialize: async function _initialize() {
       const oModel = this.getOwnerComponent().getModel("game");
@@ -40,6 +50,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
       const oRouter = this.getOwnerComponent().getRouter();
       if (oRouter) {
         oRouter.getRoute("Game")?.attachPatternMatched(this.gameMatched, this);
+      }
+      const save = LocalStorageService.load();
+      if (save) {
+        this.envelopeRepository = this.getOwnerComponent().getEnvelopeRepository();
+        this.envelopeRepository.setCurrent(save.remainingEnvelopes);
+        this.gameEngine.restoreSave(save);
+        this.gameEngine.restoreCurrentRound();
+        this.getOwnerComponent().restoredGame = this.restoredGame = true;
       }
     },
     onSpinWheel: async function _onSpinWheel() {
@@ -83,10 +101,16 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
           if (action === MessageBox.Action.YES) {
             this.gameEngine.restartGame();
             this.gameEngine.loadEnvelopes(envelopes);
+            if (this.envelopeSpinner) {
+              this.envelopeSpinner.resetVisibleEnvelopes(this.gameEngine.getAvailableEnvelopeIds());
+            }
             this.getOwnerComponent().getRouter().navTo("Start");
           }
         }
       });
+    },
+    onPauseGame: function _onPauseGame() {
+      this.gameEngine.togglePause();
     },
     focusAnswerInput: function _focusAnswerInput() {
       setTimeout(() => {
@@ -101,7 +125,12 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
         this.getOwnerComponent().getRouter().navTo("Start");
         return;
       }
-      await this.loadEnvelopes();
+      if (!this.restoredGame) {
+        await this.loadEnvelopes();
+        if (this.envelopeSpinner) {
+          this.envelopeSpinner.resetVisibleEnvelopes(this.gameEngine.getAvailableEnvelopeIds());
+        }
+      }
     },
     hasValidPlayers: function _hasValidPlayers() {
       const model = this.getOwnerComponent().getModel("game");

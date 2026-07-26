@@ -102,6 +102,21 @@ sap.ui.define(["sap/ui/core/Control", "./EnvelopeSpinnerRenderer", "sap/ui/dom/i
       this.setEnvelopeNumber(targetEnvelope);
       this.updateVisibleEnvelopes(targetIndex);
     },
+    jumpTo: function _jumpTo(envelopeId) {
+      const index = this.availableEnvelopes.indexOf(envelopeId);
+      this.setEnvelopeNumber(envelopeId);
+      this.updateVisibleEnvelopes(index);
+    },
+    restoreState: function _restoreState(available, current) {
+      this.availableEnvelopes = [...available];
+      if (!this.availableEnvelopes.includes(current)) {
+        this.availableEnvelopes.push(current);
+      }
+
+      // Mantém a ordem original do jogo quando possível
+      this.availableEnvelopes.sort((a, b) => a - b);
+      this.jumpTo(current);
+    },
     animateTrack: function _animateTrack() {
       return Promise.resolve();
     },

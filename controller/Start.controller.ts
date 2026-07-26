@@ -9,6 +9,7 @@ import Fragment from "sap/ui/core/Fragment";
 import Dialog from "sap/m/Dialog";
 import ResourceBundle from "sap/base/i18n/ResourceBundle";
 import ResourceModel from "sap/ui/model/resource/ResourceModel";
+import LocalStorageService from "../services/LocalStorageService";
 
 export default class Start extends Controller {
 
@@ -24,6 +25,39 @@ export default class Start extends Controller {
 
         this.envelopeRepository = oOwnerComponent.getEnvelopeRepository();
         this.gameEngine = oOwnerComponent.getGameEngine();
+
+        const save = LocalStorageService.load();
+
+        if (save && !oOwnerComponent.restoredGame) {
+
+            MessageBox.show(
+                this.getI18nText("msg.restoreGameText"),
+                {
+                    title: this.getI18nText("msg.restoreGameTitle"),
+                    actions: [
+                        this.getI18nText("btn.continueGame"),
+                        this.getI18nText("btn.newGame")
+                    ],
+                    onClose: (action) => {
+
+                        if (action === this.getI18nText("btn.continueGame")) {
+
+                            UIComponent
+                                .getRouterFor(this)
+                                .navTo("Game");
+
+                        } else {
+
+                            LocalStorageService.clear();
+
+                        }
+
+                    }
+                }
+            );
+
+        }
+
     }
 
     private getI18nText(sKey: string, aArgs?: any[]): string {

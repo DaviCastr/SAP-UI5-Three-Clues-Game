@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";class t{static STORAGE_KEY="three-clues-game";static save(t){localStorage.setItem(this.STORAGE_KEY,JSON.stringify(t))}static clear(){localStorage.removeItem(this.STORAGE_KEY)}static hasSavedGame(){return!!localStorage.getItem(this.STORAGE_KEY)}static load(){const t=localStorage.getItem(this.STORAGE_KEY);if(!t){return null}return JSON.parse(t)}}return t});
+//# sourceMappingURL=LocalStorageService.js.map

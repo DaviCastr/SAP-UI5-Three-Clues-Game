@@ -20,7 +20,7 @@ export default class EnvelopeSpinner extends Control {
     private availableEnvelopes: number[] = [];
     private visibleEnvelopes: number[] = [0, 0, 0, 0, 0];
     private currentTranslateY = 0;
-    
+
     private readonly SPIN_DURATION_MS = 3600;
 
     public static readonly metadata: MetadataOptions = {
@@ -99,7 +99,7 @@ export default class EnvelopeSpinner extends Control {
         const targetIndex = this.availableEnvelopes.indexOf(targetEnvelope);
 
         const turns = 3;
-        
+
         let stepsToTarget = targetIndex - startIndex;
         if (stepsToTarget < 0) {
             stepsToTarget += totalEnvelopes;
@@ -113,7 +113,7 @@ export default class EnvelopeSpinner extends Control {
         while (true) {
             const now = performance.now();
             const elapsed = now - startTime;
-            
+
             if (elapsed >= this.SPIN_DURATION_MS) {
                 break;
             }
@@ -137,6 +137,43 @@ export default class EnvelopeSpinner extends Control {
 
         this.setEnvelopeNumber(targetEnvelope);
         this.updateVisibleEnvelopes(targetIndex);
+    }
+
+    public jumpTo(
+        envelopeId: number
+    ): void {
+        const index =
+            this.availableEnvelopes.indexOf(
+                envelopeId
+            );
+
+        this.setEnvelopeNumber(
+            envelopeId
+        );
+
+        this.updateVisibleEnvelopes(
+            index
+        );
+    }
+
+    public restoreState(
+        available: number[],
+        current: number
+    ): void {
+
+        this.availableEnvelopes = [...available];
+
+        if (!this.availableEnvelopes.includes(current)) {
+
+            this.availableEnvelopes.push(current);
+
+        }
+
+        // Mantém a ordem original do jogo quando possível
+        this.availableEnvelopes.sort((a, b) => a - b);
+
+        this.jumpTo(current);
+
     }
 
     private animateTrack(): Promise<void> {

@@ -61,6 +61,8 @@ export interface IGameState {
 
         isSubmitting: boolean;
 
+        isGamePaused: boolean;
+
     }
 
     roundResult: {
@@ -146,7 +148,9 @@ export default class GameModel extends JSONModel {
 
                 currentCategory: "",
 
-                isSubmitting: false
+                isSubmitting: false,
+
+                isGamePaused: false,
 
             },
 

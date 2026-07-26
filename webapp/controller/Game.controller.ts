@@ -9,6 +9,7 @@ import EnvelopeSpinner from "../controls/EnvelopeSpinner/EnvelopeSpinner";
 import ResourceBundle from "sap/base/i18n/ResourceBundle";
 import ResourceModel from "sap/ui/model/resource/ResourceModel";
 import Input from "sap/m/Input";
+import LocalStorageService from "../services/LocalStorageService";
 
 export default class Game extends Controller {
 
@@ -19,6 +20,8 @@ export default class Game extends Controller {
     private envelopeRepository!: EnvelopeRepository;
 
     private envelopeSpinner!: EnvelopeSpinner;
+
+    private restoredGame = false;
 
     public onInit(): void {
 
@@ -55,6 +58,27 @@ export default class Game extends Controller {
             }
         });
 
+        if (this.restoredGame) {
+
+            const currentEnvelope = this.gameEngine.getCurrentEnvelope();
+
+            if (currentEnvelope) {
+
+                this.envelopeSpinner.restoreState(
+                    this.gameEngine.getAvailableEnvelopeIds(),
+                    currentEnvelope.id
+                );
+
+            } else {
+
+                this.envelopeSpinner.resetVisibleEnvelopes(
+                    this.gameEngine.getAvailableEnvelopeIds()
+                );
+
+            }
+
+        }
+
     }
 
     private async initialize(): Promise<void> {
@@ -72,6 +96,26 @@ export default class Game extends Controller {
 
         if (oRouter) {
             oRouter.getRoute("Game")?.attachPatternMatched(this.gameMatched, this);
+        }
+
+        const save = LocalStorageService.load();
+
+        if (save) {
+
+            this.envelopeRepository =
+                (this as any).getOwnerComponent()
+                    .getEnvelopeRepository();
+
+            this.envelopeRepository.setCurrent(
+                save.remainingEnvelopes
+            );
+
+            this.gameEngine.restoreSave(save);
+
+            this.gameEngine.restoreCurrentRound();
+
+            (this as any).getOwnerComponent().restoredGame = this.restoredGame = true;
+
         }
 
     }
@@ -161,6 +205,14 @@ export default class Game extends Controller {
 
                         this.gameEngine.loadEnvelopes(envelopes);
 
+                        if (this.envelopeSpinner) {
+
+                            this.envelopeSpinner.resetVisibleEnvelopes(
+                                this.gameEngine.getAvailableEnvelopeIds()
+                            );
+
+                        }
+
                         (this as any).getOwnerComponent()
                             .getRouter()
                             .navTo("Start");
@@ -170,6 +222,12 @@ export default class Game extends Controller {
                 }
             }
         );
+
+    }
+
+    public onPauseGame(): void {
+
+        this.gameEngine.togglePause();
 
     }
 
@@ -193,7 +251,19 @@ export default class Game extends Controller {
 
         }
 
-        await this.loadEnvelopes();
+        if (!this.restoredGame) {
+
+            await this.loadEnvelopes();
+
+            if (this.envelopeSpinner) {
+
+                this.envelopeSpinner.resetVisibleEnvelopes(
+                    this.gameEngine.getAvailableEnvelopeIds()
+                );
+
+            }
+
+        }
 
     }
 

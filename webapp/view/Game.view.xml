@@ -106,18 +106,51 @@
 
                         <!-- ÁREA DE RESPOSTA E RESULTADO -->
                         <VBox class="tcgBottomRightZone">
+
                             <VBox class="tcgAnswerSection" visible="{game>/game/canAnswer}">
                                 
                                 <!-- ⏱️ CRONÔMETRO DA RODADA -->
-                                <HBox 
-                                    justifyContent="SpaceBetween" 
-                                    alignItems="Center" 
+                                <HBox
+                                    justifyContent="SpaceBetween"
+                                    alignItems="Center"
                                     class="tcgTimerBox sapUiTinyMarginBottom"
                                     visible="{game>/timer/active}">
-                                    <Text text="{i18n>game.timeRemaining}" class="tcgTimerLabel"/>
-                                    <Text 
-                                        text="{game>/timer/seconds}s" 
-                                        class="{= ${game>/timer/seconds} &lt;= 5 ? 'tcgTimerValue tcgTimerDanger' : 'tcgTimerValue' }"/>
+
+                                    <HBox alignItems="Center">
+
+                                        <core:Icon
+                                            src="{
+                                                = ${game>/game/isGamePaused}
+                                                ? 'sap-icon://media-pause'
+                                                : 'sap-icon://history'
+                                            }"
+                                            class="sapUiTinyMarginEnd"/>
+
+                                        <Title
+                                            visible="{= !${game>/game/isGamePaused} }"
+                                            text="{= ${game>/timer/seconds} + ' s'}"/>
+
+                                        <Title
+                                            visible="{game>/game/isGamePaused}"
+                                            text="{i18n>lbl.gamePaused}"/>
+
+                                    </HBox>
+
+                                    <Button
+                                        visible="{= !${game>/game/isGamePaused} }"
+                                        icon="sap-icon://media-pause"
+                                        press=".onPauseGame"
+                                        type="Transparent"
+                                        class="tcgPauseButton"/>
+
+                                    <Button
+                                        visible="{game>/game/isGamePaused}"
+                                        icon="sap-icon://media-play"
+                                        text="{i18n>btn.resumeGame}"
+                                        press=".onPauseGame"
+                                        type="Transparent"
+                                        class="tcgPauseButton"/>
+
                                 </HBox>
                                 
                                 <Input
@@ -125,13 +158,13 @@
                                     value="{game>/game/currentAnswer}"
                                     placeholder="{i18n>game.answerPlaceholder}"
                                     submit=".onAnswer"
-                                    enabled="{= !${game>/game/isSubmitting} }"
+                                    enabled="{= !${game>/game/isSubmitting} &amp;&amp; !${game>/game/isGamePaused} }"
                                     class="tcgInput"/>
                                 <Button
                                     text="{i18n>game.answerButton}"
                                     press=".onAnswer"
                                     type="Emphasized"
-                                    enabled="{= !${game>/game/isSubmitting} }"
+                                    enabled="{= !${game>/game/isSubmitting} &amp;&amp; !${game>/game/isGamePaused} }"
                                     width="100%"
                                     class="tcgBtnAnswer"/>
                             </VBox>

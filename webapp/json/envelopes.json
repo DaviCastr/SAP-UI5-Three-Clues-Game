@@ -1,337 +1,411 @@
 [
   {
     "id": 1,
-    "category": "Personagens",
-    "answer": "CHAVES",
+    "category": "Pessoa",
+    "answer": "SANTOS DUMONT",
     "synonyms": [
-      "CHAVES",
-      "O CHAVES"
+      "SANTOS DUMONT",
+      "SANTOS DUMOND",
+      "SANTO DUMONT",
+      "SANTO DUMOND",
+      "SANTOS DUMON",
+      "ALBERTO SANTOS DUMONT",
+      "DUMONT"
     ],
     "hints": [
-      "Mora em uma vila",
-      "Adora sanduíche de presunto",
-      "Mora dentro de um barril"
+      "Projetou o dirigível N° 6 e o famoso 14-Bis",
+      "Também ajudou a popularizar o relógio de pulso",
+      "Considerado o Pai da Aviação no Brasil"
     ]
   },
   {
     "id": 2,
-    "category": "Alimentos",
-    "answer": "PIZZA",
+    "category": "Lugar / Bíblia",
+    "answer": "JERUSALÉM",
     "synonyms": [
-      "PIZZA",
-      "PIZA"
+      "JERUSALEM",
+      "JERUZALEM",
+      "JERUSALEN",
+      "JERUSALÉ",
+      "GERUSALEM",
+      "GERUZALEM"
     ],
     "hints": [
-      "Vem da Itália",
-      "É cortada em fatias",
-      "Tem de calabresa e muçarela"
+      "Cidade sagrada para o cristianismo, judaísmo e islamismo",
+      "Conhecida nas escrituras como a Cidade de Davi",
+      "Lugar onde Jesus viveu seus últimos dias na Terra"
     ]
   },
   {
     "id": 3,
-    "category": "Lugares",
-    "answer": "CINEMA",
+    "category": "Animal",
+    "answer": "ONÇA-PINTADA",
     "synonyms": [
-      "CINEMA",
-      "CINE"
+      "ONCA PINTADA",
+      "ONÇA PINTADA",
+      "ONCA-PINTADA",
+      "ONSA PINTADA",
+      "ONZA PINTADA",
+      "ONCA",
+      "ONÇA"
     ],
     "hints": [
-      "Tem uma tela grande",
-      "Vende pipoca na entrada",
-      "Onde assistimos a filmes"
+      "Tem a mordida mais forte entre todos os felinos",
+      "Seu corpo é repleto de manchas chamadas de rosetas",
+      "O maior felino das Américas"
     ]
   },
   {
     "id": 4,
-    "category": "Objetos",
-    "answer": "CELULAR",
+    "category": "Pessoa / Bíblia",
+    "answer": "NOÉ",
     "synonyms": [
-      "CELULAR",
-      "TELEFONE CELULAR",
-      "SMARTPHONE"
+      "NOE",
+      "NOEH",
+      "NOÉH"
     ],
     "hints": [
-      "Fica no bolso",
-      "Usa para mandar mensagens",
-      "Tem tela sensível ao toque"
+      "Era considerado um homem justo num mundo corrompido",
+      "Soltou uma pomba para ver se a terra havia secado",
+      "Construiu a grande arca para salvar sua família do Dilúvio"
     ]
   },
   {
     "id": 5,
-    "category": "Profissões",
-    "answer": "BOMBEIRO",
+    "category": "Objeto",
+    "answer": "CAFEITEIRA",
     "synonyms": [
-      "BOMBEIRO",
-      "BOMBEIROS"
+      "CAFETEIRA",
+      "CAFEITERA",
+      "CAFETERA",
+      "CAFEITERIA",
+      "CAFEITEIRA ELÉTRICA"
     ],
     "hints": [
-      "Usa farda e capacete",
-      "Anda em um caminhão vermelho",
-      "Apaga incêndios"
+      "Pode ser de filtro, prensa francesa, italiana ou cápsula",
+      "Usa água quente para extrair o sabor dos grãos moídos",
+      "Eletrodoméstico usado para preparar o café"
     ]
   },
   {
     "id": 6,
-    "category": "Animais",
-    "answer": "CACHORRO",
+    "category": "Comida",
+    "answer": "FEIJOADA",
     "synonyms": [
-      "CACHORRO",
-      "CÃO",
-      "CAO"
+      "FEIJOADA",
+      "FEIJODADA",
+      "FEIJOADA BRASILEIRA",
+      "FEIJOADA COMPLETA"
     ],
     "hints": [
-      "Melhor amigo do homem",
-      "Gosta de roer ossos",
-      "Faz au au"
+      "Combinação perfeita com couve refogada, farofa e laranja",
+      "Feita tradicionalmente num caldeirão com carnes de porco",
+      "Prato típico brasileiro à base de feijão-preto"
     ]
   },
   {
     "id": 7,
-    "category": "Meios de Transporte",
-    "answer": "AVIÃO",
+    "category": "Pessoa / Bíblia",
+    "answer": "ADÃO E EVA",
     "synonyms": [
-      "AVIAO",
-      "AVIÃO"
+      "ADAO E EVA",
+      "ADAO E EBA",
+      "ADAO EVA",
+      "ADÃO EVA",
+      "ADÃO",
+      "ADAO",
+      "EVA"
     ],
     "hints": [
-      "Tem asas e turbinas",
-      "Fica no aeroporto",
-      "Voa pelo céu"
+      "Foram instruídos a não comer do fruto de uma árvore",
+      "Foram expulsos do paraíso após desobedecerem",
+      "O primeiro homem e a primeira mulher da Bíblia"
     ]
   },
   {
     "id": 8,
-    "category": "Alimentos",
-    "answer": "PIPOCA",
+    "category": "Lugar",
+    "answer": "AMAZÔNIA",
     "synonyms": [
-      "PIPOCA"
+      "AMAZONIA",
+      "AMAZONA",
+      "AMASONIA",
+      "AMAZONAS",
+      "FLORESTA AMAZONICA",
+      "FLORESTA AMAZÔNICA"
     ],
     "hints": [
-      "Feita de milho",
-      "Estoura na panela",
-      "Comemos no cinema"
+      "Abriga cerca de 10% de toda a biodiversidade do planeta",
+      "Cruza o território de nove países da América do Sul",
+      "A maior floresta tropical do mundo"
     ]
   },
   {
     "id": 9,
-    "category": "Natureza",
-    "answer": "PRAIA",
+    "category": "Objeto",
+    "answer": "BÚSSOLA",
     "synonyms": [
-      "PRAIA"
+      "BUSSOLA",
+      "BUÇOLA",
+      "BUSOLA",
+      "BUZOLA",
+      "BUSSO L A"
     ],
     "hints": [
-      "Tem água salgada",
-      "Pessoas usam filtro solar",
-      "Tem areia e mar"
+      "Muito utilizada por grandes navegadores nas caravelas",
+      "Sua agulha magnetizada responde ao campo magnético terrestre",
+      "Instrumento de navegação que indica o Norte"
     ]
   },
   {
     "id": 10,
-    "category": "Objetos",
-    "answer": "GUARDA-CHUVA",
+    "category": "Pessoa",
+    "answer": "PELÉ",
     "synonyms": [
-      "GUARDA CHUVA",
-      "GUARDA-CHUVA",
-      "SOMBRINHA"
+      "PELE",
+      "PELÉ",
+      "EDSON ARANTES DO NASCIMENTO",
+      "REI PELÉ",
+      "REI PELE"
     ],
     "hints": [
-      "Fica fechado no canto",
-      "Protege da água",
-      "Usamos quando chove"
+      "Marcou mais de mil gols ao longo de sua carreira",
+      "Conquistou três Copas do Mundo pela Seleção Brasileira",
+      "Conhecido mundialmente como o Rei do Futebol"
     ]
   },
   {
     "id": 11,
-    "category": "Datas Comemorativas",
-    "answer": "NATAL",
+    "category": "Acontecimento / Bíblia",
+    "answer": "RESSURREIÇÃO DE JESUS",
     "synonyms": [
-      "NATAL"
+      "RESSURREICAO DE JESUS",
+      "RESURREICAO DE JESUS",
+      "RESSUREIÇÃO DE JESUS",
+      "RESURREICAO",
+      "RESSURREICAO",
+      "RESSURREIÇÃO"
     ],
     "hints": [
-      "Comemorado em dezembro",
-      "Tem árvore decorada",
-      "Dia do Papai Noel"
+      "Encontraram a grande pedra do sepulcro removida",
+      "Aconteceu no terceiro dia após a sua morte na cruz",
+      "Evento central do cristianismo celebrado no domingo de Páscoa"
     ]
   },
   {
     "id": 12,
-    "category": "Animais",
-    "answer": "GATO",
+    "category": "Comida",
+    "answer": "PÃO DE QUEIJO",
     "synonyms": [
-      "GATO",
-      "GATINHO"
+      "PAO DE QUEIJO",
+      "PAO DE QUEIJO MINERO",
+      "PAO QUEIJO",
+      "PAO DE QUEIJO"
     ],
     "hints": [
-      "Tem sete vidas",
-      "Gosta de caçar ratos",
-      "Faz miau"
+      "Feito à base de polvilho doce ou azedo",
+      "Receita mais famosa e tradicional de Minas Gerais",
+      "Quitute assado e quentinho com sabor marcante de queijo"
     ]
   },
   {
     "id": 13,
-    "category": "Música",
-    "answer": "VIOLÃO",
+    "category": "Lugar",
+    "answer": "MURALHA DA CHINA",
     "synonyms": [
-      "VIOLAO",
-      "VIOLÃO"
+      "GRANDE MURALHA DA CHINA",
+      "MURALHA DA CINA",
+      "MURALHA CHINA",
+      "MURALHAS DA CHINA",
+      "MURALHA CHINESA"
     ],
     "hints": [
-      "Instrumento de madeira",
-      "Tem seis cordas",
-      "Usado para tocar na roda de amigos"
+      "Construída ao longo de várias dinastias para proteção",
+      "Possui mais de vinte mil quilômetros de extensão",
+      "Gigantesca fortificação de pedra situada na Ásia"
     ]
   },
   {
     "id": 14,
-    "category": "Objetos",
-    "answer": "ESPELHO",
+    "category": "Pessoa / Bíblia",
+    "answer": "JOSUÉ",
     "synonyms": [
-      "ESPELHO"
+      "JOSUE",
+      "JOSUÉ",
+      "JOZUE",
+      "JOZUÉ"
     ],
     "hints": [
-      "Feito de vidro",
-      "Fica no banheiro ou quarto",
-      "Reflete nossa imagem"
+      "Foi o sucessor escolhido para liderar o povo após Moisés",
+      "Orou e fez o sol parar sobre a cidade de Gibeão",
+      "Liderou o exército de Israel na conquista da Terra Prometida"
     ]
   },
   {
     "id": 15,
-    "category": "Utensílios",
-    "answer": "TESOURA",
+    "category": "Objeto",
+    "answer": "MICRO-ONDAS",
     "synonyms": [
-      "TESOURA"
+      "MICROONDAS",
+      "MICRO ONDAS",
+      "MICRO-ONDA",
+      "MIKROONDAS",
+      "FORNO MICROONDAS"
     ],
     "hints": [
-      "Tem duas lâminas",
-      "Usada em trabalhos manuais",
-      "Serve para cortar papel"
+      "Aquece os alimentos através da agitação das moléculas de água",
+      "Possui um prato giratório de vidro na parte interna",
+      "Eletrodoméstico prático para esquentar comida rapidamente"
     ]
   },
   {
     "id": 16,
-    "category": "Eletrodomésticos",
-    "answer": "TELEVISÃO",
+    "category": "Animal",
+    "answer": "TARTARUGA-MARINHA",
     "synonyms": [
-      "TELEVISAO",
-      "TELEVISÃO",
-      "TV"
+      "TARTARUGA MARINHA",
+      "TARTARUGA MARINA",
+      "TARTARUGA",
+      "TARTARUGAS MARINHAS"
     ],
     "hints": [
-      "Fica na sala de estar",
-      "Usa controle remoto",
-      "Assistimos novelas e jornais"
+      "As fêmeas voltam para a mesma praia onde nasceram para pôr ovos",
+      "Protegidas no Brasil pelo famoso Projeto Tamar",
+      "Réptil aquático com casco resistente que vive nos oceanos"
     ]
   },
   {
     "id": 17,
-    "category": "Doces",
-    "answer": "CHOCOLATE",
+    "category": "Pessoa / Bíblia",
+    "answer": "MARTA E MARIA",
     "synonyms": [
-      "CHOCOLATE"
+      "MARTA E MARIA",
+      "MARIA E MARTA",
+      "MARTHA E MARIA",
+      "MARTA MARIA"
     ],
     "hints": [
-      "Feito com cacau",
-      "Símbolo da Páscoa",
-      "Pode ser ao leite ou amargo"
+      "Eram irmãs de Lázaro e moravam no vilarejo de Betânia",
+      "Uma preferia ficar ouvindo os ensinamentos e a outra servindo a mesa",
+      "As duas irmãs amigas muito próximas de Jesus"
     ]
   },
   {
     "id": 18,
-    "category": "Vestuário",
-    "answer": "SAPATO",
+    "category": "Lugar",
+    "answer": "RIO DE JANEIRO",
     "synonyms": [
-      "SAPATO",
-      "TÊNIS",
-      "TENIS"
+      "RIO DE JANEIRO",
+      "RIO DE JANEIRU",
+      "RIO JANEIRO",
+      "CIDADE MARAVILHOSA",
+      "RIO DE JANEIROS"
     ],
     "hints": [
-      "Vendido aos pares",
-      "Usamos com meias",
-      "Calçamos nos pés"
+      "Famoso mundialmente pelas praias de Copacabana e Ipanema",
+      "Conhecido pelo apelido carinhoso de 'Cidade Maravilhosa'",
+      "Estado e cidade onde fica o Cristo Redentor"
     ]
   },
   {
     "id": 19,
-    "category": "Festa",
-    "answer": "BOLO",
+    "category": "Pessoa",
+    "answer": "AYRTON SENNA",
     "synonyms": [
-      "BOLO",
-      "BOLO DE ANIVERSÁRIO"
+      "AIRTON SENNA",
+      "AYRTON SENA",
+      "AIRTON SENA",
+      "SENNA",
+      "SENA"
     ],
     "hints": [
-      "Tem recheio e cobertura",
-      "Não pode faltar no aniversário",
-      "Sopramos as velinhas nele"
+      "Ficou mundialmente famoso por pilotar muito bem na chuva",
+      "Foi tricampeão mundial pela equipe McLaren na Fórmula 1",
+      "Um dos maiores ídolos do automobilismo brasileiro"
     ]
   },
   {
     "id": 20,
-    "category": "Corpo Humano",
-    "answer": "DENTE",
+    "category": "Objeto / Bíblia",
+    "answer": "TABERNÁCULO",
     "synonyms": [
-      "DENTE",
-      "DENTES"
+      "TABERNACULO",
+      "TABERNACULU",
+      "TABERNÁCULO DE MOISÉS",
+      "TENTÁCULO",
+      "TABERNACULO SAGRADO"
     ],
     "hints": [
-      "Fica dentro da boca",
-      "Escovamos todos os dias",
-      "Usado para mastigar"
+      "Era montado e desmontado durante as caminhadas no deserto",
+      "Abrigava em seu interior o Lugar Santíssimo e a Arca",
+      "Tenda móvel usada como templo Sagrado pelo povo hebreu"
     ]
   },
   {
     "id": 21,
-    "category": "Brinquedos",
-    "answer": "PIPA",
+    "category": "Comida",
+    "answer": "BRIGADEIRO",
     "synonyms": [
-      "PIPA",
-      "PAPAGAIO",
-      "PANDORGA"
+      "BRIGADEIRO",
+      "BRIGADEIRO DE CHOCOLATE",
+      "BRIGADEIRO DE FESTA",
+      "BRIGADEIRU"
     ],
     "hints": [
-      "Feita de vareta e papel",
-      "Usa rabiola e linha",
-      "Voa quando tem vento"
+      "Geralmente é enrolado na mão e coberto com granulado",
+      "Feito com leite condensado, margarina e achocolatado",
+      "O docinho mais tradicional das festas infantis brasileiras"
     ]
   },
   {
     "id": 22,
-    "category": "Bebidas",
-    "answer": "CAFÉ",
+    "category": "Geografia",
+    "answer": "RIO AMAZONAS",
     "synonyms": [
-      "CAFE",
-      "CAFÉ"
+      "RIO AMAZONAS",
+      "RIO AMAZONA",
+      "AMAZONAS RIO",
+      "RIO AMASOANAS"
     ],
     "hints": [
-      "Tomamos de manhã cedo",
-      "Feito com grãos moídos",
-      "Bebida quente e escura"
+      "Nasce nos Andes peruanos e deságua no Oceano Atlântico",
+      "Não possui nenhuma ponte cruzando seu leito principal",
+      "O rio mais extenso e caudaloso do mundo"
     ]
   },
   {
     "id": 23,
-    "category": "Escola",
-    "answer": "LÁPIS",
+    "category": "Pessoa / Bíblia",
+    "answer": "MANDAMENTOS",
     "synonyms": [
-      "LAPIS",
-      "LÁPIS"
+      "DEZ MANDAMENTOS",
+      "DEZ MANDAMENTO",
+      "10 MANDAMENTOS",
+      "10 MANDAMENTO",
+      "TABUAS DOS MANDAMENTOS",
+      "TABUAS DA LEI"
     ],
     "hints": [
-      "Feito de madeira e grafite",
-      "Usamos para desenhar",
-      "Apontamos quando a ponta quebra"
+      "Escritos pelo próprio dedo de Deus em duas tábuas de pedra",
+      "Incluem leis como 'Não matarás' e 'Honra teu pai e tua mãe'",
+      "Conjunto de dez leis entregues a Moisés no Monte Sinai"
     ]
   },
   {
     "id": 24,
-    "category": "Natureza",
-    "answer": "SOL",
+    "category": "Lugar",
+    "answer": "COLISEU",
     "synonyms": [
-      "SOL"
+      "COLIZEU",
+      "COLISEU DE ROMA",
+      "COLIZEU DE ROMA",
+      "COLISEO",
+      "COLISEUM"
     ],
     "hints": [
-      "Aparece durante o dia",
-      "Aquece a Terra",
-      "Estrela principal do sistema solar"
+      "Tinha capacidade para receber dezenas de milhares de espectadores",
+      "Era o palco principal de lutas de gladiadores no Império",
+      "Famoso anfiteatro histórico localizado no coração de Roma"
     ]
   }
 ]

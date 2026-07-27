@@ -106,6 +106,26 @@ const formatter = {
 
         return `${seconds} s`;
 
+    },
+
+    formatSkipTurnText(
+        currentPlayer: Turn
+    ): string {
+
+        return currentPlayer === Turn.AUDIENCE
+            ? formatter._getText(this, "btn.showAnswer")
+            : formatter._getText(this, "btn.skipTurn");
+
+    },
+
+    formatSkipTurnIcon(
+        currentPlayer: Turn
+    ): string {
+
+        return currentPlayer === Turn.AUDIENCE
+            ? "sap-icon://show"
+            : "sap-icon://open-command-field";
+
     }
 
 };

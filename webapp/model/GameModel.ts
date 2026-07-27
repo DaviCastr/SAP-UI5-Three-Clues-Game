@@ -53,8 +53,6 @@ export interface IGameState {
 
         showAnswer: boolean;
 
-        showSkipAudience: boolean;
-
         canAnswer: boolean;
 
         currentCategory: string;
@@ -141,8 +139,6 @@ export default class GameModel extends JSONModel {
                 correctAnswer: "",
 
                 showAnswer: false,
-
-                showSkipAudience: false,
 
                 canAnswer: false,
 

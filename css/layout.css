@@ -480,3 +480,15 @@ html body .sapMDialog .tcgDialogText {
 .tcgPauseButton:hover .sapMBtnInner {
     background: rgba(255,255,255,.18);
 }
+
+.tcgGameContainer{
+    width:95%;
+    height:100%;
+    max-width:auto;
+    margin:auto;
+}
+
+.tcgGameContainer{
+    transform:scale(var(--tcgScale));
+    transform-origin:top center;
+}

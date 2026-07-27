@@ -86,6 +86,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
         this.gameEngine.answer(answer);
       } finally {
         oModel.setProperty("/game/isSubmitting", false);
+        this.focusAnswerInput();
       }
     },
     onSkipAudience: function _onSkipAudience() {

@@ -173,6 +173,7 @@ export default class Game extends Controller {
 
         } finally {
             oModel.setProperty("/game/isSubmitting", false);
+            this.focusAnswerInput();
         }
 
     }

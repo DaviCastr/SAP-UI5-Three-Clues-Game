@@ -108,15 +108,15 @@
                         <VBox class="tcgBottomRightZone">
 
                             <VBox class="tcgAnswerSection" visible="{game>/game/canAnswer}">
-                                
+                
                                 <!-- ⏱️ CRONÔMETRO DA RODADA -->
                                 <HBox
                                     justifyContent="SpaceBetween"
                                     alignItems="Center"
-                                    class="tcgTimerBox sapUiTinyMarginBottom"
-                                    visible="{game>/timer/active}">
+                                    class="tcgTimerBox sapUiTinyMarginBottom">
 
-                                    <HBox alignItems="Center">
+                                    <HBox alignItems="Center"
+                                          visible="{game>/timer/active}">
 
                                         <core:Icon
                                             src="{
@@ -136,20 +136,43 @@
 
                                     </HBox>
 
-                                    <Button
-                                        visible="{= !${game>/game/isGamePaused} }"
-                                        icon="sap-icon://media-pause"
-                                        press=".onPauseGame"
-                                        type="Transparent"
-                                        class="tcgPauseButton"/>
+                                    <HBox>
 
-                                    <Button
-                                        visible="{game>/game/isGamePaused}"
-                                        icon="sap-icon://media-play"
-                                        text="{i18n>btn.resumeGame}"
-                                        press=".onPauseGame"
-                                        type="Transparent"
-                                        class="tcgPauseButton"/>
+                                        <Button
+                                            visible="{= !${game>/game/isGamePaused} &amp;&amp; ${game>/timer/active} }"
+                                            icon="sap-icon://media-pause"
+                                            press=".onPauseGame"
+                                            type="Transparent"
+                                            class="tcgPauseButton"/>
+
+                                        <Button
+                                            visible="{= ${game>/game/isGamePaused} &amp;&amp; ${game>/timer/active} }"
+                                            icon="sap-icon://media-play"
+                                            text="{i18n>btn.resumeGame}"
+                                            press=".onPauseGame"
+                                            type="Transparent"
+                                            class="tcgPauseButton"/>
+                                        
+                                        <Button
+                                            press=".onSkipTurn"
+                                            type="Transparent"
+                                            class="tcgPauseButton"
+
+                                            icon="{
+                                                parts:[
+                                                    'game>/game/currentPlayer'
+                                                ],
+                                                formatter:'.formatter.formatSkipTurnIcon'
+                                            }"
+
+                                            text="{
+                                                parts:[
+                                                    'game>/game/currentPlayer'
+                                                ],
+                                                formatter:'.formatter.formatSkipTurnText'
+                                            }"/>
+
+                                    </HBox>
 
                                 </HBox>
                                 
@@ -214,12 +237,6 @@
                         enabled="{game>/game/canSpinWheel}"
                         type="Emphasized"
                         class="tcgMainBtn"/>
-
-                    <Button
-                        text="{i18n>game.skipAudience}"
-                        press=".onSkipAudience"
-                        visible="{game>/game/showSkipAudience}"
-                        class="tcgSecondaryBtn"/>
 
                     <Button
                         text="{i18n>game.restartGame}"
@@ -287,12 +304,6 @@
                     enabled="{game>/game/canSpinWheel}"
                     type="Emphasized"
                     class="tcgMainBtn"/>
-
-                <Button
-                    text="{i18n>game.skipAudience}"
-                    press=".onSkipAudience"
-                    visible="{game>/game/showSkipAudience}"
-                    class="tcgSecondaryBtn"/>
 
                 <Button
                     text="{i18n>game.restartGame}"

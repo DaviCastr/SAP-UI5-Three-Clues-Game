@@ -184,6 +184,12 @@ export default class Game extends Controller {
 
     }
 
+    public onSkipTurn(): void {
+
+        this.gameEngine.skipTurn();
+
+    }
+
     public async onRestartGame(): Promise<void> {
 
         const envelopes =

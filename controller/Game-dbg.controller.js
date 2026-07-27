@@ -92,6 +92,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "../model/formatter", "sap/m/Messag
     onSkipAudience: function _onSkipAudience() {
       this.gameEngine.skipAudience();
     },
+    onSkipTurn: function _onSkipTurn() {
+      this.gameEngine.skipTurn();
+    },
     onRestartGame: async function _onRestartGame() {
       const envelopes = this.envelopeRepository.getCurrent();
       MessageBox.confirm(this.getI18nText("msg.restartConfirmText"), {

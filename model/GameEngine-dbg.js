@@ -64,7 +64,21 @@ sap.ui.define(["./AnswerService", "./Turn", "../utils/SoundService", "../service
       }
       const currentPlayer = this.model.getProperty("/game/currentPlayer");
       this.finishRound(currentPlayer);
+      this.model.setProperty("/game/isGamePaused", false);
       this.autoSave();
+    }
+    skipTurn() {
+      if (!this.model.getProperty("/game/canAnswer")) {
+        return;
+      }
+      const currentPlayer = this.model.getProperty("/game/currentPlayer");
+      if (currentPlayer === Turn.AUDIENCE) {
+        this.skipAudience();
+      } else {
+        this.nextAttempt();
+        this.model.setProperty("/game/isGamePaused", false);
+        this.autoSave();
+      }
     }
     restartGame() {
       this.stopTimer();

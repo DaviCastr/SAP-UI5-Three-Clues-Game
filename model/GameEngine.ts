@@ -121,7 +121,40 @@ export default class GameEngine {
             this.model.getProperty("/game/currentPlayer");
 
         this.finishRound(currentPlayer);
+
+        this.model.setProperty(
+            "/game/isGamePaused",
+            false
+        );
+
         this.autoSave();
+
+    }
+
+    public skipTurn(): void {
+
+        if (!this.model.getProperty("/game/canAnswer")) {
+            return;
+        }
+
+        const currentPlayer =
+            this.model.getProperty("/game/currentPlayer");
+
+        if (currentPlayer === Turn.AUDIENCE) {
+
+            this.skipAudience();
+
+        } else {
+
+            this.nextAttempt();
+
+            this.model.setProperty(
+                "/game/isGamePaused",
+                false
+            );
+
+            this.autoSave();
+        }
 
     }
 
@@ -409,7 +442,7 @@ export default class GameEngine {
         }
 
         if (this.model.getProperty("/timer/active")
-        && !this.model.getProperty("/game/isGamePaused")) {
+            && !this.model.getProperty("/game/isGamePaused")) {
 
             this.startTimer(this.model.getProperty("/timer/seconds"));
 

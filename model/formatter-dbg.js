@@ -64,6 +64,12 @@ sap.ui.define(["./Turn"], function (__Turn) {
         return bundle.getText("lbl.gamePaused");
       }
       return `${seconds} s`;
+    },
+    formatSkipTurnText(currentPlayer) {
+      return currentPlayer === Turn.AUDIENCE ? formatter._getText(this, "btn.showAnswer") : formatter._getText(this, "btn.skipTurn");
+    },
+    formatSkipTurnIcon(currentPlayer) {
+      return currentPlayer === Turn.AUDIENCE ? "sap-icon://show" : "sap-icon://open-command-field";
     }
   };
   return formatter;

@@ -106,11 +106,21 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
     border-radius: 6px;
     margin-bottom: 6px;
     border: none !important;
+    height: auto !important;
+    min-height: 2rem;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .tcgList .sapMListItemTitle {
     color: var(--tcg-text) !important;
     font-size: 1rem !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    display: block !important;
 }
 
 .tcgIllustratedMsg .sapMIllMsgTitle, 

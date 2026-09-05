@@ -123,6 +123,13 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
     display: block !important;
 }
 
+.tcgHintText {
+    color: var(--tcg-text) !important;
+    font-size: 1rem !important;
+    padding: 0.5rem;
+    width: 100%;
+}
+
 .tcgIllustratedMsg .sapMIllMsgTitle, 
 .tcgIllustratedMsg .sapMIllMsgText {
     color: var(--tcg-text-secondary) !important;

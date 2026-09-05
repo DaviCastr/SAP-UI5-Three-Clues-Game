@@ -93,7 +93,9 @@
                                 visible="{= ${game>/game/visibleHints}.length > 0 }"
                                 items="{game>/game/visibleHints}"
                                 class="tcgList">
-                                <StandardListItem title="{game>}" class="tcgListItem"/>
+                                <CustomListItem>
+                                    <Text text="{game>}" wrapping="true" class="tcgHintText"/>
+                                </CustomListItem>
                             </List>
 
                             <IllustratedMessage

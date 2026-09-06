@@ -121,14 +121,14 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
 
 .tcgList .sapMListItems,
 .tcgList .sapMListItems > li,
-.tcgList .sapMCustomLI, 
-.tcgList .sapMStandardLI {
+.tcgList .sapMLIB,
+.tcgList .sapMCLI {
     background-color: var(--tcg-surface-light) !important;
     background-image: none !important;
 }
 
-.tcgList .sapMCustomLI,
-.tcgList .sapMStandardLI {
+.tcgList .sapMLIB,
+.tcgList .sapMCLI {
     border: 1px solid rgba(255, 255, 255, 0.35) !important;
     border-radius: 6px;
     margin-bottom: 6px;
@@ -331,7 +331,7 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
 /* 🛠️ CORREÇÃO GLOBAL DE TEXTOS ESCUROS / PRETO NO TEMA ESCURO */
 .sapMListItemTitle,
 .sapMStandardLI .sapMLITitle,
-.sapMCustomLI {
+.sapMLIB {
     color: var(--tcg-text) !important;
 }
 

@@ -115,13 +115,16 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
     --sapList_GroupHeaderBackground: transparent;
 }
 
+.tcgList .sapMListItems {
+    border: none !important;
+}
+
 .tcgList .sapMListItems,
 .tcgList .sapMListItems > li,
 .tcgList .sapMCustomLI, 
 .tcgList .sapMStandardLI {
     background-color: var(--tcg-surface-light) !important;
     background-image: none !important;
-    border: none !important;
 }
 
 .tcgList .sapMCustomLI,

@@ -100,12 +100,35 @@ html, body, .sapUiBody, #content, #container, .sapMApp, .sapMApp>section {
     min-height: 140px;
 }
 
+/* Força o tema escuro na lista de pistas, ignorando o fundo claro do tema (sap_horizon) */
+.tcgList {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    --sapList_Background: var(--tcg-surface-light);
+    --sapList_BackgroundHover: var(--tcg-surface-light);
+    --sapList_BackgroundAlternating: var(--tcg-surface-light);
+    --sapList_BackgroundSelected: var(--tcg-surface-light);
+    --sapList_BackgroundSelectedHover: var(--tcg-surface-light);
+    --sapList_TextColor: var(--tcg-text);
+    --sapList_BorderColor: transparent;
+    --sapList_GroupHeaderBackground: transparent;
+}
+
+.tcgList .sapMListItems,
+.tcgList .sapMListItems > li,
 .tcgList .sapMCustomLI, 
 .tcgList .sapMStandardLI {
-    background: var(--tcg-surface-light) !important;
+    background-color: var(--tcg-surface-light) !important;
+    background-image: none !important;
+    border: none !important;
+}
+
+.tcgList .sapMCustomLI,
+.tcgList .sapMStandardLI {
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
     border-radius: 6px;
     margin-bottom: 6px;
-    border: none !important;
     height: auto !important;
     min-height: 2rem;
     padding-top: 4px;

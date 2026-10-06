@@ -3,7 +3,7 @@
 | ------------- | 
 |**Generation Date and Time**<br>Mon Jul 20 2026 21:59:57 GMT-0300 (Brasilia Standard Time)|
 |**App Generator**<br>SAP Fiori Application Generator|
-|**App Generator Version**<br>1.19.1|
+|**App Generator Version**<br>1.19.1| 
 |**Generation Platform**<br>CLI|
 |**Template Used**<br>Basic|
 |**Service Type**<br>None|
